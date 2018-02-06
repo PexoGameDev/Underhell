@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 2352f6f435a83f646be0318f6d1ef75c
-timeCreated: 1517859161
+timeCreated: 1517912709
 licenseType: Free
 ModelImporter:
   serializedVersion: 22
@@ -11,7 +11,12 @@ ModelImporter:
     2300000: //RootNode
     3300000: //RootNode
     4300000: grzybymaly.001
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material.003
+    second: {fileID: 2100000, guid: 183674034ef1b9f43a428bb2e76b12ed, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
