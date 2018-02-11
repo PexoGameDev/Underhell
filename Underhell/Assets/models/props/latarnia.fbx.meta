@@ -12,6 +12,7 @@ ModelImporter:
     2300000: //RootNode
     3300000: //RootNode
     4300000: Cube.012
+    4300002: latarnia
   externalObjects:
   - first:
       type: UnityEngine:Material
