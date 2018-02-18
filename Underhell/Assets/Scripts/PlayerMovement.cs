@@ -5,17 +5,25 @@ public class PlayerMovement : MonoBehaviour {
     // Fields //
     private Rigidbody rb;
 
-    [SerializeField] private float maxHorizontalVelocity = 10f;
-    [SerializeField] private float maxVerticalVelocity = 10f;
+    private bool isJumping = false;
+    private bool hasDoubleJumped = false;
 
-    [SerializeField] private float movementSpeed = 1f;
-    [SerializeField] private float jumpForce = 1f;
-    [SerializeField] private float multiplier = 50f;
+    private int groundLayerMask;
 
-    [SerializeField] private KeyCode moveLeftKey;
-    [SerializeField] private KeyCode moveRightKey;
-    [SerializeField] private KeyCode crouchKey;
-    [SerializeField] private KeyCode jumpKey;
+    private float actualJumpMaxHeight = Mathf.Infinity;
+
+    [SerializeField] private float maxHorizontalVelocity = 35f;
+    [SerializeField] private float maxVerticalVelocity = 20f;
+
+    [SerializeField] private float movementSpeed = 500f;
+    [SerializeField] private float multiplier = 1f;
+    [SerializeField] private float jumpHeight = 5f;
+    [SerializeField] private float jumpForce = 20f;
+
+    [SerializeField] private KeyCode moveLeftKey = KeyCode.A;
+    [SerializeField] private KeyCode moveRightKey = KeyCode.D;
+    [SerializeField] private KeyCode crouchKey = KeyCode.S;
+    [SerializeField] private KeyCode jumpKey = KeyCode.Space;
 
     // Public Properties //
 
@@ -23,17 +31,16 @@ public class PlayerMovement : MonoBehaviour {
     #endregion
 
     #region Unity Methods
-    void Start () {
+    void Awake() {
         rb = GetComponent<Rigidbody>();
+        groundLayerMask = LayerMask.GetMask("Ground");
+    }
+    void Start () {
         movementSpeed *= multiplier;
         jumpForce *= multiplier;
-
     }
 
     void Update () {
-
-        rb.velocity = new Vector3(0, rb.velocity.y, 0);
-
         if (Input.GetKey(moveLeftKey))
             rb.AddForce(Vector3.left * movementSpeed, ForceMode.Force);
         else if (Input.GetKey(moveRightKey))
@@ -41,8 +48,31 @@ public class PlayerMovement : MonoBehaviour {
         else
             rb.velocity = new Vector3(0, rb.velocity.y, 0);
 
-        if (Input.GetKeyDown(jumpKey))
+        if (Input.GetKeyDown(jumpKey) && !hasDoubleJumped)
+        {
+            if (isJumping)
+            {
+                rb.velocity = new Vector3(0, 0, 0);
+                hasDoubleJumped = true;
+            }
+            else
+                isJumping = true;
+
+            actualJumpMaxHeight = transform.position.y + jumpHeight;
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+            InvokeRepeating("ResetJump", 0.1f, 0.1f);
+        }
+
+    }
+
+    void FixedUpdate() {
+        if (actualJumpMaxHeight < transform.position.y)
+        {
+            rb.velocity = new Vector3(0, 0, 0);
+            rb.AddForce(Vector3.down * jumpForce/2, ForceMode.Impulse);
+        }
+        else
+            rb.velocity = new Vector3(0, rb.velocity.y, 0);
 
         if (rb.velocity.x >= maxHorizontalVelocity)
             rb.velocity = new Vector3(maxHorizontalVelocity, rb.velocity.y);
@@ -61,6 +91,14 @@ public class PlayerMovement : MonoBehaviour {
     #endregion
 
     #region Private Methods
+
+    void ResetJump() {
+        if (Physics.Raycast(transform.position, Vector3.down, transform.localScale.y, groundLayerMask))
+        {
+            isJumping = hasDoubleJumped = false;
+            CancelInvoke("ResetJump");
+        }
+    }
     #endregion
 }
 
