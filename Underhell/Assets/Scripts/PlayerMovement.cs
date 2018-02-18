@@ -9,6 +9,7 @@ public class PlayerMovement : MonoBehaviour {
     private bool hasDoubleJumped = false;
 
     private int groundLayerMask;
+    private int rotation;
 
     private float actualJumpMaxHeight = Mathf.Infinity;
 
@@ -26,6 +27,11 @@ public class PlayerMovement : MonoBehaviour {
     [SerializeField] private KeyCode jumpKey = KeyCode.Space;
 
     // Public Properties //
+    public int Rotation
+    {
+        get { return rotation; }
+        set { rotation = value; }
+    }
 
     // Private Properties //
     #endregion
@@ -38,13 +44,20 @@ public class PlayerMovement : MonoBehaviour {
     void Start () {
         movementSpeed *= multiplier;
         jumpForce *= multiplier;
+        Rotation = 1;
     }
 
     void Update () {
         if (Input.GetKey(moveLeftKey))
+        {
             rb.AddForce(Vector3.left * movementSpeed, ForceMode.Force);
+            Rotation = -1;
+        }
         else if (Input.GetKey(moveRightKey))
+        {
             rb.AddForce(Vector3.right * movementSpeed, ForceMode.Force);
+            Rotation = 1;
+        }
         else
             rb.velocity = new Vector3(0, rb.velocity.y, 0);
 
