@@ -213,7 +213,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c1691db69f281648973eada2462fa3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SwordPrefab: {fileID: 1790630234386342, guid: 7b04c7aaf42951a42950bfe2eb9cb963,
+  SwordPrefab: {fileID: 114451005147207444, guid: 7b04c7aaf42951a42950bfe2eb9cb963,
+    type: 2}
+  AxePrefab: {fileID: 114794819978816096, guid: e0dd6e11f09d09e498c274164f23f3cf,
     type: 2}
 --- !u!1 &277097415
 GameObject:

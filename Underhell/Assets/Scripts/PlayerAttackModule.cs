@@ -5,7 +5,10 @@ using UnityEngine;
 public class PlayerAttackModule : MonoBehaviour {
     #region Variables
     // Fields //
-    [SerializeField] GameObject SwordPrefab;
+    [SerializeField] MeleeWeapon SwordPrefab;
+    [SerializeField] MeleeWeapon AxePrefab;
+
+    MeleeWeapon actualWeapon;
 
     private bool isAttacking = false;
 
@@ -19,6 +22,7 @@ public class PlayerAttackModule : MonoBehaviour {
     private void Awake()
     {
         playerMovement = GetComponent<PlayerMovement>();
+        actualWeapon = SwordPrefab.GetComponent<MeleeWeapon>();
     }
     void Start () {
 	}
@@ -29,7 +33,9 @@ public class PlayerAttackModule : MonoBehaviour {
             isAttacking = true;
             StartCoroutine(Attack());
         }
-	}
+        if (Input.GetKeyDown(KeyCode.Q))
+            actualWeapon = (actualWeapon == AxePrefab) ? SwordPrefab : AxePrefab;
+    }
     #endregion
 
     #region Public Methods
@@ -38,20 +44,8 @@ public class PlayerAttackModule : MonoBehaviour {
     #region Private Methods
     IEnumerator Attack()
     {
-        GameObject sword = Instantiate(SwordPrefab, transform);
-
-        if(playerMovement.Rotation == -1)
-            sword.transform.Rotate(0, 0, 90f);
-        else
-            sword.transform.Rotate(0, 0, -90f);
-
-        for (int i = 0; i < 18; i++)
-        {
-            sword.transform.Rotate(0, 0, 10f);
-            yield return new WaitForFixedUpdate();
-        }
+        yield return StartCoroutine(actualWeapon.Attack(playerMovement.Rotation,transform));
         isAttacking = false;
-        Destroy(sword);
     }
     #endregion
 }
