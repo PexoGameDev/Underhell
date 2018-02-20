@@ -1,28 +1,56 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-public abstract class MeleeWeapon : MonoBehaviour {
+public class MeleeWeapon : MonoBehaviour {
     #region Variables
     // Fields //
+    [SerializeField] private int damage = 1;
 
+    [SerializeField] private float cooldown = 0.1f;
+
+    [SerializeField] private string weaponName = "";
+
+    private Transform originalParent;
+    private Quaternion originalRotation;
     // Public Properties //
-    public abstract int Damage { get; set; }
-    public abstract GameObject Prefab { get; set; }
+    public virtual int Damage { get; set; }
+    public virtual string WeaponName { get; set; }
     // Private Properties //
     #endregion
-
+    void Awake()
+    {
+        originalParent = transform.parent;
+        originalRotation = transform.rotation;
+        gameObject.SetActive(false);
+    }
     #region Unity Methods
-    void Start () {
-		
-	}
-	
-	void Update () {
-		
-	}
+    void Start() {
+        Damage = damage;
+        WeaponName = weaponName;
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.GetComponent<HPModule>())
+            other.GetComponent<HPModule>().GetHit(Damage);
+    }
     #endregion
 
     #region Public Methods
-    public abstract IEnumerator Attack(int isLookingRight, Transform parent);
+    public virtual IEnumerator Attack(int isLookingRight, Transform parent)
+    {
+        transform.parent = parent;
+        gameObject.transform.localPosition = Vector3.zero;
+
+        for (int i = 0; i < 36; i++)
+        {
+            gameObject.transform.Rotate(0, 0, 5f * -isLookingRight);
+            yield return new WaitForSeconds(cooldown / 36);
+        }
+
+        transform.parent = originalParent;
+        transform.rotation = originalRotation;
+    }
     #endregion
 
     #region Private Methods

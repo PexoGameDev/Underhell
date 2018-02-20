@@ -36,8 +36,8 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4208263833260448}
-  - component: {fileID: 114451005147207444}
   - component: {fileID: 65595947575514368}
+  - component: {fileID: 114102336805254730}
   m_Layer: 0
   m_Name: Sword
   m_TagString: Untagged
@@ -125,7 +125,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 2, y: 0.1, z: 0.1}
   m_Center: {x: 1, y: 0, z: 0}
---- !u!114 &114451005147207444
+--- !u!114 &114102336805254730
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -133,8 +133,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1790630234386342}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 35fcb6c5d89398447a98509150381c71, type: 3}
+  m_Script: {fileID: 11500000, guid: 2085a96bb141a8e49bf8534aad8e56bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 1
-  prefab: {fileID: 1790630234386342}
+  coolDown: 0.1
+  weaponName: Sword

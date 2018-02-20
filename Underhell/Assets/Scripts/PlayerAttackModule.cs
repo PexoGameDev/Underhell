@@ -1,13 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 
 public class PlayerAttackModule : MonoBehaviour {
     #region Variables
     // Fields //
-    [SerializeField] MeleeWeapon SwordPrefab;
-    [SerializeField] MeleeWeapon AxePrefab;
-
     MeleeWeapon actualWeapon;
 
     private bool isAttacking = false;
@@ -16,15 +14,17 @@ public class PlayerAttackModule : MonoBehaviour {
     // Public Properties //
 
     // Private Properties //
+    private MeleeWeapon[] MeleeWeapons { get; set; }
     #endregion
 
     #region Unity Methods
     private void Awake()
     {
         playerMovement = GetComponent<PlayerMovement>();
-        actualWeapon = SwordPrefab.GetComponent<MeleeWeapon>();
     }
     void Start () {
+        MeleeWeapons = WeaponController.MeleeWeapons;
+        actualWeapon = MeleeWeapons[0];
 	}
 	
 	void Update () {
@@ -33,8 +33,8 @@ public class PlayerAttackModule : MonoBehaviour {
             isAttacking = true;
             StartCoroutine(Attack());
         }
-        if (Input.GetKeyDown(KeyCode.Q))
-            actualWeapon = (actualWeapon == AxePrefab) ? SwordPrefab : AxePrefab;
+        if (Input.GetKeyDown(KeyCode.Q) && !isAttacking)
+            actualWeapon = MeleeWeapons[(Array.IndexOf(MeleeWeapons,actualWeapon)+1)%MeleeWeapons.Length];
     }
     #endregion
 
@@ -44,7 +44,9 @@ public class PlayerAttackModule : MonoBehaviour {
     #region Private Methods
     IEnumerator Attack()
     {
+        actualWeapon.gameObject.SetActive(true);
         yield return StartCoroutine(actualWeapon.Attack(playerMovement.Rotation,transform));
+        actualWeapon.gameObject.SetActive(false);
         isAttacking = false;
     }
     #endregion
