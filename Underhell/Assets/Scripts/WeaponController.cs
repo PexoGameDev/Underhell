@@ -14,6 +14,8 @@ public class WeaponController : MonoBehaviour {
     void Awake()
     {
         MeleeWeapons = GetComponentsInChildren<MeleeWeapon>();
+        foreach (MeleeWeapon mw in MeleeWeapons)
+            mw.gameObject.SetActive(false);
     }
     void Start () {
 		

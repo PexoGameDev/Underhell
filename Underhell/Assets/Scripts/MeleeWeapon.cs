@@ -21,7 +21,6 @@ public class MeleeWeapon : MonoBehaviour {
     {
         originalParent = transform.parent;
         originalRotation = transform.rotation;
-        gameObject.SetActive(false);
     }
     #region Unity Methods
     void Start() {
@@ -37,16 +36,20 @@ public class MeleeWeapon : MonoBehaviour {
     #endregion
 
     #region Public Methods
-    public virtual IEnumerator Attack(int isLookingRight, Transform parent)
+    public virtual IEnumerator Attack(int isLookingRight, Transform parent, int hitComboStep, PlayerMovement.MovementPhase movementPhase)
     {
+        // ADD ATTACK VARIANTS DEPENDING ON MOVEMENTPHASE AND HITCOMBOSTEP //
+
         transform.parent = parent;
         gameObject.transform.localPosition = Vector3.zero;
 
         for (int i = 0; i < 36; i++)
         {
             gameObject.transform.Rotate(0, 0, 5f * -isLookingRight);
-            yield return new WaitForSeconds(cooldown / 36);
+            yield return new WaitForEndOfFrame();
         }
+
+        yield return new WaitForSeconds(cooldown);
 
         transform.parent = originalParent;
         transform.rotation = originalRotation;

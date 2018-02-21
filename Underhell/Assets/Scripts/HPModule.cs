@@ -18,9 +18,10 @@ public class HPModule : MonoBehaviour {
         {
             if ((hP = value) <= 0)
             {
-                /* ADD SCORE */
-                print("I diededddd!!111");
-                Destroy(gameObject);
+                if (GetComponent<Enemy>())
+                    GetComponent<Enemy>().Die();
+                else
+                    Destroy(gameObject);
             }
             else
                 hP = value;

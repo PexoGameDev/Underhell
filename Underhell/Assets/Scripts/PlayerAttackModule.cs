@@ -1,14 +1,18 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
-using System;
 using UnityEngine;
 
 public class PlayerAttackModule : MonoBehaviour {
     #region Variables
     // Fields //
-    MeleeWeapon actualWeapon;
+    [SerializeField] private float hitComboResetDelay = 0.4f;
 
     private bool isAttacking = false;
+
+    private int hitCombo = 0;
+
+    private MeleeWeapon actualWeapon;
 
     private PlayerMovement playerMovement;
     // Public Properties //
@@ -33,7 +37,8 @@ public class PlayerAttackModule : MonoBehaviour {
             isAttacking = true;
             StartCoroutine(Attack());
         }
-        if (Input.GetKeyDown(KeyCode.Q) && !isAttacking)
+
+        if (Input.GetKeyDown(KeyCode.R) && !isAttacking)
             actualWeapon = MeleeWeapons[(Array.IndexOf(MeleeWeapons,actualWeapon)+1)%MeleeWeapons.Length];
     }
     #endregion
@@ -44,10 +49,22 @@ public class PlayerAttackModule : MonoBehaviour {
     #region Private Methods
     IEnumerator Attack()
     {
+        CancelInvoke("ResetHitCombo");
+
         actualWeapon.gameObject.SetActive(true);
-        yield return StartCoroutine(actualWeapon.Attack(playerMovement.Rotation,transform));
+        yield return StartCoroutine(actualWeapon.Attack(playerMovement.Rotation,transform, hitCombo, playerMovement.ActualMovementPhase));
         actualWeapon.gameObject.SetActive(false);
         isAttacking = false;
+
+        hitCombo = (hitCombo + 1) % 3;
+
+        if(hitCombo!=0)
+            Invoke("ResetHitCombo", hitComboResetDelay);
+    }
+
+    void ResetHitCombo()
+    {
+        hitCombo = 0;
     }
     #endregion
 }
