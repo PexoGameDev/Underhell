@@ -7,11 +7,23 @@ public class EquipmentManager : MonoBehaviour {
     // Fields //
     [SerializeField] private int runes;
 
+    private Chirograph[] chirographs;
+    private EQItem[] items;
     // Public Properties //
     public int Runes
     {
         get { return runes; }
         set { runes = value; }
+    }
+
+    public Chirograph[] Chirographs {
+        get { return chirographs;}
+        set { chirographs = value; }
+    }
+    public EQItem[] Items
+    {
+        get { return items; }
+        set { items = value; }
     }
     // Private Properties //
     #endregion
