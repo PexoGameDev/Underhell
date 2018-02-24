@@ -4,12 +4,13 @@ using UnityEngine;
 
 [RequireComponent(typeof(EnemyAttackingModule))]
 [RequireComponent(typeof(HPModule))]
-
+[RequireComponent(typeof(MovementModule))]
 public class Enemy : MonoBehaviour {
     #region Variables
     // Fields //
-    private EnemyAttackingModule attackingModule;
     private HPModule hpModule;
+    private MovementModule movementModule;
+    private EnemyAttackingModule attackingModule;
 
     [SerializeField] private int scoreValue = 10;
     // Public Properties //

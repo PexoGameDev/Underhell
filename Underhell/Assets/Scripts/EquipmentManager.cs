@@ -7,8 +7,8 @@ public class EquipmentManager : MonoBehaviour {
     // Fields //
     [SerializeField] private int runes;
 
-    private Chirograph[] chirographs;
-    private EQItem[] items;
+    private List<Chirograph> chirographs;
+    private List<EQItem> items;
     // Public Properties //
     public int Runes
     {
@@ -16,11 +16,11 @@ public class EquipmentManager : MonoBehaviour {
         set { runes = value; }
     }
 
-    public Chirograph[] Chirographs {
+    public List<Chirograph> Chirographs {
         get { return chirographs;}
         set { chirographs = value; }
     }
-    public EQItem[] Items
+    public List<EQItem> Items
     {
         get { return items; }
         set { items = value; }
@@ -30,18 +30,35 @@ public class EquipmentManager : MonoBehaviour {
 
     #region Unity Methods
     void Start () {
-		
-	}
-	
-	void Update () {
+        items = new List<EQItem>();
+        chirographs = new List<Chirograph>();
+
+    }
+
+    void Update () {
 		
 	}
     #endregion
 
     #region Public Methods
+    public void AddItem(EQItem item)
+    {
+        Items.Add(item);
+        item.ApplyEffects(gameObject);
+    }
+
+    public void AddChirograph(Chirograph chirograph)
+    {
+        Chirographs.Add(chirograph);
+    }
     #endregion
 
     #region Private Methods
+    private void DropItem(EQItem item)
+    {
+        item.RevertEffects(gameObject);
+        Items.Remove(item);
+    }
     #endregion
 }
 

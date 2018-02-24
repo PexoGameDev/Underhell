@@ -8,6 +8,8 @@ public class PlayerAttackModule : MonoBehaviour {
     // Fields //
     [SerializeField] private float hitComboResetDelay = 0.4f;
 
+    [SerializeField] private GameObject BETATESTATTACKEFFECT;
+
     private bool isAttacking = false;
 
     private int hitCombo = 0;
@@ -16,7 +18,7 @@ public class PlayerAttackModule : MonoBehaviour {
 
     private PlayerMovement playerMovement;
     // Public Properties //
-
+    public List<AttackEffect> AttackEffects { get; set; }
     // Private Properties //
     private MeleeWeapon[] MeleeWeapons { get; set; }
     #endregion
@@ -27,6 +29,7 @@ public class PlayerAttackModule : MonoBehaviour {
         playerMovement = GetComponent<PlayerMovement>();
     }
     void Start () {
+        AttackEffects = new List<AttackEffect> { BETATESTATTACKEFFECT.GetComponent<BlazeAttack>() };
         MeleeWeapons = WeaponController.MeleeWeapons;
         actualWeapon = MeleeWeapons[0];
 	}
@@ -52,7 +55,7 @@ public class PlayerAttackModule : MonoBehaviour {
         CancelInvoke("ResetHitCombo");
 
         actualWeapon.gameObject.SetActive(true);
-        yield return StartCoroutine(actualWeapon.Attack(playerMovement.Rotation,transform, hitCombo, playerMovement.ActualMovementPhase));
+        yield return StartCoroutine(actualWeapon.Attack(playerMovement.Rotation,transform, hitCombo, playerMovement.ActualMovementPhase, AttackEffects));
         actualWeapon.gameObject.SetActive(false);
         isAttacking = false;
 

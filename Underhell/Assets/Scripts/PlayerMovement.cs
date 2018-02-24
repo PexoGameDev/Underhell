@@ -39,6 +39,36 @@ public class PlayerMovement : MonoBehaviour {
         set { rotation = value; }
     }
 
+    public float MovementSpeed
+    {
+        get { return movementSpeed; }
+        set { movementSpeed = value; }
+    }
+
+    public float JumpHeight
+    {
+        get { return jumpHeight; }
+        set { jumpHeight = value; }
+    }
+
+    public float JumpForce
+    {
+        get { return jumpForce; }
+        set { jumpForce = value; }
+    }
+
+    public float DashDistance
+    {
+        get { return dashDistance; }
+        set { dashDistance = value; }
+    }
+
+    public float DashCooldown
+    {
+        get { return dashCooldown; }
+        set { dashCooldown = value; }
+    }
+
     public MovementPhase ActualMovementPhase { get; set; }
     // Private Properties //
 

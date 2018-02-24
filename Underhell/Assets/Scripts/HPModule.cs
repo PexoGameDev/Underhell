@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(ShieldModule))]
 public class HPModule : MonoBehaviour {
     #region Variables
     // Fields //
@@ -10,21 +11,26 @@ public class HPModule : MonoBehaviour {
     [SerializeField] private int hP = 10;
 
     private bool isInvulnerable = false;
+
+    private ShieldModule shield;
     // Public Properties //
     public int HP
     {
         get { return hP; }
         set
         {
-            if ((hP = value) <= 0)
-            {
-                if (GetComponent<Enemy>())
-                    GetComponent<Enemy>().Die();
-                else
-                    Destroy(gameObject);
-            }
+            if (shield.enabled)
+                shield.enabled = false;
             else
-                hP = value;
+                if ((hP = value) <= 0)
+                {
+                    if (GetComponent<Enemy>())
+                        GetComponent<Enemy>().Die();
+                    else
+                        Destroy(gameObject);
+                }
+                else
+                    hP = value;
         }
     }
 
@@ -33,7 +39,7 @@ public class HPModule : MonoBehaviour {
 
     #region Unity Methods
     void Start () {
-		
+        shield = GetComponent<ShieldModule>();
 	}
 	
 	void Update () {

@@ -16,6 +16,7 @@ public class MeleeWeapon : MonoBehaviour {
     public virtual int Damage { get; set; }
     public virtual string WeaponName { get; set; }
     // Private Properties //
+    private List<AttackEffect> AttackEffects;
     #endregion
     void Awake()
     {
@@ -30,18 +31,25 @@ public class MeleeWeapon : MonoBehaviour {
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.GetComponent<HPModule>())
-            other.GetComponent<HPModule>().GetHit(Damage);
+        HPModule target;
+        if (target = other.GetComponent<HPModule>())
+        {
+            target.GetHit(Damage);
+            foreach (AttackEffect ae in AttackEffects)
+                ae.ApplyEffect(target);
+        }
     }
     #endregion
 
     #region Public Methods
-    public virtual IEnumerator Attack(int isLookingRight, Transform parent, int hitComboStep, PlayerMovement.MovementPhase movementPhase)
+    public virtual IEnumerator Attack(int isLookingRight, Transform parent, int hitComboStep, PlayerMovement.MovementPhase movementPhase, List<AttackEffect> attackEffects)
     {
         // ADD ATTACK VARIANTS DEPENDING ON MOVEMENTPHASE AND HITCOMBOSTEP //
 
         transform.parent = parent;
         gameObject.transform.localPosition = Vector3.zero;
+
+        AttackEffects = attackEffects;
 
         for (int i = 0; i < 36; i++)
         {

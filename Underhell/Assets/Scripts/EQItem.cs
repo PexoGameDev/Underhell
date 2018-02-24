@@ -22,7 +22,9 @@ public abstract class EQItem : MonoBehaviour {
     #endregion
 
     #region Public Methods
-    public abstract void ApplyEffects();
+    public abstract void ApplyEffects(GameObject player);
+    public abstract void RevertEffects(GameObject player);
+
     #endregion
 
     #region Private Methods
