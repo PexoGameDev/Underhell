@@ -5,19 +5,16 @@ using UnityEngine;
 public class MovementModule : MonoBehaviour {
     #region Variables
     // Fields //
-    [Range(0, 5)] public int MovementIQ;
+    [Range(0, 5)] public int MovementIQ = 0;
+    [Range(0, 100)] public int Chaoticness = 0;
 
-    [SerializeField] private float maxHorizontalVelocity = 35f;
-    [SerializeField] private float maxVerticalVelocity = 20f;
     [SerializeField] private float movementSpeed = 500f;
-    [SerializeField] private float multiplier = 1f;
     [SerializeField] private float jumpHeight = 5f;
     [SerializeField] private float jumpForce = 20f;
     [SerializeField] private float dashDistance = 10f;
     [SerializeField] private float maxDashCooldown = 2f;
 
     private bool isJumping = false;
-    private bool hasDoubleJumped = false;
     private bool isDashing = false;
     private bool isDashOnCooldown = false;
 
@@ -87,12 +84,12 @@ public class MovementModule : MonoBehaviour {
          Debug.DrawRay(transform.position + Vector3.up * JumpHeight / 2, Vector3.right * Rotation, Color.yellow);
          Debug.DrawRay(transform.position + Vector3.up * JumpHeight / 4, Vector3.right * Rotation, Color.magenta);
 
-         Debug.DrawRay(transform.position + Vector3.right * transform.localScale.x * Rotation, Vector3.down, Color.blue);
 
          Debug.DrawRay(transform.position + Vector3.right * Rotation * DashDistance, Vector3.down, Color.red);
          Debug.DrawRay(transform.position, Vector3.right, Color.green);
+         Debug.DrawRay(transform.position, new Vector3(DashDistance * Rotation, JumpHeight, 0), Color.red);
          */
-        Debug.DrawRay(transform.position, new Vector3(DashDistance * Rotation, JumpHeight, 0), Color.red);
+        Debug.DrawRay(transform.position + Vector3.right * Rotation * DashDistance + Vector3.up * 2, Vector3.down*10, Color.red);
 
     }
 
@@ -102,33 +99,43 @@ public class MovementModule : MonoBehaviour {
         {
             case 0: break;
 
-            case 1: DoStep();  break; //Walks even to death
+            case 1: DoStep();
+                break; //Walks even to death
 
             case 2:
-                if(!isDashing)
-                    if (CheckGround()) //First makes sure it won't fall off the stage
+
+                if (!isDashing)
+                    if (CheckGround() && !CheckWall()) //First makes sure it won't fall off the stage
+                    {
                         DoStep();
+                    }
                     else
                         Rotation *= -1;
                 break;
 
             case 3:
-                if (CheckJumpableWall() && !isJumping)
+                if (CheckJumpableWall() && !isJumping && (Random.Range(0, 100f) < Chaoticness))
+                {
                     Jump();
+                }
                 else
                     goto case 2;
                 break;
 
             case 4:
-                if (!isDashing && !isDashOnCooldown && !CheckGround() && CheckGap())
+                if (!isDashing && !isDashOnCooldown && !CheckGround() && CheckGap() && (Random.Range(0, 100f) < Chaoticness))
+                {
                     StartCoroutine(Dash());
+                }
                 else
                     goto case 3;
                 break;
 
             case 5:
-                if (!isDashing && !isDashOnCooldown && CheckJumpablePlatformAfterGap())
+                if (!isDashing && !isDashOnCooldown && CheckJumpablePlatformAfterGap() && (Random.Range(0, 100f) < Chaoticness))
+                {
                     StartCoroutine(ReachPlatformAbove());
+                }
                 else
                     goto case 4;
                 break;
@@ -152,6 +159,11 @@ public class MovementModule : MonoBehaviour {
         return (Physics.Raycast(transform.position + Vector3.right * transform.localScale.x * Rotation, Vector3.down, transform.localScale.y * 10, groundLayerMask));
     }
 
+    private bool CheckWall()
+    {
+        return (Physics.Raycast(transform.position - Vector3.down*transform.localScale.y/2, Vector3.right*Rotation, transform.localScale.x * 0.75f, groundLayerMask));
+    }
+
     private bool CheckJumpableWall()
     {
         return (
@@ -162,8 +174,8 @@ public class MovementModule : MonoBehaviour {
 
     private bool CheckGap()
     {
-        for (int i = 1; (DashDistance/i)>transform.localScale.x ; i++)
-        if(Physics.Raycast(transform.position + Vector3.right*Rotation*DashDistance/i,Vector3.down,transform.localScale.y * 10, groundLayerMask)
+        for (int i = 1; i<6 ; i++)
+        if(Physics.Raycast(transform.position + Vector3.right*Rotation*DashDistance/5*i + Vector3.up*1.75f,Vector3.down,transform.localScale.y * 10, groundLayerMask)
             && !Physics.Raycast(transform.position, Vector3.right*Rotation, DashDistance/i))
             return true;
         return false;
@@ -172,12 +184,15 @@ public class MovementModule : MonoBehaviour {
     private bool CheckJumpablePlatformAfterGap()
     {
         RaycastHit hit;
-        bool result = Physics.Raycast(transform.position, new Vector3(DashDistance * Rotation, JumpHeight, 0), out hit, Mathf.Sqrt(DashDistance * DashDistance + JumpHeight * JumpHeight), groundLayerMask);
+        bool result = Physics.Raycast(  transform.position, new Vector3(DashDistance * Rotation, JumpHeight, 0), 
+                                        out hit, Mathf.Sqrt(DashDistance * DashDistance + JumpHeight * JumpHeight), groundLayerMask);
         if (result && hit.collider.gameObject != lastPlatform)
         {
             lastPlatform = hit.collider.gameObject;
             Invoke("ResetLastPlatform", Random.Range(1f, 2f));
-            return true;
+
+            if(Mathf.Abs(transform.position.x - lastPlatform.transform.position.x) > lastPlatform.transform.localScale.x/2 && lastPlatform.transform.position.y + lastPlatform.transform.localScale.y/2 < JumpHeight)
+                return true;
         }
 
         return false;
@@ -259,11 +274,15 @@ public class MovementModule : MonoBehaviour {
         rb.useGravity = false;
         rb.velocity = Vector3.zero;
 
+        Vector3 targetPoint = transform.position + new Vector3(DashDistance * Rotation / DashStep, 0.05f * 30, 0);
+
         for (int i = 0; i < 31; i++)
         {
             transform.Translate(DashDistance*Rotation/(30*DashStep), 0.05f, 0);
             yield return new WaitForSeconds(0.01f);
         }
+
+        transform.position = targetPoint;
 
         rb.velocity = Vector3.zero;
         rb.useGravity = true;
@@ -275,21 +294,22 @@ public class MovementModule : MonoBehaviour {
 
     private IEnumerator ReachPlatformAbove()
     {
-        float jumpMult = JumpHeight / (lastPlatform.transform.position.y - transform.position.y);
-        float dashMult = DashDistance / (lastPlatform.transform.position.x - transform.position.x);
+        Vector3 targetPoint = new Vector3(lastPlatform.transform.position.x - lastPlatform.transform.localScale.x/2*Rotation,lastPlatform.transform.position.y + lastPlatform.transform.localScale.y,0);
 
         isJumping = true;
         isDashing = true;
-        InvokeRepeating("ResetJump", 0.1f, 0.1f);
 
-        rb.AddForce(new Vector3(0.5f * Rotation, jumpMult * JumpForce, 0f), ForceMode.Impulse);
         rb.useGravity = false;
-
-        //Dash
-
+        while(Vector3.Distance(transform.position,targetPoint)>0.5f)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, targetPoint, 0.4f);
+            yield return new WaitForFixedUpdate();
+        }
+        transform.position = targetPoint;
         rb.useGravity = true;
 
-        yield return null;
+        isJumping = false;
+        isDashing = false;
     }
     #endregion
 }
