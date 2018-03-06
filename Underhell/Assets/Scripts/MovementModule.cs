@@ -17,6 +17,7 @@ public class MovementModule : MonoBehaviour {
     private bool isJumping = false;
     private bool isDashing = false;
     private bool isDashOnCooldown = false;
+    private bool jumpDown = false;
 
     private int groundLayerMask;
     private int rotation;
@@ -25,6 +26,7 @@ public class MovementModule : MonoBehaviour {
 
     private Rigidbody rb;
     private GameObject lastPlatform;
+    private GameObject actualPlatform;
     // Public Properties //
     public int Rotation
     {
@@ -75,10 +77,15 @@ public class MovementModule : MonoBehaviour {
         rb = GetComponent<Rigidbody>();
         lastPlatform = gameObject;
         Rotation = (Random.Range(0,2) >= 1) ? -1 : 1;
-	}
+
+        RaycastHit hit;
+        if(Physics.Raycast(transform.position, Vector3.down, out hit, transform.localScale.y*100f, groundLayerMask))
+            actualPlatform = hit.transform.gameObject;
+    }
 	
 	void Update () {
         /* IQ Debugging
+         */
          Debug.DrawRay(transform.position - Vector3.up * transform.localScale.y * 0.75f, Vector3.right * Rotation, Color.red);
          Debug.DrawRay(transform.position + Vector3.up * JumpHeight, Vector3.right * Rotation,Color.green);
          Debug.DrawRay(transform.position + Vector3.up * JumpHeight / 2, Vector3.right * Rotation, Color.yellow);
@@ -88,8 +95,14 @@ public class MovementModule : MonoBehaviour {
          Debug.DrawRay(transform.position + Vector3.right * Rotation * DashDistance, Vector3.down, Color.red);
          Debug.DrawRay(transform.position, Vector3.right, Color.green);
          Debug.DrawRay(transform.position, new Vector3(DashDistance * Rotation, JumpHeight, 0), Color.red);
-         */
-        Debug.DrawRay(transform.position + Vector3.right * Rotation * DashDistance + Vector3.up * 2, Vector3.down*10, Color.red);
+         Debug.DrawRay(transform.position + Vector3.right * Rotation * DashDistance + Vector3.up * 2, Vector3.down*10, Color.red);
+
+        RaycastHit hit;
+        if(jumpDown && Physics.Raycast(transform.position,Vector3.down, out hit, transform.localScale.y,groundLayerMask) && hit.transform.gameObject != actualPlatform)
+        {
+            actualPlatform = hit.transform.gameObject;
+            jumpDown = false;
+        }
 
     }
 
@@ -99,31 +112,52 @@ public class MovementModule : MonoBehaviour {
         {
             case 0: break;
 
-            case 1: DoStep();
+            case 1:
+                if (!CheckWall())
+                {
+                    DoStep();
+                }
+                else
+                    Rotation *= -1;
                 break; //Walks even to death
 
             case 2:
-
                 if (!isDashing)
-                    if (CheckGround() && !CheckWall()) //First makes sure it won't fall off the stage
-                    {
+                {
+                    if (isJumping)
                         DoStep();
+                    else
+                     if (!CheckWall())
+                    {
+                        if (CheckGround(0.5f) || jumpDown)
+                            DoStep();
+                        else if (CheckGround(JumpHeight) && Decide())
+                        {
+                            print("decided to jump down");
+                            jumpDown = true;
+                        }
+                        else
+                            Rotation *= -1;
                     }
                     else
                         Rotation *= -1;
+                }
                 break;
 
             case 3:
-                if (CheckJumpableWall() && !isJumping && (Random.Range(0, 100f) < Chaoticness))
+                if (!isJumping && CheckJumpableWall()  && Decide())
                 {
+                    print("decided to jump");
                     Jump();
                 }
                 else
+                {
                     goto case 2;
+                }
                 break;
 
             case 4:
-                if (!isDashing && !isDashOnCooldown && !CheckGround() && CheckGap() && (Random.Range(0, 100f) < Chaoticness))
+                if (!isDashing && !isDashOnCooldown && !CheckGround(0.5f) && CheckGap() && Decide())
                 {
                     StartCoroutine(Dash());
                 }
@@ -132,7 +166,7 @@ public class MovementModule : MonoBehaviour {
                 break;
 
             case 5:
-                if (!isDashing && !isDashOnCooldown && CheckJumpablePlatformAfterGap() && (Random.Range(0, 100f) < Chaoticness))
+                if (!isDashing && !isDashOnCooldown && CheckJumpablePlatformAfterGap() && Decide())
                 {
                     StartCoroutine(ReachPlatformAbove());
                 }
@@ -154,9 +188,15 @@ public class MovementModule : MonoBehaviour {
     #endregion
 
     #region Private Methods
-    private bool CheckGround()
+    private bool Decide()
     {
-        return (Physics.Raycast(transform.position + Vector3.right * transform.localScale.x * Rotation, Vector3.down, transform.localScale.y * 10, groundLayerMask));
+        int rand = Random.Range(0, 100);
+        print(rand);
+        return (rand < Chaoticness);
+    }
+    private bool CheckGround(float height)
+    {
+        return (Physics.Raycast(transform.position + Vector3.right * transform.localScale.x * Rotation, Vector3.down, transform.localScale.y * height, groundLayerMask));
     }
 
     private bool CheckWall()
@@ -167,8 +207,8 @@ public class MovementModule : MonoBehaviour {
     private bool CheckJumpableWall()
     {
         return (
-            Physics.Raycast(transform.position - Vector3.up * transform.localScale.y * 0.75f, Vector3.right * Rotation, transform.localScale.x, groundLayerMask) 
-            && !Physics.Raycast(transform.position + Vector3.up*JumpHeight,Vector3.right*Rotation,transform.localScale.x,groundLayerMask)
+            Physics.Raycast(transform.position - Vector3.up * transform.localScale.y * 0.49f, Vector3.right * Rotation, transform.localScale.x*2f, groundLayerMask) 
+            && !Physics.Raycast(transform.position + Vector3.up*JumpHeight,Vector3.right*Rotation,transform.localScale.x*2f,groundLayerMask)
             );
     }
 
@@ -226,15 +266,15 @@ public class MovementModule : MonoBehaviour {
 
     private void Jump()
     {
-        int JumpStep = 2;
-        for (; JumpStep < 20; JumpStep++)
-            if (Physics.Raycast(transform.position + Vector3.up * JumpHeight / JumpStep, Vector3.right * Rotation, transform.localScale.x, groundLayerMask))
+        int JumpStep = 1;
+        for (; JumpStep < 9; JumpStep++)
+            if (!Physics.Raycast(transform.position + (Vector3.up * JumpHeight * JumpStep / 10) + (Vector3.down * transform.localScale.y * 0.5f), Vector3.right * Rotation, transform.localScale.x*2f, groundLayerMask))
             {
-                JumpStep--;
+                JumpStep++;
                 break;
             }
 
-        rb.AddForce(Vector3.up * JumpForce / JumpStep, ForceMode.Impulse);
+        rb.AddForce(Vector3.up * JumpForce * JumpStep / 10, ForceMode.Impulse);
         actualJumpMaxHeight = transform.position.y + JumpHeight;
         isJumping = true;
         InvokeRepeating("ResetJump", 0.1f, 0.1f);
