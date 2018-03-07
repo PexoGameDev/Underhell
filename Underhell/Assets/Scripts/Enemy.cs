@@ -2,28 +2,56 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(EnemyAttackingModule))]
+[RequireComponent(typeof(AttackingModule))]
 [RequireComponent(typeof(HPModule))]
 [RequireComponent(typeof(MovementModule))]
 public class Enemy : MonoBehaviour {
     #region Variables
     // Fields //
+    private GameObject player;
     private HPModule hpModule;
     private MovementModule movementModule;
-    private EnemyAttackingModule attackingModule;
+    private AttackingModule attackingModule;
 
     [SerializeField] private int scoreValue = 10;
     // Public Properties //
+    public GameObject Player
+    {
+        get { return player; }
+        private set { player = value; }
+    }
+    public HPModule HPModule
+    {
+        get { return hpModule; }
+        private set { hpModule = value; }
+    }
 
+    public MovementModule MovementModule
+    {
+        get { return movementModule; }
+        private set { movementModule = value; }
+    }
+
+    public AttackingModule AttackingModule
+    {
+        get { return attackingModule; }
+        private set { attackingModule = value; }
+    }
     // Private Properties //
     #endregion
 
     #region Unity Methods
+    void Awake()
+    {
+        player = GameObject.FindGameObjectWithTag("Player");
+    }
     void Start () {
-		
-	}
-	
-	void Update () {
+        hpModule = gameObject.GetComponent<HPModule>();
+        movementModule = gameObject.GetComponent<MovementModule>();
+        attackingModule = gameObject.GetComponent<AttackingModule>();
+    }
+
+    void Update () {
 		
 	}
     #endregion
@@ -31,7 +59,7 @@ public class Enemy : MonoBehaviour {
     #region Public Methods
     public void Die()
     {
-        PersistentData.Score += scoreValue;
+        //PersistentData.Score += scoreValue;
         //add to objectpool
         //instead of destroying
         Destroy(gameObject);

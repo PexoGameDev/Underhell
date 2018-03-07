@@ -16,7 +16,6 @@ public class OnFire : MonoBehaviour {
 
     #region Unity Methods
     void Start () {
-        print("Im buuuurninnng!");
         //MAKING SURE THAT TARGET IS ONLY "ON ONE FIRE" - NO STACKING ALLOWED
         OnFire other;
         if ((other = gameObject.GetComponent<OnFire>()) && other!=this)
@@ -34,7 +33,7 @@ public class OnFire : MonoBehaviour {
     #region Private Methods
     private void Burn()
     {
-        targetAblaze.GetHit(Damage);
+        targetAblaze.GetHit(Damage, 0f, Vector3.zero);
     }
     #endregion
 }

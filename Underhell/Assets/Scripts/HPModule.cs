@@ -12,6 +12,7 @@ public class HPModule : MonoBehaviour {
 
     private bool isInvulnerable = false;
 
+    private Rigidbody rb;
     private ShieldModule shield;
     // Public Properties //
     public int HP
@@ -39,6 +40,7 @@ public class HPModule : MonoBehaviour {
 
     #region Unity Methods
     void Start () {
+        rb = GetComponent<Rigidbody>();
         shield = GetComponent<ShieldModule>();
 	}
 	
@@ -48,11 +50,16 @@ public class HPModule : MonoBehaviour {
     #endregion
 
     #region Public Methods
-    public void GetHit(int damage)
+    public void GetHit(int damage, float knockBackForce, Vector3 knockBackDirection)
     {
         if (!isInvulnerable)
         {
             HP -= damage;
+            Vector3 knockBackTo = (transform.position - knockBackDirection + Vector3.up*0.5f).normalized * knockBackForce;
+            knockBackTo.z = 0;
+            rb.AddForce(knockBackTo, ForceMode.Impulse);
+            CancelInvoke("ResetVelocity");
+            Invoke("ResetVelocity", 0.3f);
             StartCoroutine("AnimateHurt");
         }
     }
@@ -67,6 +74,12 @@ public class HPModule : MonoBehaviour {
         gameObject.GetComponent<Renderer>().material.color = Color.white;
         isInvulnerable = false;
         yield return null;
+    }
+
+    void ResetVelocity()
+    {
+        CancelInvoke("ResetVelocity");
+        rb.velocity = Vector3.zero;
     }
     #endregion
 }

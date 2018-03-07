@@ -14,10 +14,11 @@ public class MovementModule : MonoBehaviour {
     [SerializeField] private float dashDistance = 10f;
     [SerializeField] private float maxDashCooldown = 2f;
 
+    private bool decision = false;
     private bool isJumping = false;
     private bool isDashing = false;
+    private bool isChasingPlayer= false;
     private bool isDashOnCooldown = false;
-    private bool decision = false;
 
     private int groundLayerMask;
     private int rotation;
@@ -26,10 +27,20 @@ public class MovementModule : MonoBehaviour {
 
     private Rigidbody rb;
     private GameObject lastPlatform;
+    private Enemy enemy;
     // Public Properties //
+    public bool IsChasingPlayer
+    {
+        get { return isChasingPlayer; }
+        set { isChasingPlayer = value; }
+    }
     public int Rotation
     {
-        get { return rotation; }
+        get { if (!isChasingPlayer)
+                return rotation;
+            else
+                return (enemy.Player.transform.position.x > transform.position.x) ? 1 : -1;
+        }
         set { rotation = value; }
     }
 
@@ -73,7 +84,7 @@ public class MovementModule : MonoBehaviour {
     }
 
     void Start () {
-        Time.timeScale *= 5;
+        enemy = GetComponent<Enemy>();
         rb = GetComponent<Rigidbody>();
         lastPlatform = gameObject;
         Rotation = (Random.Range(0,2) >= 1) ? -1 : 1;
@@ -174,8 +185,15 @@ public class MovementModule : MonoBehaviour {
     #region Private Methods
     private void Decide()
     {
-        int rand = Random.Range(0, 100);
-        decision = (rand < Chaoticness);
+        if (isChasingPlayer)
+        {
+            decision = true;
+        }
+        else
+        {
+            int rand = Random.Range(0, 100);
+            decision = (rand < Chaoticness);
+        }
     }
     private bool CheckGround(float height)
     {
@@ -206,6 +224,8 @@ public class MovementModule : MonoBehaviour {
 
     private bool CheckJumpablePlatformAfterGap()
     {
+
+        // STILL WORK IN PROGRESS
         RaycastHit hit;
         bool result = Physics.Raycast(  transform.position, new Vector3(DashDistance * Rotation, JumpHeight, 0), 
                                         out hit, Mathf.Sqrt(DashDistance * DashDistance + JumpHeight * JumpHeight), groundLayerMask);

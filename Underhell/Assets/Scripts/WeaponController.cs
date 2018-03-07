@@ -6,24 +6,20 @@ public class WeaponController : MonoBehaviour {
     // Fields //
 
     // Public Properties //
-    public static MeleeWeapon[] MeleeWeapons {get; set;}
+    public static MeleeWeapon MeleeWeapon {get; set;}
     // Private Properties //
+    public static Projectile Projectile { get; set; }
     #endregion
 
     #region Unity Methods
     void Awake()
     {
-        MeleeWeapons = GetComponentsInChildren<MeleeWeapon>();
-        foreach (MeleeWeapon mw in MeleeWeapons)
-            mw.gameObject.SetActive(false);
+        Projectile = GetComponentInChildren<Projectile>();
+        MeleeWeapon = GetComponentInChildren<MeleeWeapon>();
+
+        Projectile.gameObject.SetActive(false);
+        MeleeWeapon.gameObject.SetActive(false);
     }
-    void Start () {
-		
-	}
-	
-	void Update () {
-		
-	}
     #endregion
 
     #region Public Methods
