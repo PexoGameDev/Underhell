@@ -29,12 +29,12 @@ public class PlayerAttackModule : MonoBehaviour {
 	}
 	
 	void Update () {
-		if(Input.GetMouseButtonDown(0) && !isAttacking)
+		if(Input.GetMouseButton(0) && !isAttacking)
         {
             isAttacking = true;
             StartCoroutine(Attack());
         }
-        if (Input.GetMouseButtonDown(1) && !isAttacking)
+        if (Input.GetMouseButton(1) &&  !isAttacking)
         {
             isAttacking = true;
             StartCoroutine(Shoot());

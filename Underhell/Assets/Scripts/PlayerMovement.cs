@@ -6,6 +6,7 @@ public class PlayerMovement : MonoBehaviour {
     #region Variables
     // Fields //
     private Rigidbody rb;
+    private Vector3 targetPosition;
 
     private bool isJumping = false;
     private bool hasDoubleJumped = false;
@@ -87,26 +88,12 @@ public class PlayerMovement : MonoBehaviour {
         groundLayerMask = LayerMask.GetMask("Ground");
     }
     void Start () {
-        movementSpeed *= multiplier;
-        jumpForce *= multiplier;
+        targetPosition = transform.position;
         Rotation = 1;
         ActualMovementPhase = MovementPhase.Idle;
     }
 
     void Update () {
-        if (Input.GetKey(moveLeftKey))
-        {
-            rb.AddForce(Vector3.left * movementSpeed, ForceMode.Force);
-            Rotation = -1;
-        }
-        else if (Input.GetKey(moveRightKey))
-        {
-            rb.AddForce(Vector3.right * movementSpeed, ForceMode.Force);
-            Rotation = 1;
-        }
-        else
-            rb.velocity = new Vector3(0, rb.velocity.y, 0);
-
         if (Input.GetKeyDown(jumpKey) && !hasDoubleJumped)
         {
             if (isJumping)
@@ -141,19 +128,19 @@ public class PlayerMovement : MonoBehaviour {
             rb.velocity = new Vector3(0, 0, 0);
             rb.AddForce(Vector3.down * jumpForce/2, ForceMode.Impulse);
         }
-        else
-            rb.velocity = new Vector3(0, rb.velocity.y, 0);
 
-        if (rb.velocity.x >= maxHorizontalVelocity)
-            rb.velocity = new Vector3(maxHorizontalVelocity, rb.velocity.y);
-        if (rb.velocity.x <= -maxHorizontalVelocity)
-            rb.velocity = new Vector3(-maxHorizontalVelocity, rb.velocity.y);
-
-        if (rb.velocity.y >= maxVerticalVelocity)
-            rb.velocity = new Vector3(rb.velocity.x, maxVerticalVelocity);
-        if (rb.velocity.y <= -maxVerticalVelocity)
-            rb.velocity = new Vector3(rb.velocity.x, -maxVerticalVelocity);
-
+        if (Input.GetKey(moveLeftKey))
+        {
+            Rotation = -1;
+            Vector3 vel = rb.velocity;
+            rb.MovePosition(Vector3.SmoothDamp(transform.position, transform.position + Vector3.right * MovementSpeed * Rotation, ref vel, 1f));
+        }
+        else if (Input.GetKey(moveRightKey))
+        {
+            Rotation = 1;
+            Vector3 vel = rb.velocity;
+            rb.MovePosition(Vector3.SmoothDamp(transform.position, transform.position + Vector3.right * MovementSpeed * Rotation, ref vel, 1f));
+        }
     }
     #endregion
 
@@ -163,7 +150,9 @@ public class PlayerMovement : MonoBehaviour {
     #region Private Methods
 
     void ResetJump() {
-        if (Physics.Raycast(transform.position, Vector3.down, transform.localScale.y, groundLayerMask))
+        if (Physics.Raycast(transform.position, Vector3.down, transform.localScale.y, groundLayerMask) 
+            || Physics.Raycast(transform.position + Vector3.right * transform.localScale.x, Vector3.down, transform.localScale.y, groundLayerMask) 
+            || Physics.Raycast(transform.position - Vector3.right * transform.localScale.x, Vector3.down, transform.localScale.y, groundLayerMask))
         {
             isJumping = hasDoubleJumped = false;
             CancelInvoke("ResetJump");
@@ -179,7 +168,7 @@ public class PlayerMovement : MonoBehaviour {
         for (int i = 0; i < 16; i++)
         {
             transform.Translate(dashDistance / 15 * isRight, 0, 0);
-            yield return new WaitForSeconds(0.01f);
+            yield return new WaitForFixedUpdate();
         }
 
         rb.useGravity = true;

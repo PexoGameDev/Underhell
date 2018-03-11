@@ -61,7 +61,7 @@ Transform:
   m_GameObject: {fileID: 1801346187394426}
   m_LocalRotation: {x: -0.00000003061723, y: 0.00000006519258, z: -0.000000020489097,
     w: -1}
-  m_LocalPosition: {x: -43.5, y: 45.6, z: 0}
+  m_LocalPosition: {x: -5, y: -4, z: -0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4779342776581544}
@@ -129,7 +129,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 90da5e37aa4d737438bcbe2741976aff, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -227,12 +227,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHorizontalVelocity: 35
   maxVerticalVelocity: 20
-  movementSpeed: 500
+  movementSpeed: 250
   multiplier: 1
   jumpHeight: 5
-  jumpForce: 20
-  dashDistance: 4
-  dashCooldown: 0.3
+  jumpForce: 10
+  dashDistance: 10
+  dashCooldown: 1.5
   moveLeftKey: 97
   dashLeftKey: 113
   dashRightKey: 101

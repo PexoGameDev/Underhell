@@ -29,7 +29,7 @@ public class DEBUGUI : MonoBehaviour {
     #region Private Methods
     private void AddButtonListeners()
     {
-        spawnEnemy.onClick.AddListener(delegate { Instantiate(enemy, new Vector3(200f,50f,-3f), Quaternion.identity); });
+        spawnEnemy.onClick.AddListener(delegate { Instantiate(enemy, new Vector3(-5,0f,0f), Quaternion.identity); });
     }
     #endregion
 }

@@ -51,7 +51,6 @@ public class Projectile : MonoBehaviour {
 
     void OnTriggerEnter(Collider other)
     {
-        print("xd?");
         HPModule target;
         if (target = other.GetComponent<HPModule>())
         {

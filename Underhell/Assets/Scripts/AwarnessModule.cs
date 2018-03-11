@@ -31,10 +31,6 @@ public class AwarnessModule : MonoBehaviour {
         player = enemy.Player;
         InvokeRepeating("DetectPlayer", 0f, detectionDelay);
     }
-    void Update()
-    {
-        Debug.DrawRay(transform.position, player.transform.position - transform.position, Color.yellow);    
-    }
     #endregion
 
     #region Public Methods

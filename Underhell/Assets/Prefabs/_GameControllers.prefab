@@ -154,6 +154,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4679592849342970}
   - component: {fileID: 114879745779804664}
+  - component: {fileID: 114694180322889654}
   m_Layer: 0
   m_Name: UIManager
   m_TagString: Untagged
@@ -169,7 +170,7 @@ Transform:
   m_GameObject: {fileID: 1677007375449084}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children:
   - {fileID: 4607938774840046}
   - {fileID: 4778786024915068}
@@ -199,7 +200,7 @@ Transform:
   m_GameObject: {fileID: 1309469415092826}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalScale: {x: 0.25, y: 0.1, z: 0.1}
   m_Children:
   - {fileID: 4250739558839764}
   m_Father: {fileID: 4607938774840046}
@@ -334,7 +335,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 90da5e37aa4d737438bcbe2741976aff, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -445,8 +446,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 5
   knockBackForce: 10
-  projectileSpeed: 0.6
-  cooldown: 0.3
+  projectileSpeed: 0.5
+  cooldown: 0.65
+--- !u!114 &114694180322889654
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1869218595796496}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5df58905681ab4a459ab90f3d418eded, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawnEnemy: {fileID: 0}
+  enemy: {fileID: 1161066110933678, guid: eceb72b8d681dd14cbf83dcb03de1526, type: 2}
 --- !u!114 &114720812167306628
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -478,7 +492,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1869218595796496}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5deb661e3f9672c458ba20ee7419a0ad, type: 3}
   m_Name: 
