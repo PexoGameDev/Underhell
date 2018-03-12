@@ -43,26 +43,6 @@ public class MeleeWeapon : MonoBehaviour {
     #endregion
 
     #region Public Methods
-    public virtual IEnumerator Attack(int isLookingRight, Transform parent, int hitComboStep, PlayerMovement.MovementPhase movementPhase, List<AttackEffect> attackEffects)
-    {
-        // ADD ATTACK VARIANTS DEPENDING ON MOVEMENTPHASE AND HITCOMBOSTEP //
-
-        transform.parent = parent;
-        gameObject.transform.localPosition = Vector3.zero;
-
-        AttackEffects = attackEffects;
-
-        for (int i = 0; i < 36; i++)
-        {
-            gameObject.transform.Rotate(0, 0, 5f * -isLookingRight);
-            yield return new WaitForEndOfFrame();
-        }
-
-        yield return new WaitForSeconds(cooldown);
-
-        transform.parent = originalParent;
-        transform.rotation = originalRotation;
-    }
     #endregion
 
     #region Private Methods

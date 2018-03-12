@@ -5,18 +5,6 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour {
     #region Variables
     // Fields //
-    private Rigidbody rb;
-    private Vector3 targetPosition;
-
-    private bool isJumping = false;
-    private bool hasDoubleJumped = false;
-    private bool isDashing = false;
-
-    private int groundLayerMask;
-    private int rotation;
-
-    private float actualJumpMaxHeight = Mathf.Infinity;
-
     [SerializeField] private float maxHorizontalVelocity = 35f;
     [SerializeField] private float maxVerticalVelocity = 20f;
     [SerializeField] private float movementSpeed = 500f;
@@ -33,6 +21,17 @@ public class PlayerMovement : MonoBehaviour {
     [SerializeField] private KeyCode crouchKey = KeyCode.S;
     [SerializeField] private KeyCode jumpKey = KeyCode.Space;
 
+    private bool isJumping = false;
+    private bool hasDoubleJumped = false;
+    private bool isDashing = false;
+
+    private int groundLayerMask;
+    private int rotation;
+
+    private float actualJumpMaxHeight = Mathf.Infinity;
+
+    private Rigidbody rb;
+    private Vector3 targetPosition;
     // Public Properties //
     public int Rotation
     {
