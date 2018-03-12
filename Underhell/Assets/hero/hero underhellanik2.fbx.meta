@@ -198,11 +198,13 @@ ModelImporter:
     4300002: Plane.010
     4300004: Icosphere
     4300006: Cube.002
-    7400000: szkielet|attack 1
+    7400000: hero_atak1
     7400002: szkielet|idle
     7400004: szkielet|PlaneAction
     7400006: Armature|attack 1
     7400008: Armature|PlaneAction
+    7400010: szkielet|attack 1 (1)
+    7400012: hero_atak2
     9500000: //RootNode
     13700000: Cube.002
     13700002: Icosphere
@@ -236,10 +238,10 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: szkielet|attack 1
+      name: hero_atak1
       takeName: szkielet|attack 1
       firstFrame: 0
-      lastFrame: 45
+      lastFrame: 6
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -352,6 +354,62 @@ ModelImporter:
       takeName: Armature|PlaneAction
       firstFrame: 0
       lastFrame: 1
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: szkielet|attack 1 (1)
+      takeName: szkielet|attack 1
+      firstFrame: 0
+      lastFrame: 45
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: hero_atak2
+      takeName: szkielet|attack 1
+      firstFrame: 12
+      lastFrame: 18
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
