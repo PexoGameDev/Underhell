@@ -96,6 +96,10 @@ ModelImporter:
     100176: szkielet
     100178: tophead
     100180: tophead_end
+    100182: BezierCircle
+    100184: BezierCircle.001
+    100186: Group1
+    100188: Plane
     400000: Armature
     400002: biodra
     400004: biodra_end
@@ -187,6 +191,10 @@ ModelImporter:
     400176: szkielet
     400178: tophead
     400180: tophead_end
+    400182: BezierCircle
+    400184: BezierCircle.001
+    400186: Group1
+    400188: Plane
     2100000: rekawy
     2100002: hair frond
     2100004: spodnie
@@ -194,10 +202,23 @@ ModelImporter:
     2100008: skin
     2100010: Material.001
     2100012: Material.005
+    2100014: No Name
+    2300000: BezierCircle
+    2300002: BezierCircle.001
+    2300004: Group1
+    2300006: Plane
+    3300000: BezierCircle
+    3300002: BezierCircle.001
+    3300004: Group1
+    3300006: Plane
     4300000: Plane.011
     4300002: Plane.010
     4300004: Icosphere
     4300006: Cube.002
+    4300008: Plane
+    4300010: BezierCircle.001
+    4300012: BezierCircle
+    4300014: Group1
     7400000: hero_attack_1
     7400002: hero_idle
     7400004: szkielet|PlaneAction
