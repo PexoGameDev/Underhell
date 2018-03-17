@@ -9,6 +9,7 @@ public class PlayerAttackModule : MonoBehaviour {
     [SerializeField] private float hitComboResetDelay = 0.4f;
     [SerializeField] private GameObject particleOrigin;
     [SerializeField] private GameObject meleeAttackParticles;
+    [SerializeField] private MeleeWeapon Sword;
 
     private bool isAttacking = false;
     private int hitCombo = 0;
@@ -50,7 +51,7 @@ public class PlayerAttackModule : MonoBehaviour {
     IEnumerator Attack()
     {
         isAttacking = true;
-
+        Sword.GetComponent<BoxCollider>().enabled = true;
         CancelInvoke("ResetHitCombo");
 
         switch(hitCombo)
@@ -82,16 +83,16 @@ public class PlayerAttackModule : MonoBehaviour {
                 PlayerAnimationController.PlayAnimation("hero_attack_3");
                 PlayerAnimationController.PlayAnimation("sword_attack_3");
                 particles = Instantiate(meleeAttackParticles, particleOrigin.transform);
-                while (!PlayerAnimationController.Animator.GetCurrentAnimatorStateInfo(0).IsName("hero_attack_3_return"))
+                while (!PlayerAnimationController.Animator.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
                 {
                     yield return new WaitForEndOfFrame();
                 }
                 Destroy(particles);
                 break;
         }
-        
-        //yield return StartCoroutine(WeaponController.MeleeWeapon.Attack(playerMovement.Rotation,transform, hitCombo, playerMovement.ActualMovementPhase, MeleeAttackEffects));
 
+        //yield return StartCoroutine(WeaponController.MeleeWeapon.Attack(playerMovement.Rotation,transform, hitCombo, playerMovement.ActualMovementPhase, MeleeAttackEffects));
+        Sword.GetComponent<BoxCollider>().enabled = false;
         isAttacking = false;
         hitCombo = (hitCombo + 1) % 3;
         if(hitCombo!=0)
