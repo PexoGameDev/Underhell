@@ -88,7 +88,7 @@ public class PlayerMovement : MonoBehaviour {
     }
     void Start () {
         targetPosition = transform.position;
-        Rotation = 1;
+        Rotation = -1;
         ActualMovementPhase = MovementPhase.Idle;
     }
 
@@ -130,13 +130,21 @@ public class PlayerMovement : MonoBehaviour {
 
         if (Input.GetKey(moveLeftKey))
         {
-            Rotation = -1;
+            if (Rotation != -1)
+            {
+                Rotation = -1;
+                transform.Rotate(0, 180, 0);
+            }
             Vector3 vel = rb.velocity;
             rb.MovePosition(Vector3.SmoothDamp(transform.position, transform.position + Vector3.right * MovementSpeed * Rotation, ref vel, 1f));
         }
         else if (Input.GetKey(moveRightKey))
         {
-            Rotation = 1;
+            if (Rotation != 1)
+            {
+                Rotation = 1;
+                transform.Rotate(0, 180, 0);
+            }
             Vector3 vel = rb.velocity;
             rb.MovePosition(Vector3.SmoothDamp(transform.position, transform.position + Vector3.right * MovementSpeed * Rotation, ref vel, 1f));
         }
@@ -166,7 +174,7 @@ public class PlayerMovement : MonoBehaviour {
 
         for (int i = 0; i < 16; i++)
         {
-            transform.Translate(dashDistance / 15 * isRight, 0, 0);
+            transform.position += new Vector3(dashDistance / 15 * isRight, 0, 0);
             yield return new WaitForFixedUpdate();
         }
 
