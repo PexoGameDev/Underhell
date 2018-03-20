@@ -34,6 +34,15 @@ public class PlayerAnimationController : MonoBehaviour {
     {
         Animator.Play(animationName);
     }
+
+    public static void CrossfadeAnimation(string animationName, float delay)
+    {
+        Animator.CrossFade(animationName,delay);
+    }
+    public static void SetBool(string valueName, bool value)
+    {
+        animator.SetBool(valueName, value);
+    }
     #endregion
 
     #region Private Methods

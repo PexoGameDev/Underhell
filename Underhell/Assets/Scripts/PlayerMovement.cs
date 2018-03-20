@@ -113,6 +113,18 @@ public class PlayerMovement : MonoBehaviour {
         if (Input.GetKeyDown(dashRightKey) && !isDashing)
             StartCoroutine(Dash(1));
 
+        if (Input.GetKey(moveRightKey) || Input.GetKey(moveLeftKey))
+            PlayerAnimationController.SetBool("IsRunning", true);
+
+        if (Input.GetKeyDown(moveRightKey) || Input.GetKeyDown(moveLeftKey))
+            PlayerAnimationController.CrossfadeAnimation("Run", 0.02f);
+
+        if ((Input.GetKeyUp(moveRightKey) && !Input.GetKey(moveLeftKey)) || (Input.GetKeyUp(moveLeftKey) && !Input.GetKey(moveRightKey)))
+        {
+            PlayerAnimationController.CrossfadeAnimation("Idle", 0.1f);
+            PlayerAnimationController.SetBool("IsRunning", false);
+        }
+
         if (rb.velocity == Vector3.zero)
             ActualMovementPhase = MovementPhase.Idle;
         else if (rb.velocity.y != 0)
