@@ -1,0 +1,283 @@
+fileFormatVersion: 2
+guid: d3c41e7a5ad2e044c843c182bc842cee
+timeCreated: 1521807496
+licenseType: Free
+ModelImporter:
+  serializedVersion: 22
+  fileIDToRecycleName:
+    100000: biodra
+    100002: biodra_end
+    100004: Bone
+    100006: Bone.001
+    100008: Bone.002
+    100010: Bone.003
+    100012: Bone.004
+    100014: Bone.005
+    100016: Bone.006
+    100018: Bone.007
+    100020: Bone.008
+    100022: Bone.009
+    100024: Bone.010
+    100026: Bone.011
+    100028: Bone.012
+    100030: Bone.013
+    100032: Bone.014
+    100034: Bone.015
+    100036: Bone.016
+    100038: Bone.017
+    100040: Bone.017_end
+    100042: Bone.018
+    100044: Bone.018_end
+    100046: Bone.019
+    100048: Bone.020
+    100050: Bone.020_end
+    100052: Bone.021
+    100054: Bone.022
+    100056: Bone.023
+    100058: Bone.024
+    100060: Bone.024_end
+    100062: Bone.025
+    100064: Bone.026
+    100066: Bone.027
+    100068: Bone.027_end
+    100070: Bone.028
+    100072: Bone.029
+    100074: Bone.030
+    100076: Bone.030_end
+    100078: Bone.031
+    100080: Bone.032
+    100082: Bone.033
+    100084: Bone.033_end
+    100086: Bone.034
+    100088: Bone.035
+    100090: Bone.036
+    100092: Bone.036_end
+    100094: Bone.037
+    100096: Bone.038
+    100098: Bone.039
+    100100: Bone.040
+    100102: Bone.040_end
+    100104: Bone.041
+    100106: Bone.042
+    100108: Bone.043
+    100110: Bone.043_end
+    100112: Bone.044
+    100114: Bone.045
+    100116: Bone.046
+    100118: Bone.046_end
+    100120: Bone.047
+    100122: Bone.048
+    100124: Bone.049
+    100126: Bone.049_end
+    100128: Bone.050
+    100130: Bone.051
+    100132: Bone.052
+    100134: Bone.052_end
+    100136: head
+    100138: head_end
+    100140: //RootNode
+    100142: Icosphere
+    100144: l_hand
+    100146: l_hand_end
+    100148: l_stopa
+    100150: l_stopa_end
+    100152: p_hand
+    100154: p_hand_end
+    100156: p_stopa
+    100158: p_stopa_end
+    100160: Plane.010
+    100162: Plane.011
+    100164: ramiona
+    100166: root
+    100168: szkielet
+    100170: tophead
+    100172: tophead_end
+    400000: biodra
+    400002: biodra_end
+    400004: Bone
+    400006: Bone.001
+    400008: Bone.002
+    400010: Bone.003
+    400012: Bone.004
+    400014: Bone.005
+    400016: Bone.006
+    400018: Bone.007
+    400020: Bone.008
+    400022: Bone.009
+    400024: Bone.010
+    400026: Bone.011
+    400028: Bone.012
+    400030: Bone.013
+    400032: Bone.014
+    400034: Bone.015
+    400036: Bone.016
+    400038: Bone.017
+    400040: Bone.017_end
+    400042: Bone.018
+    400044: Bone.018_end
+    400046: Bone.019
+    400048: Bone.020
+    400050: Bone.020_end
+    400052: Bone.021
+    400054: Bone.022
+    400056: Bone.023
+    400058: Bone.024
+    400060: Bone.024_end
+    400062: Bone.025
+    400064: Bone.026
+    400066: Bone.027
+    400068: Bone.027_end
+    400070: Bone.028
+    400072: Bone.029
+    400074: Bone.030
+    400076: Bone.030_end
+    400078: Bone.031
+    400080: Bone.032
+    400082: Bone.033
+    400084: Bone.033_end
+    400086: Bone.034
+    400088: Bone.035
+    400090: Bone.036
+    400092: Bone.036_end
+    400094: Bone.037
+    400096: Bone.038
+    400098: Bone.039
+    400100: Bone.040
+    400102: Bone.040_end
+    400104: Bone.041
+    400106: Bone.042
+    400108: Bone.043
+    400110: Bone.043_end
+    400112: Bone.044
+    400114: Bone.045
+    400116: Bone.046
+    400118: Bone.046_end
+    400120: Bone.047
+    400122: Bone.048
+    400124: Bone.049
+    400126: Bone.049_end
+    400128: Bone.050
+    400130: Bone.051
+    400132: Bone.052
+    400134: Bone.052_end
+    400136: head
+    400138: head_end
+    400140: //RootNode
+    400142: Icosphere
+    400144: l_hand
+    400146: l_hand_end
+    400148: l_stopa
+    400150: l_stopa_end
+    400152: p_hand
+    400154: p_hand_end
+    400156: p_stopa
+    400158: p_stopa_end
+    400160: Plane.010
+    400162: Plane.011
+    400164: ramiona
+    400166: root
+    400168: szkielet
+    400170: tophead
+    400172: tophead_end
+    2100000: rekawy
+    2100002: hair frond
+    2100004: spodnie
+    2100006: side
+    2100008: skin
+    4300000: Plane.011
+    4300002: Plane.010
+    4300004: Icosphere
+    7400000: szkielet|attack 1
+    7400002: szkielet|idle
+    7400004: szkielet|jump_air
+    7400006: szkielet|jump_land
+    7400008: szkielet|jump_start
+    7400010: szkielet|obrot
+    7400012: szkielet|RUN 175 klatek
+    7400014: szkielet|RUN 35klatek
+    7400016: szkielet|shot_arrow
+    7400018: szkielet|walk
+    9500000: //RootNode
+    13700000: Icosphere
+    13700002: Plane.010
+    13700004: Plane.011
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
