@@ -43,6 +43,14 @@ public class PlayerAnimationController : MonoBehaviour {
     {
         animator.SetBool(valueName, value);
     }
+    public static bool GetBool(string valueName)
+    {
+        return Animator.GetBool(valueName);
+    }
+    public static void SetAnimationSpeed(float speed)
+    {
+        Animator.speed = speed;
+    }
     #endregion
 
     #region Private Methods

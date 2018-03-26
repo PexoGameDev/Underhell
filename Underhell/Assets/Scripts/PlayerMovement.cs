@@ -101,11 +101,16 @@ public class PlayerMovement : MonoBehaviour {
                 hasDoubleJumped = true;
             }
             else
+            {
                 isJumping = true;
+                PlayerAnimationController.PlayAnimation("Jump");
+            }
 
+            PlayerAnimationController.SetBool("IsJumping", true);
             actualJumpMaxHeight = transform.position.y + jumpHeight;
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
-            InvokeRepeating("ResetJump", 0.1f, 0.1f);
+            CancelInvoke("ResetJump");
+            InvokeRepeating("ResetJump", 0.5f, 0.2f);
         }
 
         if (Input.GetKeyDown(dashLeftKey) && !isDashing)
@@ -113,10 +118,10 @@ public class PlayerMovement : MonoBehaviour {
         if (Input.GetKeyDown(dashRightKey) && !isDashing)
             StartCoroutine(Dash(1));
 
-        if (Input.GetKey(moveRightKey) || Input.GetKey(moveLeftKey))
+        if ((Input.GetKey(moveRightKey) || Input.GetKey(moveLeftKey)) && !PlayerAnimationController.GetBool("IsTurning") && !PlayerAnimationController.GetBool("IsJumping"))
             PlayerAnimationController.SetBool("IsRunning", true);
 
-        if (Input.GetKeyDown(moveRightKey) || Input.GetKeyDown(moveLeftKey))
+        if ((Input.GetKeyDown(moveRightKey) || Input.GetKeyDown(moveLeftKey)) && !PlayerAnimationController.GetBool("IsTurning") && !PlayerAnimationController.GetBool("IsJumping"))
             PlayerAnimationController.CrossfadeAnimation("Run", 0.02f);
 
         if ((Input.GetKeyUp(moveRightKey) && !Input.GetKey(moveLeftKey)) || (Input.GetKeyUp(moveLeftKey) && !Input.GetKey(moveRightKey)))
@@ -137,7 +142,7 @@ public class PlayerMovement : MonoBehaviour {
         if (actualJumpMaxHeight < transform.position.y)
         {
             rb.velocity = new Vector3(0, 0, 0);
-            rb.AddForce(Vector3.down * jumpForce/2, ForceMode.Impulse);
+            rb.AddForce(Vector3.down * jumpForce * 0.5f, ForceMode.Impulse);
         }
 
         if (Input.GetKey(moveLeftKey))
@@ -145,8 +150,13 @@ public class PlayerMovement : MonoBehaviour {
             if (Rotation != -1)
             {
                 Rotation = -1;
+                PlayerAnimationController.SetBool("IsTurning", true);
+                PlayerAnimationController.CrossfadeAnimation("Turn", 0.1f);
                 transform.Rotate(0, 180, 0);
+                CancelInvoke("ResetTurn");
+                Invoke("ResetTurn", 0.1f);
             }
+
             Vector3 vel = rb.velocity;
             rb.MovePosition(Vector3.SmoothDamp(transform.position, transform.position + Vector3.right * MovementSpeed * Rotation, ref vel, 1f));
         }
@@ -155,8 +165,13 @@ public class PlayerMovement : MonoBehaviour {
             if (Rotation != 1)
             {
                 Rotation = 1;
+                PlayerAnimationController.SetBool("IsTurning", true);
+                PlayerAnimationController.CrossfadeAnimation("Turn", 0.1f);
                 transform.Rotate(0, 180, 0);
+                CancelInvoke("ResetTurn");
+                Invoke("ResetTurn", 0.1f);
             }
+
             Vector3 vel = rb.velocity;
             rb.MovePosition(Vector3.SmoothDamp(transform.position, transform.position + Vector3.right * MovementSpeed * Rotation, ref vel, 1f));
         }
@@ -169,12 +184,19 @@ public class PlayerMovement : MonoBehaviour {
     #region Private Methods
 
     void ResetJump() {
-        if (Physics.Raycast(transform.position, Vector3.down, transform.localScale.y, groundLayerMask) 
-            || Physics.Raycast(transform.position + Vector3.right * transform.localScale.x, Vector3.down, transform.localScale.y, groundLayerMask) 
-            || Physics.Raycast(transform.position - Vector3.right * transform.localScale.x, Vector3.down, transform.localScale.y, groundLayerMask))
+        if (PlayerAnimationController.GetBool("IsJumping") &&( Physics.Raycast(transform.position, Vector3.down, transform.localScale.y * 1.5f, groundLayerMask)
+            || Physics.Raycast(transform.position + Vector3.right * transform.localScale.x, Vector3.down, transform.localScale.y * 1.5f, groundLayerMask)
+            || Physics.Raycast(transform.position - Vector3.right * transform.localScale.x, Vector3.down, transform.localScale.y * 1.5f, groundLayerMask)))
+        {
+            PlayerAnimationController.CrossfadeAnimation("Jump_land", 0.2f);
+            PlayerAnimationController.SetBool("IsJumping", false);
+        }
+
+        if (Physics.Raycast(transform.position, Vector3.down, transform.localScale.y * 0.52f, groundLayerMask) 
+            || Physics.Raycast(transform.position + Vector3.right * transform.localScale.x, Vector3.down, transform.localScale.y * 0.52f, groundLayerMask) 
+            || Physics.Raycast(transform.position - Vector3.right * transform.localScale.x, Vector3.down, transform.localScale.y * 0.52f, groundLayerMask))
         {
             isJumping = hasDoubleJumped = false;
-            CancelInvoke("ResetJump");
         }
     }
 
@@ -194,6 +216,11 @@ public class PlayerMovement : MonoBehaviour {
 
         yield return new WaitForSeconds(dashCooldown);
         isDashing = false;
+    }
+
+    void ResetTurn()
+    {
+        PlayerAnimationController.SetBool("IsTurning", false);
     }
     #endregion
 }
