@@ -9,6 +9,7 @@ public class HPModule : MonoBehaviour {
     public float InvulnerabilityDuration = 0.2f;
 
     [SerializeField] private int hP = 10;
+    [SerializeField] GameObject hitParticles;
 
     private bool isInvulnerable = false;
 
@@ -69,9 +70,9 @@ public class HPModule : MonoBehaviour {
     IEnumerator AnimateHurt()
     {
         isInvulnerable = true;
-        gameObject.GetComponent<Renderer>().material.color = Color.red;
+        GameObject particles = Instantiate(hitParticles);
         yield return new WaitForSeconds(InvulnerabilityDuration);
-        gameObject.GetComponent<Renderer>().material.color = Color.white;
+        Destroy(particles);
         isInvulnerable = false;
         yield return null;
     }

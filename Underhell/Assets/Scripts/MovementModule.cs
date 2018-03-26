@@ -83,6 +83,7 @@ public class MovementModule : MonoBehaviour {
             RaycastHit hit;
             if (Physics.Raycast(transform.position, Vector3.down, out hit, 100f, groundLayerMask))
                 return hit.collider.gameObject;
+
             return null;
             }
         set { ActualPlatform = value; }
@@ -113,16 +114,26 @@ public class MovementModule : MonoBehaviour {
 	void Update () {
         /* IQ Debugging
          */
-         Debug.DrawRay(transform.position - Vector3.up * transform.localScale.y * 0.75f, Vector3.right * Rotation, Color.red);
-         Debug.DrawRay(transform.position + Vector3.up * JumpHeight, Vector3.right * Rotation,Color.green);
-         Debug.DrawRay(transform.position + Vector3.up * JumpHeight / 2, Vector3.right * Rotation, Color.yellow);
-         Debug.DrawRay(transform.position + Vector3.up * JumpHeight / 4, Vector3.right * Rotation, Color.magenta);
+        Debug.DrawRay(transform.position + Vector3.right * transform.localScale.x * 0.5f * Rotation, Vector3.down * transform.localScale.y * 0.51f, Color.green); // Checks is floor avaiable
+        Debug.DrawRay(transform.position - Vector3.up * transform.localScale.y * 0.5f, Vector3.right * Rotation * transform.localScale.x * 0.75f, Color.yellow); // Checks Wall
 
 
-         Debug.DrawRay(transform.position + Vector3.right * Rotation * DashDistance, Vector3.down, Color.red);
-         Debug.DrawRay(transform.position, Vector3.right, Color.green);
-         Debug.DrawRay(transform.position, new Vector3(DashDistance * Rotation, JumpHeight, 0), Color.red);
-         Debug.DrawRay(transform.position + Vector3.right * Rotation * DashDistance + Vector3.up * 2, Vector3.down*10, Color.red);
+        Debug.DrawRay(transform.position + Vector3.up * JumpHeight + Vector3.right * Rotation * DashDistance * 0.1f, Vector3.down * JumpHeight, Color.red);
+        Debug.DrawRay(transform.position + Vector3.up * JumpHeight + Vector3.right * Rotation * DashDistance * 0.2f, Vector3.down * JumpHeight, Color.red);
+        Debug.DrawRay(transform.position + Vector3.up * JumpHeight + Vector3.right * Rotation * DashDistance * 0.3f, Vector3.down * JumpHeight, Color.red);
+        Debug.DrawRay(transform.position + Vector3.up * JumpHeight + Vector3.right * Rotation * DashDistance * 0.4f, Vector3.down * JumpHeight, Color.red);
+        Debug.DrawRay(transform.position + Vector3.up * JumpHeight + Vector3.right * Rotation * DashDistance * 0.5f, Vector3.down * JumpHeight, Color.red);
+        Debug.DrawRay(transform.position + Vector3.up * JumpHeight + Vector3.right * Rotation * DashDistance * 0.6f, Vector3.down * JumpHeight, Color.red);
+        Debug.DrawRay(transform.position + Vector3.up * JumpHeight + Vector3.right * Rotation * DashDistance * 0.7f, Vector3.down * JumpHeight, Color.red);
+        Debug.DrawRay(transform.position + Vector3.up * JumpHeight + Vector3.right * Rotation * DashDistance * 0.8f, Vector3.down * JumpHeight, Color.red);
+        Debug.DrawRay(transform.position + Vector3.up * JumpHeight + Vector3.right * Rotation * DashDistance * 0.9f, Vector3.down * JumpHeight, Color.red);
+        Debug.DrawRay(transform.position + Vector3.up * JumpHeight + Vector3.right * Rotation * DashDistance, Vector3.down * JumpHeight, Color.red);
+
+        RaycastHit hit;
+        Debug.DrawRay(transform.position + Vector3.up * JumpHeight + Vector3.right * Rotation * DashDistance * 0.4f, Vector3.down, Color.green);
+        Physics.Raycast(transform.position + Vector3.up * JumpHeight + Vector3.right * Rotation * DashDistance * 0.4f, Vector3.down, out hit, JumpHeight - 0.05f, groundLayerMask);
+        Debug.DrawRay(transform.position, Vector3.up * (hit.point.y - transform.position.y), Color.magenta);
+        Debug.DrawRay(new Vector3(transform.position.x, hit.point.y * 1.01f, transform.position.z), hit.point - transform.position, Color.green);
     }
 
     void FixedUpdate()
@@ -131,69 +142,30 @@ public class MovementModule : MonoBehaviour {
         {
             case 0: break;
 
-            case 1:
-                print("Case 1");
+            case 1: //Walks stright left/right even to death, truns back if meets wall
                 if (!CheckWall())
-                {
-                    print("No wall, doing step");
                     DoStep();
-                }
                 else
-                {
-                    print("Found wall, rotating");
                     Rotation *= -1;
-                }
-                break; //Walks even to death
+                break; 
 
-            case 2:
-                print("Case 2, checking if am dashing");
+            case 2: // Walks Left/Right, if meets wall or gap
                 if (!isDashing && !isJumping)
-                {
-                    print("I'm not dashing, checking am I jumping");
-                    if (isJumpingDown)
-                    {
-                        print("I'm jumping, doing a step not to fall to face");
+                    if (CheckGround(0.51f) && !CheckWall())
                         DoStep();
-                    }
                     else
-                     if (!CheckWall())
-                    {
-                        print("I'm not jumping, and there is no wall, im checking ground");
-                        if (CheckGround(0.5f))
-                        {
-                            print("Ground avaiable, i'm doing next step");
-                            DoStep();
-                        }
-                        else
-                        {
-                            print("No ground on this level! I'll check ground much lower and *DECIDE* " + decision + " | whether or not i'll jump donw");
-                            if (decision && CheckGround(JumpHeight * 1.1f))
-                            {
-                                print("I decided to jump lower");
-                                isJumpingDown = true;
-                                InvokeRepeating("ResetJump", 0.1f, 0.1f);
-                            }
-                            else
-                            {
-                                print("I decided NOT to jump lower, turning back now");
-                                Rotation *= -1;
-                            }
-                        }
-                    }
-                    else
-                    {
-                        print("There is a wall turning back.");
                         Rotation *= -1;
-                    }
-                }
                 break;
 
-            case 3:
-                print("Case 3 - I'll check now: \n a) Am I dashing \n b) Am I jumping \n c) Is there JumpableWall nerby \n d) and decide =" + decision);
+            case 3: // Changes his vertical positon, jumps on higher platforms (up to max jump height) or jumps down on lower platforms
                 if (decision && !isDashing && !isJumping && CheckJumpableWall())
                 {
-                    print("I found some wall and i'm capable of jumping so I *decided* to jump");
                     StartCoroutine(Jump());
+                }
+                else if(decision && !isDashing && !isJumping && CheckGround(JumpHeight * 1.01f))
+                {
+                    isJumpingDown = true;
+                    InvokeRepeating("ResetJump", 0.1f, 0.1f);
                 }
                 goto case 2;
 
@@ -221,7 +193,7 @@ public class MovementModule : MonoBehaviour {
         if (actualJumpMaxHeight < transform.position.y && !isDashing)
         {
             rb.velocity = new Vector3(0, 0, 0);
-            rb.AddForce(Vector3.down * jumpForce / 2, ForceMode.Impulse);
+            rb.AddForce(Vector3.down * jumpForce * 0.5f, ForceMode.Impulse);
         }
 
     }
@@ -245,32 +217,44 @@ public class MovementModule : MonoBehaviour {
     }
     private bool CheckGround(float height)
     {
-        return (Physics.Raycast(transform.position + Vector3.right * transform.localScale.x/2 * Rotation, Vector3.down, transform.localScale.y * height, groundLayerMask));
+        return (Physics.Raycast(transform.position + Vector3.right * transform.localScale.x * 0.5f * Rotation, Vector3.down, transform.localScale.y * height, groundLayerMask));
     }
 
     private bool CheckWall()
     {
-        return (Physics.Raycast(transform.position - Vector3.down*transform.localScale.y/2, Vector3.right*Rotation, transform.localScale.x * 0.75f, groundLayerMask));
+        return (Physics.Raycast(transform.position - Vector3.up * transform.localScale.y * 0.5f, Vector3.right * Rotation, transform.localScale.x * 0.75f, groundLayerMask));
     }
 
     private bool CheckJumpableWall()
-    {
+    {   
+        /*
         RaycastHit hit;
-        Vector3 raycastOriginPoint = transform.position+Vector3.up*JumpHeight;
-        bool foundPlatform = false;
-        Vector3 offset = DashDistance * Vector3.right * Rotation / 10;
-        for(int i = 0; i<11; i++)
+        Debug.DrawRay(transform.position + Vector3.up * JumpHeight + Vector3.right * Rotation * DashDistance * 0.4f, Vector3.down, Color.green);
+        Physics.Raycast(transform.position + Vector3.up * JumpHeight + Vector3.right * Rotation * DashDistance * 0.4f, Vector3.down, out hit, JumpHeight - 0.05f, groundLayerMask);
+        Debug.DrawRay(transform.position, Vector3.up * (hit.point.y - transform.position.y), Color.magenta);
+        Debug.DrawRay(new Vector3(transform.position.x, hit.point.y * 1.01f, transform.position.z), hit.point - transform.position, Color.green);
+        */
+
+        print("Checking wall");
+        RaycastHit hit;
+        Vector3 raycastOriginPoint = transform.position + Vector3.up * JumpHeight; // Casts Ray from point directly above body
+        Vector3 offset = DashDistance * Vector3.right * Rotation * 0.1f; // Tenth part of max horizontal distance enemy can travel (enemy checks distance in 10% intervals)
+
+        for (int i = 0; i < 11; i++)
         {
-            if (Physics.Raycast(raycastOriginPoint + offset * i, Vector3.down, out hit, JumpHeight - 0.05f, groundLayerMask) && !Physics.Raycast(transform.position + Vector3.up*hit.point.y,hit.point) && !Physics.Raycast(transform.position,Vector3.up,hit.point.y-transform.position.y,groundLayerMask))
-                if (hit.collider.gameObject != ActualPlatform)
-                {
-                    foundPlatform = true;
-                    targetPlatform = hit.collider.gameObject;
-                    TargetPoint = hit.point + Vector3.up * transform.localScale.y*1.5f - Vector3.right * Rotation * hit.collider.gameObject.transform.localScale.x/2;
-                    break;
-                }
+            if ( Physics.Raycast(raycastOriginPoint + offset * i, Vector3.down, out hit, JumpHeight - 0.05f, groundLayerMask) &&
+                !Physics.Raycast(transform.position, Vector3.up * (hit.point.y - transform.position.y), groundLayerMask)      &&
+                !Physics.Raycast(new Vector3(transform.position.x, hit.point.y + hit.collider.gameObject.transform.localScale.y * 0.51f, transform.position.z), hit.point) &&
+                hit.collider.gameObject != ActualPlatform)
+            {
+                targetPlatform = hit.collider.gameObject;
+                TargetPoint = hit.point + Vector3.up * transform.localScale.y * 1.5f - Vector3.right * Rotation * hit.collider.gameObject.transform.localScale.x * 0.5f; // Choosing point just on the very edge of platform, closest to entity
+                print("Decided to do that!");
+                return true;
+            }
         }
-        return foundPlatform;
+        print("Decided not to");
+        return false;
     }
 
     private bool CheckGap()

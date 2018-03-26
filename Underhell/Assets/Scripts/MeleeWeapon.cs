@@ -37,8 +37,8 @@ public class MeleeWeapon : MonoBehaviour {
         if (target = other.GetComponent<HPModule>())
         {
             target.GetHit(Damage, knockBackForce, player.transform.position);
-            foreach (AttackEffect ae in AttackEffects)
-                ae.ApplyEffect(target);
+            //foreach (AttackEffect ae in AttackEffects)
+            //    ae.ApplyEffect(target);
         }
     }
     #endregion
