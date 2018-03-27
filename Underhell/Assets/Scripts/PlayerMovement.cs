@@ -109,8 +109,8 @@ public class PlayerMovement : MonoBehaviour {
             PlayerAnimationController.SetBool("IsJumping", true);
             actualJumpMaxHeight = transform.position.y + jumpHeight;
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
-            CancelInvoke("ResetJump");
-            InvokeRepeating("ResetJump", 0.5f, 0.2f);
+            InvokeRepeating("ResetJump", 1f, 0.1f);
+            InvokeRepeating("ResetJumpAnimation", 0.5f, 0.1f);
         }
 
         if (Input.GetKeyDown(dashLeftKey) && !isDashing)
@@ -129,6 +129,8 @@ public class PlayerMovement : MonoBehaviour {
             PlayerAnimationController.CrossfadeAnimation("Idle", 0.1f);
             PlayerAnimationController.SetBool("IsRunning", false);
         }
+
+        PlayerAnimationController.SetFloat("Vertical_velocity", rb.velocity.y);
 
         if (rb.velocity == Vector3.zero)
             ActualMovementPhase = MovementPhase.Idle;
@@ -182,20 +184,26 @@ public class PlayerMovement : MonoBehaviour {
     #endregion
 
     #region Private Methods
-
-    void ResetJump() {
-        if (PlayerAnimationController.GetBool("IsJumping") &&( Physics.Raycast(transform.position, Vector3.down, transform.localScale.y * 1.5f, groundLayerMask)
-            || Physics.Raycast(transform.position + Vector3.right * transform.localScale.x, Vector3.down, transform.localScale.y * 1.5f, groundLayerMask)
-            || Physics.Raycast(transform.position - Vector3.right * transform.localScale.x, Vector3.down, transform.localScale.y * 1.5f, groundLayerMask)))
+    void ResetJumpAnimation()
+    {
+        Vector3 originPoint = transform.position + Vector3.up * transform.localScale.y * 0.5f;
+        if (PlayerAnimationController.GetBool("IsJumping") && rb.velocity.y < 0 &&
+            (Physics.Raycast(originPoint, Vector3.down, transform.localScale.y, groundLayerMask) ||
+             Physics.Raycast(originPoint + Vector3.right * transform.localScale.x, Vector3.down, transform.localScale.y, groundLayerMask) ||
+             Physics.Raycast(originPoint - Vector3.right * transform.localScale.x, Vector3.down, transform.localScale.y, groundLayerMask)))
         {
-            PlayerAnimationController.CrossfadeAnimation("Jump_land", 0.2f);
+            PlayerAnimationController.CrossfadeAnimation("Jump_land", 0.1f);
             PlayerAnimationController.SetBool("IsJumping", false);
         }
+    }
 
-        if (Physics.Raycast(transform.position, Vector3.down, transform.localScale.y * 0.52f, groundLayerMask) 
-            || Physics.Raycast(transform.position + Vector3.right * transform.localScale.x, Vector3.down, transform.localScale.y * 0.52f, groundLayerMask) 
-            || Physics.Raycast(transform.position - Vector3.right * transform.localScale.x, Vector3.down, transform.localScale.y * 0.52f, groundLayerMask))
+    void ResetJump() {
+        Vector3 originPoint = transform.position + Vector3.up * transform.localScale.y * 0.5f;
+        if (Physics.Raycast(originPoint, Vector3.down, transform.localScale.y * 0.52f, groundLayerMask) 
+            || Physics.Raycast(originPoint + Vector3.right * transform.localScale.x, Vector3.down, transform.localScale.y * 0.52f, groundLayerMask) 
+            || Physics.Raycast(originPoint - Vector3.right * transform.localScale.x, Vector3.down, transform.localScale.y * 0.52f, groundLayerMask))
         {
+            CancelInvoke("ResetJump");
             isJumping = hasDoubleJumped = false;
         }
     }

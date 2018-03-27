@@ -23,10 +23,6 @@ public class PlayerAnimationController : MonoBehaviour {
     void Awake () {
         animator = gameObject.GetComponentInChildren<Animator>();
 	}
-	
-	void Update () {
-		
-	}
     #endregion
 
     #region Public Methods
@@ -39,14 +35,22 @@ public class PlayerAnimationController : MonoBehaviour {
     {
         Animator.CrossFade(animationName,delay);
     }
+
     public static void SetBool(string valueName, bool value)
     {
         animator.SetBool(valueName, value);
     }
+
+    public static void SetFloat(string valueName, float value)
+    {
+        animator.SetFloat(valueName, value);
+    }
+
     public static bool GetBool(string valueName)
     {
         return Animator.GetBool(valueName);
     }
+
     public static void SetAnimationSpeed(float speed)
     {
         Animator.speed = speed;
