@@ -55,6 +55,11 @@ public class PlayerAnimationController : MonoBehaviour {
     {
         Animator.speed = speed;
     }
+
+    public static bool IsAnimationName(int layer, string name)
+    {
+        return Animator.GetCurrentAnimatorStateInfo(layer).IsName(name);
+    }
     #endregion
 
     #region Private Methods

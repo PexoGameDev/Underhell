@@ -103,14 +103,12 @@ public class PlayerMovement : MonoBehaviour {
             else
             {
                 isJumping = true;
-                PlayerAnimationController.PlayAnimation("Jump");
             }
 
-            PlayerAnimationController.SetBool("IsJumping", true);
+            PlayerAnimationController.CrossfadeAnimation("Jump", 0.15f);
             actualJumpMaxHeight = transform.position.y + jumpHeight;
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
             InvokeRepeating("ResetJump", 1f, 0.1f);
-            InvokeRepeating("ResetJumpAnimation", 0.5f, 0.1f);
         }
 
         if (Input.GetKeyDown(dashLeftKey) && !isDashing)
@@ -118,26 +116,24 @@ public class PlayerMovement : MonoBehaviour {
         if (Input.GetKeyDown(dashRightKey) && !isDashing)
             StartCoroutine(Dash(1));
 
-        if ((Input.GetKey(moveRightKey) || Input.GetKey(moveLeftKey)) && !PlayerAnimationController.GetBool("IsTurning") && !PlayerAnimationController.GetBool("IsJumping"))
-            PlayerAnimationController.SetBool("IsRunning", true);
-
-        if ((Input.GetKeyDown(moveRightKey) || Input.GetKeyDown(moveLeftKey)) && !PlayerAnimationController.GetBool("IsTurning") && !PlayerAnimationController.GetBool("IsJumping"))
-            PlayerAnimationController.CrossfadeAnimation("Run", 0.02f);
-
-        if ((Input.GetKeyUp(moveRightKey) && !Input.GetKey(moveLeftKey)) || (Input.GetKeyUp(moveLeftKey) && !Input.GetKey(moveRightKey)))
+        RaycastHit groundHit;
+        if (isJumping && rb.velocity.y < 0 && Physics.Raycast(transform.position, Vector3.down, out groundHit, groundLayerMask) && Vector3.Distance(transform.position, groundHit.point) <= 1f)
         {
-            PlayerAnimationController.CrossfadeAnimation("Idle", 0.1f);
-            PlayerAnimationController.SetBool("IsRunning", false);
+            PlayerAnimationController.CrossfadeAnimation("Jump_land", 0.15f);
         }
-
-        PlayerAnimationController.SetFloat("Vertical_velocity", rb.velocity.y);
-
+                
         if (rb.velocity == Vector3.zero)
+        {
             ActualMovementPhase = MovementPhase.Idle;
+        }
         else if (rb.velocity.y != 0)
+        {
             ActualMovementPhase = MovementPhase.Jumping;
+        }
         else if (rb.velocity.x != 0)
+        {
             ActualMovementPhase = MovementPhase.Running;
+        }
     }
 
     void FixedUpdate() {
@@ -151,12 +147,15 @@ public class PlayerMovement : MonoBehaviour {
         {
             if (Rotation != -1)
             {
+                print("gotta rotate");
                 Rotation = -1;
-                PlayerAnimationController.SetBool("IsTurning", true);
-                PlayerAnimationController.CrossfadeAnimation("Turn", 0.1f);
-                transform.Rotate(0, 180, 0);
-                CancelInvoke("ResetTurn");
-                Invoke("ResetTurn", 0.1f);
+                if (!isJumping)
+                {
+                    PlayerAnimationController.CrossfadeAnimation("Turn", 0.3f);
+                    //PlayerAnimationController.PlayAnimation("Turn");
+                }
+                StartCoroutine("Turn");
+                //Invoke("Turn", 0.4f);
             }
 
             Vector3 vel = rb.velocity;
@@ -166,12 +165,15 @@ public class PlayerMovement : MonoBehaviour {
         {
             if (Rotation != 1)
             {
+                print("gotta rotate");
                 Rotation = 1;
-                PlayerAnimationController.SetBool("IsTurning", true);
-                PlayerAnimationController.CrossfadeAnimation("Turn", 0.1f);
-                transform.Rotate(0, 180, 0);
-                CancelInvoke("ResetTurn");
-                Invoke("ResetTurn", 0.1f);
+                if (!isJumping)
+                {
+                    PlayerAnimationController.CrossfadeAnimation("Turn", 0.3f);
+                    //PlayerAnimationController.PlayAnimation("Turn");
+                }
+                //Invoke("Turn", 0.4f);
+                StartCoroutine("Turn");
             }
 
             Vector3 vel = rb.velocity;
@@ -184,19 +186,6 @@ public class PlayerMovement : MonoBehaviour {
     #endregion
 
     #region Private Methods
-    void ResetJumpAnimation()
-    {
-        Vector3 originPoint = transform.position + Vector3.up * transform.localScale.y * 0.5f;
-        if (PlayerAnimationController.GetBool("IsJumping") && rb.velocity.y < 0 &&
-            (Physics.Raycast(originPoint, Vector3.down, transform.localScale.y, groundLayerMask) ||
-             Physics.Raycast(originPoint + Vector3.right * transform.localScale.x, Vector3.down, transform.localScale.y, groundLayerMask) ||
-             Physics.Raycast(originPoint - Vector3.right * transform.localScale.x, Vector3.down, transform.localScale.y, groundLayerMask)))
-        {
-            PlayerAnimationController.CrossfadeAnimation("Jump_land", 0.1f);
-            PlayerAnimationController.SetBool("IsJumping", false);
-        }
-    }
-
     void ResetJump() {
         Vector3 originPoint = transform.position + Vector3.up * transform.localScale.y * 0.5f;
         if (Physics.Raycast(originPoint, Vector3.down, transform.localScale.y * 0.52f, groundLayerMask) 
@@ -226,9 +215,14 @@ public class PlayerMovement : MonoBehaviour {
         isDashing = false;
     }
 
-    void ResetTurn()
+    IEnumerator Turn()
     {
-        PlayerAnimationController.SetBool("IsTurning", false);
+        for (int i = 0; i < 11; i++)
+        {
+            yield return new WaitForEndOfFrame();
+        }
+       // transform.Rotate(0, -180, 0);
+        PlayerAnimationController.Animator.speed = 1;
     }
     #endregion
 }
