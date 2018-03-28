@@ -152,6 +152,7 @@ public class PlayerMovement : MonoBehaviour {
                 Rotation = -1;
                 if (!isJumping)
                 {
+                    transform.Rotate(0, 180, 0);
                     PlayerAnimationController.PlayAnimation("Turn");
                 }
                 StartCoroutine("Turn");
@@ -168,6 +169,7 @@ public class PlayerMovement : MonoBehaviour {
                 Rotation = 1;
                 if (!isJumping)
                 {
+                    transform.Rotate(0, 180, 0);
                     PlayerAnimationController.PlayAnimation("Turn");
                 }
                 StartCoroutine("Turn");
@@ -219,7 +221,6 @@ public class PlayerMovement : MonoBehaviour {
             print("FRAME: " + i);
             yield return null;
         }
-        transform.Rotate(0, -180, 0);
     }
     #endregion
 }
