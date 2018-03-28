@@ -90,6 +90,7 @@ public class PlayerMovement : MonoBehaviour {
         targetPosition = transform.position;
         Rotation = -1;
         ActualMovementPhase = MovementPhase.Idle;
+        StartCoroutine("Turn");
     }
 
     void Update () {
@@ -151,11 +152,9 @@ public class PlayerMovement : MonoBehaviour {
                 Rotation = -1;
                 if (!isJumping)
                 {
-                    PlayerAnimationController.CrossfadeAnimation("Turn", 0.3f);
-                    //PlayerAnimationController.PlayAnimation("Turn");
+                    PlayerAnimationController.PlayAnimation("Turn");
                 }
                 StartCoroutine("Turn");
-                //Invoke("Turn", 0.4f);
             }
 
             Vector3 vel = rb.velocity;
@@ -169,10 +168,8 @@ public class PlayerMovement : MonoBehaviour {
                 Rotation = 1;
                 if (!isJumping)
                 {
-                    PlayerAnimationController.CrossfadeAnimation("Turn", 0.3f);
-                    //PlayerAnimationController.PlayAnimation("Turn");
+                    PlayerAnimationController.PlayAnimation("Turn");
                 }
-                //Invoke("Turn", 0.4f);
                 StartCoroutine("Turn");
             }
 
@@ -217,12 +214,12 @@ public class PlayerMovement : MonoBehaviour {
 
     IEnumerator Turn()
     {
-        for (int i = 0; i < 11; i++)
+        for (int i = 0; i <= 10; i++)
         {
-            yield return new WaitForEndOfFrame();
+            print("FRAME: " + i);
+            yield return null;
         }
-       // transform.Rotate(0, -180, 0);
-        PlayerAnimationController.Animator.speed = 1;
+        transform.Rotate(0, -180, 0);
     }
     #endregion
 }
