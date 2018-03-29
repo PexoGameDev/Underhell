@@ -7,22 +7,34 @@ public class PlayerAnimationController : MonoBehaviour {
     // Fields //
 
     private static Animator animator;
+    private static Dictionary<string,AnimationClip> animationClips;
     // Public Properties //
 
     public static Animator Animator
     {
         get { return animator; }
-        set { animator = value; }
+        private set { animator = value; }
     }
 
-
+    public static Dictionary<string, AnimationClip> AnimationClips
+    {
+        get { return animationClips; }
+        private set { animationClips = value; }
+    }
     // Private Properties //
     #endregion
 
     #region Unity Methods
     void Awake () {
         animator = gameObject.GetComponentInChildren<Animator>();
-	}
+    }
+    void Start()
+    {
+        AnimationClips = new Dictionary<string, AnimationClip>();
+        foreach(AnimationClip ac in Animator.runtimeAnimatorController.animationClips)
+            if(!AnimationClips.ContainsKey(ac.name))
+                AnimationClips.Add(ac.name, ac);
+    }
     #endregion
 
     #region Public Methods

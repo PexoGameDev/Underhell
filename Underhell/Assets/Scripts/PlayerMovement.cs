@@ -161,6 +161,7 @@ public class PlayerMovement : MonoBehaviour {
                 else if (!PlayerAnimationController.Animator.GetCurrentAnimatorStateInfo(0).IsName("Run") && !PlayerAnimationController.Animator.GetCurrentAnimatorStateInfo(0).IsName("Turn"))
                     PlayerAnimationController.CrossfadeAnimation("Run", 0.01f);
             }
+
             Vector3 vel = rb.velocity;
             rb.MovePosition(Vector3.SmoothDamp(transform.position, transform.position + Vector3.right * MovementSpeed * Rotation, ref vel, 1f));
         }

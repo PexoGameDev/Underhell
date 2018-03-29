@@ -235,7 +235,7 @@ public class MovementModule : MonoBehaviour {
         Debug.DrawRay(new Vector3(transform.position.x, hit.point.y * 1.01f, transform.position.z), hit.point - transform.position, Color.green);
         */
 
-        print("Checking wall");
+        //print("Checking wall");
         RaycastHit hit;
         Vector3 raycastOriginPoint = transform.position + Vector3.up * JumpHeight; // Casts Ray from point directly above body
         Vector3 offset = DashDistance * Vector3.right * Rotation * 0.1f; // Tenth part of max horizontal distance enemy can travel (enemy checks distance in 10% intervals)
@@ -249,11 +249,11 @@ public class MovementModule : MonoBehaviour {
             {
                 targetPlatform = hit.collider.gameObject;
                 TargetPoint = hit.point + Vector3.up * transform.localScale.y * 1.5f - Vector3.right * Rotation * hit.collider.gameObject.transform.localScale.x * 0.5f; // Choosing point just on the very edge of platform, closest to entity
-                print("Decided to do that!");
+                //print("Decided to do that!");
                 return true;
             }
         }
-        print("Decided not to");
+        //print("Decided not to");
         return false;
     }
 

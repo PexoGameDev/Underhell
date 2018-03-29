@@ -158,19 +158,19 @@ ModelImporter:
     4300006: Cube_002
     7400000: Default Take
     7400002: attack_1
-    7400004: idle
-    7400006: jump_air
-    7400008: jump_land
-    7400010: jump_start
-    7400012: obrot
+    7400004: Idle
+    7400006: Jump_air
+    7400008: Jump_land
+    7400010: Jump
+    7400012: Turn
     7400014: RUN_175_klatek
     7400016: RUN_35klatek
-    7400018: shot_arrow
-    7400020: walk
-    7400022: run
-    7400024: attack1
-    7400026: attack2
-    7400028: attack3
+    7400018: Shoot
+    7400020: Walk
+    7400022: Run
+    7400024: Attack_1
+    7400026: Attack_2
+    7400028: Attack_3
     9500000: //RootNode
     13700000: Cube_002
     13700002: Icosphere
@@ -204,7 +204,7 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: idle
+      name: Idle
       takeName: idle
       firstFrame: -1
       lastFrame: 199
@@ -232,7 +232,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: jump_air
+      name: Jump_air
       takeName: jump_air
       firstFrame: -1
       lastFrame: 76
@@ -260,7 +260,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: jump_land
+      name: Jump_land
       takeName: jump_land
       firstFrame: -1
       lastFrame: 18
@@ -288,7 +288,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: jump_start
+      name: Jump
       takeName: jump_start
       firstFrame: -1
       lastFrame: 22.2
@@ -316,7 +316,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: shot_arrow
+      name: Shoot
       takeName: shot_arrow
       firstFrame: -1
       lastFrame: 19
@@ -344,7 +344,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: walk
+      name: Walk
       takeName: walk
       firstFrame: -1
       lastFrame: 40
@@ -372,7 +372,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: run
+      name: Run
       takeName: walk
       firstFrame: 75
       lastFrame: 93
@@ -400,7 +400,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: attack1
+      name: Attack_1
       takeName: walk
       firstFrame: 95
       lastFrame: 103
@@ -428,7 +428,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: attack2
+      name: Attack_2
       takeName: walk
       firstFrame: 107
       lastFrame: 114
@@ -456,7 +456,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: attack3
+      name: Attack_3
       takeName: walk
       firstFrame: 119
       lastFrame: 140
@@ -484,7 +484,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: obrot
+      name: Turn
       takeName: walk
       firstFrame: 145
       lastFrame: 154
