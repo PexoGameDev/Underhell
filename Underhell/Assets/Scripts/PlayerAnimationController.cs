@@ -30,8 +30,8 @@ public class PlayerAnimationController : MonoBehaviour {
     void Start()
     {
         AnimationClips = new Dictionary<string, AnimationClip>();
-        foreach(AnimationClip ac in Animator.runtimeAnimatorController.animationClips)
-            if(!AnimationClips.ContainsKey(ac.name))
+        foreach (AnimationClip ac in Animator.runtimeAnimatorController.animationClips)
+            if (!AnimationClips.ContainsKey(ac.name))
                 AnimationClips.Add(ac.name, ac);
     }
     #endregion
