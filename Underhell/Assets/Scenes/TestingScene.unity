@@ -157,6 +157,46 @@ Prefab:
       propertyPath: m_ApplyRootMotion
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 198281616605975270, guid: 7419846383e3bd8419d8ad9fd4623649,
+        type: 2}
+      propertyPath: InitialModule.startSize.minScalar
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 198281616605975270, guid: 7419846383e3bd8419d8ad9fd4623649,
+        type: 2}
+      propertyPath: InitialModule.startSize.scalar
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114530599552159368, guid: 7419846383e3bd8419d8ad9fd4623649,
+        type: 2}
+      propertyPath: pickingUpSpeedPercentage
+      value: 0.03
+      objectReference: {fileID: 0}
+    - target: {fileID: 65519220772157334, guid: 7419846383e3bd8419d8ad9fd4623649,
+        type: 2}
+      propertyPath: m_Center.y
+      value: 0.65
+      objectReference: {fileID: 0}
+    - target: {fileID: 65519220772157334, guid: 7419846383e3bd8419d8ad9fd4623649,
+        type: 2}
+      propertyPath: m_Size.y
+      value: 1.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 65519220772157334, guid: 7419846383e3bd8419d8ad9fd4623649,
+        type: 2}
+      propertyPath: m_Center.x
+      value: -0.28
+      objectReference: {fileID: 0}
+    - target: {fileID: 65519220772157334, guid: 7419846383e3bd8419d8ad9fd4623649,
+        type: 2}
+      propertyPath: m_Size.x
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 114530599552159368, guid: 7419846383e3bd8419d8ad9fd4623649,
+        type: 2}
+      propertyPath: movementSpeed
+      value: 350
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 7419846383e3bd8419d8ad9fd4623649, type: 2}
   m_IsPrefabParent: 0
