@@ -168,8 +168,6 @@ public class PlayerMovement : MonoBehaviour {
     }
 
     void FixedUpdate() {
-        //PlayerAnimationController.Animator.speed = 1;
-
         if (Input.GetKey(moveLeftKey) || Input.GetKey(moveRightKey))
         {
             horizontalVelocity += MovementSpeed * pickingUpSpeedPercentage;

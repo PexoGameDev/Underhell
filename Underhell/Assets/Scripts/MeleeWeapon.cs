@@ -32,7 +32,6 @@ public class MeleeWeapon : MonoBehaviour {
 
     void OnTriggerEnter(Collider other)
     {
-        print("yo?");
         HPModule target;
         if (target = other.GetComponent<HPModule>())
         {

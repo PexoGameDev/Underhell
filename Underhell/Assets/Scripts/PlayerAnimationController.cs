@@ -5,7 +5,6 @@ using UnityEngine;
 public class PlayerAnimationController : MonoBehaviour {
     #region Variables
     // Fields //
-
     private static Animator animator;
     private static Dictionary<string,AnimationClip> animationClips;
     // Public Properties //
@@ -38,14 +37,14 @@ public class PlayerAnimationController : MonoBehaviour {
     #endregion
 
     #region Public Methods
-    public static void PlayAnimation(string animationName)
+    public static void PlayAnimation(string animationName, int layer = 0)
     {
-        Animator.Play(animationName);
+        Animator.Play(animationName, layer);
     }
 
-    public static void CrossfadeAnimation(string animationName, float delay)
+    public static void CrossfadeAnimation(string animationName, float delay, int layer = 0)
     {
-        Animator.CrossFade(animationName,delay);
+        Animator.CrossFade(animationName,delay, layer);
     }
 
     public static void SetBool(string valueName, bool value)
