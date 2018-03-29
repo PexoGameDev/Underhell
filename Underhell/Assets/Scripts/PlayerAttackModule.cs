@@ -50,43 +50,41 @@ public class PlayerAttackModule : MonoBehaviour {
     #region Private Methods
     IEnumerator Attack()
     {
+        PlayerAnimationController.SetBool("IsAttacking", true);
         isAttacking = true;
         Sword.GetComponent<BoxCollider>().enabled = true;
         CancelInvoke("ResetHitCombo");
-
+        foreach(AnimationClip ac in PlayerAnimationController.Animator.runtimeAnimatorController.animationClips)
+        {
+            print(ac.name);
+        }
         switch(hitCombo)
         {
             case 0:
             default:
                 PlayerAnimationController.PlayAnimation("hero_attack_1");
-                PlayerAnimationController.PlayAnimation("sword_attack_1");
                 GameObject particles = Instantiate(meleeAttackParticles, particleOrigin.transform);
-                while(!PlayerAnimationController.Animator.GetCurrentAnimatorStateInfo(0).IsName("hero_attack_1_return"))
-                {
-                    yield return new WaitForEndOfFrame();
-                }
+                yield return new WaitForEndOfFrame();
+                yield return new WaitForSeconds(PlayerAnimationController.Animator.GetCurrentAnimatorClipInfo(0)[0].clip.length);
                 Destroy(particles);
                 break;
 
             case 1:
                 PlayerAnimationController.PlayAnimation("hero_attack_2");
-                PlayerAnimationController.PlayAnimation("sword_attack_2");
                 particles = Instantiate(meleeAttackParticles, particleOrigin.transform);
-                while (!PlayerAnimationController.Animator.GetCurrentAnimatorStateInfo(0).IsName("hero_attack_2_return"))
-                {
-                    yield return new WaitForEndOfFrame();
-                }
+                yield return new WaitForEndOfFrame();
+                yield return new WaitForEndOfFrame();
+                print(PlayerAnimationController.Animator.GetCurrentAnimatorClipInfoCount(0));
+                yield return new WaitForSeconds(PlayerAnimationController.Animator.GetCurrentAnimatorClipInfo(0)[0].clip.length);
                 Destroy(particles);
                 break;
 
             case 2:
                 PlayerAnimationController.PlayAnimation("hero_attack_3");
-                PlayerAnimationController.PlayAnimation("sword_attack_3");
                 particles = Instantiate(meleeAttackParticles, particleOrigin.transform);
-                while (!PlayerAnimationController.Animator.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
-                {
-                    yield return new WaitForEndOfFrame();
-                }
+                yield return new WaitForEndOfFrame();
+                yield return new WaitForEndOfFrame();
+                yield return new WaitForSeconds(PlayerAnimationController.Animator.GetCurrentAnimatorClipInfo(0)[0].clip.length);
                 Destroy(particles);
                 break;
         }
@@ -97,6 +95,7 @@ public class PlayerAttackModule : MonoBehaviour {
         hitCombo = (hitCombo + 1) % 3;
         if(hitCombo!=0)
             Invoke("ResetHitCombo", hitComboResetDelay);
+        PlayerAnimationController.SetBool("IsAttacking", false);
     }
     IEnumerator Shoot()
     {
