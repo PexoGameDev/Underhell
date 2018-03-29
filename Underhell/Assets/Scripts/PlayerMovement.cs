@@ -94,7 +94,7 @@ public class PlayerMovement : MonoBehaviour {
     }
 
     void Update () {
-        if (Input.GetKeyDown(jumpKey) && !hasDoubleJumped && !PlayerAnimationController.GetBool("IsAttacking"))
+        if (Input.GetKeyDown(jumpKey) && !hasDoubleJumped)
         {
             if (isJumping)
             {
@@ -106,7 +106,9 @@ public class PlayerMovement : MonoBehaviour {
                 isJumping = true;
             }
 
-            PlayerAnimationController.CrossfadeAnimation("Jump", 0.15f);
+            if(!PlayerAnimationController.GetBool("IsAttacking"))
+                PlayerAnimationController.CrossfadeAnimation("Jump", 0.15f);
+
             PlayerAnimationController.SetBool("IsJumping", true);
             actualJumpMaxHeight = transform.position.y + jumpHeight;
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
@@ -118,10 +120,11 @@ public class PlayerMovement : MonoBehaviour {
         if (Input.GetKeyDown(dashRightKey) && !isDashing)
             StartCoroutine(Dash(1));
 
-        if ((Input.GetKeyUp(moveRightKey) && !Input.GetKey(moveLeftKey)) || (Input.GetKeyUp(moveLeftKey) && !Input.GetKey(moveRightKey)) && !PlayerAnimationController.GetBool("IsJumping") && PlayerAnimationController.GetBool("IsAttacking"))
+        if ((Input.GetKeyUp(moveRightKey) && !Input.GetKey(moveLeftKey)) || (Input.GetKeyUp(moveLeftKey) && !Input.GetKey(moveRightKey)) && !PlayerAnimationController.GetBool("IsJumping"))
         {
             PlayerAnimationController.SetBool("IsRunning", false);
-            PlayerAnimationController.Animator.Play("Idle");
+            if(!PlayerAnimationController.GetBool("IsAttacking"))
+                PlayerAnimationController.Animator.Play("Idle");
         }
 
         RaycastHit groundHit;
@@ -149,36 +152,33 @@ public class PlayerMovement : MonoBehaviour {
     void FixedUpdate() {
         if (Input.GetKey(moveLeftKey))
         {
-            if (!PlayerAnimationController.GetBool("IsAttacking"))
+            PlayerAnimationController.SetBool("IsRunning", true);
+            if (Rotation != -1)
             {
-                PlayerAnimationController.SetBool("IsRunning", true);
-                if (Rotation != -1)
-                {
-                    Rotation = -1;
-                    transform.Rotate(0, 180, 0);
+                Rotation = -1;
+                transform.Rotate(0, 180, 0);
+                if (!PlayerAnimationController.GetBool("IsAttacking"))
                     PlayerAnimationController.PlayAnimation("Turn");
-                }
-                else if (!PlayerAnimationController.Animator.GetCurrentAnimatorStateInfo(0).IsName("Run") && !PlayerAnimationController.Animator.GetCurrentAnimatorStateInfo(0).IsName("Turn"))
-                    PlayerAnimationController.CrossfadeAnimation("Run", 0.01f);
             }
+            else if (!PlayerAnimationController.Animator.GetCurrentAnimatorStateInfo(0).IsName("Run") && !PlayerAnimationController.Animator.GetCurrentAnimatorStateInfo(0).IsName("Turn") && !PlayerAnimationController.GetBool("IsAttacking"))
+                PlayerAnimationController.CrossfadeAnimation("Run", 0.01f);
 
             Vector3 vel = rb.velocity;
             rb.MovePosition(Vector3.SmoothDamp(transform.position, transform.position + Vector3.right * MovementSpeed * Rotation, ref vel, 1f));
         }
         else if (Input.GetKey(moveRightKey))
         {
-            if (!PlayerAnimationController.GetBool("IsAttacking"))
+            PlayerAnimationController.SetBool("IsRunning", true);
+            if (Rotation != 1)
             {
-                PlayerAnimationController.SetBool("IsRunning", true);
-                if (Rotation != 1)
-                {
-                    Rotation = 1;
-                    transform.Rotate(0, 180, 0);
+                Rotation = 1;
+                transform.Rotate(0, 180, 0);
+                if (!PlayerAnimationController.GetBool("IsAttacking"))
                     PlayerAnimationController.PlayAnimation("Turn");
-                }
-                else if (!PlayerAnimationController.Animator.GetCurrentAnimatorStateInfo(0).IsName("Run") && !PlayerAnimationController.Animator.GetCurrentAnimatorStateInfo(0).IsName("Turn"))
-                    PlayerAnimationController.CrossfadeAnimation("Run", 0.01f);
             }
+            else if (!PlayerAnimationController.Animator.GetCurrentAnimatorStateInfo(0).IsName("Run") && !PlayerAnimationController.Animator.GetCurrentAnimatorStateInfo(0).IsName("Turn") && !PlayerAnimationController.GetBool("IsAttacking"))
+                PlayerAnimationController.CrossfadeAnimation("Run", 0.01f);
+
             Vector3 vel = rb.velocity;
             rb.MovePosition(Vector3.SmoothDamp(transform.position, transform.position + Vector3.right * MovementSpeed * Rotation, ref vel, 1f));
         }
