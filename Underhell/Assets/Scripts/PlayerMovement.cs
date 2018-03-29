@@ -22,10 +22,11 @@ public class PlayerMovement : MonoBehaviour {
     [SerializeField] private KeyCode crouchKey = KeyCode.S;
     [SerializeField] private KeyCode jumpKey = KeyCode.Space;
 
-    private bool isJumping = false;
     private bool hasDoubleJumped = false;
+    private bool isJumping = false;
     private bool isDashing = false;
-    private bool IsRotating = false;
+    private bool isRotating = false;
+    private bool isReadyToLand = false;
 
     private int groundLayerMask;
     private int rotation;
@@ -115,6 +116,7 @@ public class PlayerMovement : MonoBehaviour {
             actualJumpMaxHeight = transform.position.y + jumpHeight;
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
             InvokeRepeating("ResetJump", 1f, 0.1f);
+            StartCoroutine("ReadyToLand");
         }
 
         if (Input.GetKeyDown(dashLeftKey) && !isDashing)
@@ -130,13 +132,27 @@ public class PlayerMovement : MonoBehaviour {
         }
 
         RaycastHit groundHit;
-        if (isJumping && rb.velocity.y <= 0 && Physics.Raycast(transform.position, Vector3.down, out groundHit, groundLayerMask) && Vector3.Distance(transform.position, groundHit.point) <= 1f)
+        Debug.DrawRay(transform.position + Vector3.up*transform.localScale.y, Vector3.down * 100f, Color.red);
+        if(Physics.Raycast(transform.position + Vector3.up * transform.localScale.y, Vector3.down, out groundHit, groundLayerMask))
         {
-            PlayerAnimationController.SetBool("IsJumping", false);
-            if(!PlayerAnimationController.GetBool("IsAttacking"))
-                PlayerAnimationController.CrossfadeAnimation("Jump_land", 0.15f);
+            if (isReadyToLand && Vector3.Distance(transform.position, groundHit.point) <= 1f)
+            {
+                if(!PlayerAnimationController.GetBool("IsAttacking"))
+                    PlayerAnimationController.CrossfadeAnimation("Jump_land", 0.15f);
+                PlayerAnimationController.SetBool("IsJumping", false);
+                isReadyToLand = false;
+            }
+
+            if (Vector3.Distance(transform.position,groundHit.point)>= 2f)
+            {
+                if (!PlayerAnimationController.GetBool("IsAttacking"))
+                    PlayerAnimationController.CrossfadeAnimation("Jump_air", 0.1f);
+                PlayerAnimationController.SetBool("IsJumping", true);
+                isReadyToLand = true;
+            }
         }
                 
+
         if (rb.velocity == Vector3.zero)
         {
             ActualMovementPhase = MovementPhase.Idle;
@@ -152,6 +168,7 @@ public class PlayerMovement : MonoBehaviour {
     }
 
     void FixedUpdate() {
+        //PlayerAnimationController.Animator.speed = 1;
 
         if (Input.GetKey(moveLeftKey) || Input.GetKey(moveRightKey))
         {
@@ -160,11 +177,7 @@ public class PlayerMovement : MonoBehaviour {
                 horizontalVelocity = MovementSpeed;
         }
         else
-        {
-            horizontalVelocity -= MovementSpeed * pickingUpSpeedPercentage;
-            if (horizontalVelocity < 0)
-                horizontalVelocity = 0;
-        }
+            horizontalVelocity = 0;
 
         if (Input.GetKey(moveLeftKey))
         {
@@ -196,16 +209,12 @@ public class PlayerMovement : MonoBehaviour {
         if (Input.GetKey(moveLeftKey) || Input.GetKey(moveRightKey))
         {
             if (PlayerAnimationController.GetBool("IsRunning") && !PlayerAnimationController.Animator.GetCurrentAnimatorStateInfo(0).IsName("Run") && !PlayerAnimationController.Animator.GetCurrentAnimatorStateInfo(0).IsName("Turn") && !PlayerAnimationController.GetBool("IsAttacking") && !PlayerAnimationController.GetBool("IsJumping"))
-                if(horizontalVelocity < 150)
-                    PlayerAnimationController.CrossfadeAnimation("Walk", 0.01f);
-                else
-                    PlayerAnimationController.CrossfadeAnimation("Run", 0.01f);
+                PlayerAnimationController.CrossfadeAnimation("Walk-Run", 0.01f);
 
             Vector3 vel = rb.velocity;
             rb.MovePosition(Vector3.SmoothDamp(transform.position, transform.position + Vector3.right * horizontalVelocity * Rotation, ref vel, 1f));
+            PlayerAnimationController.SetFloat("Velocity", horizontalVelocity / 150f);
         }
-
-        PlayerAnimationController.SetFloat("Velocity", horizontalVelocity);
     }
     #endregion
 
@@ -240,6 +249,12 @@ public class PlayerMovement : MonoBehaviour {
 
         yield return new WaitForSeconds(dashCooldown);
         isDashing = false;
+    }
+
+    IEnumerator ReadyToLand()
+    {
+        yield return new WaitForSeconds(PlayerAnimationController.AnimationClips["Jump"].length * 0.5f);
+        isReadyToLand = true;
     }
     #endregion
 }
