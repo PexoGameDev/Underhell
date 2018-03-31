@@ -140,7 +140,6 @@ public class PlayerMovement : MonoBehaviour {
         }
 
         RaycastHit groundHit;
-        Debug.DrawRay(transform.position + Vector3.up*transform.localScale.y, Vector3.down * 100f, Color.red);
         if(Physics.Raycast(transform.position + Vector3.up * transform.localScale.y, Vector3.down, out groundHit, groundLayerMask))
         {
             if (isReadyToLand && Vector3.Distance(transform.position, groundHit.point) <= 1f)

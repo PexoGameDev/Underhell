@@ -114,7 +114,6 @@ public class MovementModule : MonoBehaviour {
 	
 	void Update () {
         /* IQ Debugging
-         */
         Debug.DrawRay(transform.position + Vector3.right * transform.localScale.x * 0.5f * Rotation, Vector3.down * transform.localScale.y * 0.51f, Color.green); // Checks is floor avaiable
         Debug.DrawRay(transform.position - Vector3.up * transform.localScale.y * 0.5f, Vector3.right * Rotation * transform.localScale.x * 0.75f, Color.yellow); // Checks Wall
 
@@ -135,6 +134,7 @@ public class MovementModule : MonoBehaviour {
         Physics.Raycast(transform.position + Vector3.up * JumpHeight + Vector3.right * Rotation * DashDistance * 0.4f, Vector3.down, out hit, JumpHeight - 0.05f, groundLayerMask);
         Debug.DrawRay(transform.position, Vector3.up * (hit.point.y - transform.position.y), Color.magenta);
         Debug.DrawRay(new Vector3(transform.position.x, hit.point.y * 1.01f, transform.position.z), hit.point - transform.position, Color.green);
+         */
     }
 
     void FixedUpdate()
@@ -182,13 +182,7 @@ public class MovementModule : MonoBehaviour {
                 break;
 
             case 5:
-                if (decision && !isDashing && !isDashOnCooldown)
-                {
-                    StartCoroutine(ReachPlatformAbove());
-                }
-                else
-                    goto case 4;
-                break;
+               goto case 4;
         }
     }
     #endregion
@@ -221,31 +215,28 @@ public class MovementModule : MonoBehaviour {
 
     private bool CheckJumpableWall()
     {   
-        /*
-        RaycastHit hit;
-        Debug.DrawRay(transform.position + Vector3.up * JumpHeight + Vector3.right * Rotation * DashDistance * 0.4f, Vector3.down, Color.green);
-        Physics.Raycast(transform.position + Vector3.up * JumpHeight + Vector3.right * Rotation * DashDistance * 0.4f, Vector3.down, out hit, JumpHeight - 0.05f, groundLayerMask);
-        Debug.DrawRay(transform.position, Vector3.up * (hit.point.y - transform.position.y), Color.magenta);
-        Debug.DrawRay(new Vector3(transform.position.x, hit.point.y * 1.01f, transform.position.z), hit.point - transform.position, Color.green);
-        */
         RaycastHit hit;
         Vector3 raycastOriginPoint = transform.position + Vector3.up * JumpHeight; // Casts Ray from point directly above body
         Vector3 offset = DashDistance * Vector3.right * Rotation * 0.1f; // Tenth part of max horizontal distance enemy can travel (enemy checks distance in 10% intervals)
 
         for (int i = 0; i < 11; i++)
         {
-            if ( Physics.Raycast(raycastOriginPoint + offset * i, Vector3.down, out hit, JumpHeight - 0.05f, groundLayerMask) &&
-                !Physics.Raycast(transform.position, Vector3.up * (hit.point.y - transform.position.y), groundLayerMask)      &&
-                !Physics.Raycast(new Vector3(transform.position.x, hit.point.y + hit.collider.gameObject.transform.localScale.y * 0.51f, transform.position.z), hit.point) &&
-                hit.collider.gameObject != ActualPlatform)
+            if (Physics.Raycast(raycastOriginPoint + offset * i, Vector3.down, out hit, JumpHeight - 0.05f, groundLayerMask))
             {
-                targetPlatform = hit.collider.gameObject;
-                TargetPoint = hit.point + Vector3.up * transform.localScale.y * 1.5f - Vector3.right * Rotation * hit.collider.gameObject.transform.localScale.x * 0.5f; // Choosing point just on the very edge of platform, closest to entity
-                //print("Decided to do that!");
-                return true;
+                if (!Physics.Raycast(transform.position, Vector3.up * (hit.point.y - transform.position.y), groundLayerMask))
+                {
+                    if (!Physics.Raycast(new Vector3(transform.position.x, hit.point.y + gameObject.transform.localScale.y * 0.51f, transform.position.z), Vector3.right * Rotation, Vector3.Distance(hit.point, new Vector3(transform.position.x, hit.point.y + gameObject.transform.localScale.y * 0.51f, transform.position.z))))
+                    {
+                        if (hit.collider.gameObject != ActualPlatform)
+                        {
+                            targetPlatform = hit.collider.gameObject;
+                            TargetPoint = hit.collider.gameObject.transform.position + Vector3.up * hit.collider.gameObject.transform.localScale.y * 0.51f + Vector3.up * transform.localScale.y - Vector3.right * Rotation * hit.collider.gameObject.transform.localScale.x * 0.49f; // Choosing point just on the very edge of platform, closest to entity
+                            return true;
+                        }
+                    }
+                }
             }
         }
-        //print("Decided not to");
         return false;
     }
 
@@ -260,17 +251,19 @@ public class MovementModule : MonoBehaviour {
 
     private IEnumerator Jump()
     {
-        print("IM JUMPING NOW!!!!");
         isJumping = true;
         rb.useGravity = false;
 
-        Vector3 direction = TargetPoint - transform.position;
-        while (Vector3.Distance(transform.position, TargetPoint) > 0.5f)
+        float deltaX = transform.position.x - TargetPoint.x;
+        float deltaY = TargetPoint.y - transform.position.y;
+        float Y0 = transform.position.y;
+        float a = -1 / deltaY;
+
+        for (int i = 30; i >= 0; i--)
         {
-            rb.MovePosition(transform.position + direction/30);
+            transform.position = new Vector3(transform.position.x - deltaX/30, transform.position.y + deltaY/465*i, 0);
             yield return new WaitForFixedUpdate();
         }
-        transform.position = TargetPoint;
 
         rb.useGravity = true;
         isJumping = false;
@@ -327,26 +320,6 @@ public class MovementModule : MonoBehaviour {
         while (!CheckGround(transform.localScale.y))
             yield return new WaitForEndOfFrame();
         isDashOnCooldown = false;
-    }
-
-    private IEnumerator ReachPlatformAbove()
-    {
-        Vector3 targetPoint = new Vector3(lastPlatform.transform.position.x - lastPlatform.transform.localScale.x/2*Rotation,lastPlatform.transform.position.y + lastPlatform.transform.localScale.y,0);
-
-        isJumping = true;
-        isDashing = true;
-
-        rb.useGravity = false;
-        while(Vector3.Distance(transform.position,targetPoint)>0.5f)
-        {
-            transform.position = Vector3.MoveTowards(transform.position, targetPoint, 0.4f);
-            yield return new WaitForFixedUpdate();
-        }
-        transform.position = targetPoint;
-        rb.useGravity = true;
-
-        isJumping = false;
-        isDashing = false;
     }
     #endregion
 }
