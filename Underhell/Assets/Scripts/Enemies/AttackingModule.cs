@@ -4,33 +4,26 @@ using UnityEngine;
 public class AttackingModule : MonoBehaviour {
     #region Variables
     // Fields //
-    [SerializeField] private int IQ = 0;
-    [SerializeField] private int damage = 1;
-    [SerializeField] private float cooldown = 0.1f;
-    [SerializeField] private float attackRange = 1f;
-    [SerializeField] private float knockBackForce = 1f;
+    [SerializeField] [Range(0, 3)] public int IQ = 0;
+    [SerializeField] public int Damage = 1;
+    [SerializeField] public float Cooldown = 0.1f;
+    [SerializeField] public float AttackRange = 1f;
+    [SerializeField] public float KnockBackForce = 1f;
 
-    private int playerLayer;
-    private HPModule Player;
+    public int playerLayer;
+    public HPModule Player;
     // Public Properties //
-    public int Damage
-    {
-        get { return damage; }
-        set { damage = value; }
-    }
+
     // Private Properties //
     #endregion
 
     #region Unity Methods
-    void Start () {
+    public void Start () {
+        print("BASE START");
         Player = gameObject.GetComponent<Enemy>().Player.GetComponent<HPModule>();
         playerLayer = LayerMask.GetMask("Player");
 
         InvokeRepeating("AttackPlayer", 0, 1f);
-    }
-    private void OnTriggerEnter(Collider other)
-    {
-        
     }
     #endregion
 
@@ -47,14 +40,14 @@ public class AttackingModule : MonoBehaviour {
     {
         Ray ray = new Ray(transform.position, Player.transform.position-transform.position);
 
-        if (Physics.Raycast(ray, attackRange, playerLayer))
+        if (Physics.Raycast(ray, AttackRange, playerLayer))
         {
             yield return StartCoroutine(AnimateAttack());
 
-            if (Physics.Raycast(ray, attackRange, playerLayer))
-                Player.GetHit(Damage, knockBackForce, transform.position);
+            if (Physics.Raycast(ray, AttackRange, playerLayer))
+                Player.GetHit(Damage, KnockBackForce, transform.position);
 
-            yield return new WaitForSeconds(cooldown);
+            yield return new WaitForSeconds(Cooldown);
         }
     }
 

@@ -235,10 +235,7 @@ public class MovementModule : MonoBehaviour {
         rb.useGravity = false;
 
         float deltaX = transform.position.x - TargetPoint.x;
-        print(deltaX);
         float deltaY = Mathf.Abs(TargetPoint.y - transform.position.y);
-        float Y0 = transform.position.y;
-        float a = -1 / deltaY;
 
         for (int i = 30; i >= 0; i--)
         {

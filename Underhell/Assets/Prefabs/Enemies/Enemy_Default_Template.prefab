@@ -30,7 +30,7 @@ GameObject:
   - component: {fileID: 114918117055415888}
   - component: {fileID: 114482555270053686}
   m_Layer: 11
-  m_Name: Enemy
+  m_Name: Enemy_Default_Template
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -116,7 +116,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1779d59f1a05f44b9e22f1527512cd3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shieldGraphic: {fileID: 0}
+  shieldGraphic: {fileID: 1305964118088936, guid: 5f285e9508d4e3f4488b284bb80a0b9b,
+    type: 2}
 --- !u!114 &114482555270053686
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -129,10 +130,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   IQ: 0
-  damage: 1
-  cooldown: 0.1
-  attackRange: 1
-  knockBackForce: 1
+  Damage: 1
+  Cooldown: 0.1
+  AttackRange: 1
+  KnockBackForce: 1
 --- !u!114 &114682775501491908
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -146,6 +147,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   InvulnerabilityDuration: 0.1
   hP: 15
+  hitParticles: {fileID: 1864742499577446, guid: 4aa7f4f0acab60742bea9a9f6a3bb144,
+    type: 2}
 --- !u!114 &114888978614961482
 MonoBehaviour:
   m_ObjectHideFlags: 1

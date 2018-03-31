@@ -44,11 +44,11 @@ public class Enemy : MonoBehaviour {
     void Awake()
     {
         player = GameObject.FindGameObjectWithTag("Player");
-    }
-    void Start () {
         hpModule = gameObject.GetComponent<HPModule>();
         movementModule = gameObject.GetComponent<MovementModule>();
         attackingModule = gameObject.GetComponent<AttackingModule>();
+    }
+    void Start () {
     }
 
     void Update () {
