@@ -62,6 +62,11 @@ public class PlayerAnimationController : MonoBehaviour {
         return Animator.GetBool(valueName);
     }
 
+    public static float GetFloat(string valueName)
+    {
+        return Animator.GetFloat(valueName);
+    }
+
     public static void SetAnimationSpeed(float speed)
     {
         Animator.speed = speed;

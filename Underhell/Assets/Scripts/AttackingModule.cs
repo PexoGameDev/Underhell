@@ -53,6 +53,8 @@ public class AttackingModule : MonoBehaviour {
 
             if (Physics.Raycast(ray, attackRange, playerLayer))
                 Player.GetHit(Damage, knockBackForce, transform.position);
+
+            yield return new WaitForSeconds(cooldown);
         }
     }
 

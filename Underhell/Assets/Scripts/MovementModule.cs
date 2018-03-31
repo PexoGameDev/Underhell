@@ -31,6 +31,7 @@ public class MovementModule : MonoBehaviour {
     private GameObject targetPlatform;
     private Vector3 targetPoint;
     private Enemy enemy;
+
     // Public Properties //
     public bool IsChasingPlayer
     {
@@ -162,7 +163,7 @@ public class MovementModule : MonoBehaviour {
                 {
                     StartCoroutine(Jump());
                 }
-                else if(decision && !isDashing && !isJumping && CheckGround(JumpHeight * 1.01f))
+                else if(decision && !isDashing && !isJumping && CheckGround(JumpHeight * 0.99f))
                 {
                     isJumpingDown = true;
                     InvokeRepeating("ResetJump", 0.1f, 0.1f);
@@ -189,13 +190,6 @@ public class MovementModule : MonoBehaviour {
                     goto case 4;
                 break;
         }
-
-        if (actualJumpMaxHeight < transform.position.y && !isDashing)
-        {
-            rb.velocity = new Vector3(0, 0, 0);
-            rb.AddForce(Vector3.down * jumpForce * 0.5f, ForceMode.Impulse);
-        }
-
     }
     #endregion
 
@@ -234,8 +228,6 @@ public class MovementModule : MonoBehaviour {
         Debug.DrawRay(transform.position, Vector3.up * (hit.point.y - transform.position.y), Color.magenta);
         Debug.DrawRay(new Vector3(transform.position.x, hit.point.y * 1.01f, transform.position.z), hit.point - transform.position, Color.green);
         */
-
-        //print("Checking wall");
         RaycastHit hit;
         Vector3 raycastOriginPoint = transform.position + Vector3.up * JumpHeight; // Casts Ray from point directly above body
         Vector3 offset = DashDistance * Vector3.right * Rotation * 0.1f; // Tenth part of max horizontal distance enemy can travel (enemy checks distance in 10% intervals)

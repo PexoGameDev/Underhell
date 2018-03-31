@@ -4,49 +4,22 @@ using UnityEngine;
 
 public class Projectile : MonoBehaviour {
     #region Variables
-
     // Fields //
-    [SerializeField] private int damage = 5;
-    [SerializeField] private float knockBackForce = 5f;
-    [SerializeField] private float projectileSpeed = 1f;
-    [SerializeField] private float cooldown = 0.5f;
+    PlayerAttackModule playerAttackModule;
 
-    private List<AttackEffect> AttackEffects;
     // Public Properties //
-    public int Damage
-    {
-        get { return damage; }
-        set { damage = value; }
-    }
 
-    public float KnockBackForce
-    {
-        get { return knockBackForce; }
-        set { knockBackForce = value; }
-    }
-
-    public float ProjectileSpeed
-    {
-        get { return projectileSpeed; }
-        set { projectileSpeed = value; }
-    }
-
-    public float Cooldown
-    {
-        get { return cooldown; }
-        set { cooldown = value; }
-    }
     // Private Properties //
     #endregion
 
     #region Unity Methods
     void Start () {
-        AttackEffects = new List<AttackEffect>();
         Destroy(gameObject, 1f);
-	}
+        playerAttackModule = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerAttackModule>();
+    }
 	
 	void FixedUpdate () {
-        transform.position += Vector3.right * ProjectileSpeed;
+        transform.position += Vector3.right * playerAttackModule.ProjectileSpeed;
 	}
 
     void OnTriggerEnter(Collider other)
@@ -54,8 +27,8 @@ public class Projectile : MonoBehaviour {
         HPModule target;
         if (target = other.GetComponent<HPModule>())
         {
-            target.GetHit(Damage, knockBackForce, transform.position);
-            foreach (AttackEffect ae in AttackEffects)
+            target.GetHit(playerAttackModule.RangeDamage, playerAttackModule.RangeKnockBackForce, transform.position);
+            foreach (AttackEffect ae in playerAttackModule.DistanceAttackEffects)
                 ae.ApplyEffect(target);
         }
         Destroy(gameObject);

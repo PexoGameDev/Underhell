@@ -2167,14 +2167,14 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1789101795176346}
-  m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: -0, y: 0, z: 0}
-  m_LocalScale: {x: 1.0012094, y: 1.0012094, z: 1.0012094}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4739960390355290}
   m_Father: {fileID: 4112350613334828}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!4 &4983756494407612
 Transform:
   m_ObjectHideFlags: 1
@@ -2265,8 +2265,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.3, y: 1, z: 0.4}
-  m_Center: {x: -0.4, y: 0.7, z: 0}
+  m_Size: {x: 0.4, y: 1.3, z: 0.4}
+  m_Center: {x: -0.28, y: 0.65, z: 0}
 --- !u!95 &95082598434864006
 Animator:
   serializedVersion: 3
@@ -2276,7 +2276,7 @@ Animator:
   m_GameObject: {fileID: 1814349860212976}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 8b6ee832092d27e4887d62d5b66451e2, type: 3}
-  m_Controller: {fileID: 9100000, guid: 8d450cb91c9eca4429dce5b59ef62c81, type: 2}
+  m_Controller: {fileID: 9100000, guid: e082b338951a3dd47b34044cc6e21390, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -2332,9 +2332,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 681aeb25cdb3707418950ffbf6f9c693, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pickingUpSpeedPercentage: 0.04
   maxHorizontalVelocity: 35
   maxVerticalVelocity: 20
-  movementSpeed: 250
+  movementSpeed: 350
   multiplier: 1
   jumpHeight: 5
   jumpForce: 10
@@ -2373,10 +2374,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hitComboResetDelay: 0.4
+  weapon: {fileID: 137531802311858680}
   particleOrigin: {fileID: 1776851121766676}
   meleeAttackParticles: {fileID: 1435007456116350, guid: 6ce8e71f7e55b564ca8e5f1413fc5155,
     type: 2}
+  projectilePrefab: {fileID: 114761268785734282, guid: 002c87ae68b59f644a69ecdbcc2db82f,
+    type: 2}
   Sword: {fileID: 114622104351558486}
+  barellTransform: {fileID: 4739960390355290}
 --- !u!114 &114752053551156548
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2977,8 +2982,8 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 3
-      minScalar: 1
+      scalar: 0.2
+      minScalar: 0.1
       maxCurve:
         serializedVersion: 2
         m_Curve:
