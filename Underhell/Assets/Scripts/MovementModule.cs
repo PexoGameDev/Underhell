@@ -24,8 +24,6 @@ public class MovementModule : MonoBehaviour {
     private int groundLayerMask;
     private int rotation;
 
-    private float actualJumpMaxHeight = Mathf.Infinity;
-
     private Rigidbody rb;
     private GameObject lastPlatform;
     private GameObject targetPlatform;
@@ -80,13 +78,14 @@ public class MovementModule : MonoBehaviour {
     // Private Properties //
     private GameObject ActualPlatform
     {
-        get {
+        get
+        {
             RaycastHit hit;
             if (Physics.Raycast(transform.position, Vector3.down, out hit, 100f, groundLayerMask))
                 return hit.collider.gameObject;
 
             return null;
-            }
+        }
         set { ActualPlatform = value; }
     }
 
@@ -112,31 +111,6 @@ public class MovementModule : MonoBehaviour {
         InvokeRepeating("Decide", 0f, 0.1f);
     }
 	
-	void Update () {
-        /* IQ Debugging
-        Debug.DrawRay(transform.position + Vector3.right * transform.localScale.x * 0.5f * Rotation, Vector3.down * transform.localScale.y * 0.51f, Color.green); // Checks is floor avaiable
-        Debug.DrawRay(transform.position - Vector3.up * transform.localScale.y * 0.5f, Vector3.right * Rotation * transform.localScale.x * 0.75f, Color.yellow); // Checks Wall
-
-
-        Debug.DrawRay(transform.position + Vector3.up * JumpHeight + Vector3.right * Rotation * DashDistance * 0.1f, Vector3.down * JumpHeight, Color.red);
-        Debug.DrawRay(transform.position + Vector3.up * JumpHeight + Vector3.right * Rotation * DashDistance * 0.2f, Vector3.down * JumpHeight, Color.red);
-        Debug.DrawRay(transform.position + Vector3.up * JumpHeight + Vector3.right * Rotation * DashDistance * 0.3f, Vector3.down * JumpHeight, Color.red);
-        Debug.DrawRay(transform.position + Vector3.up * JumpHeight + Vector3.right * Rotation * DashDistance * 0.4f, Vector3.down * JumpHeight, Color.red);
-        Debug.DrawRay(transform.position + Vector3.up * JumpHeight + Vector3.right * Rotation * DashDistance * 0.5f, Vector3.down * JumpHeight, Color.red);
-        Debug.DrawRay(transform.position + Vector3.up * JumpHeight + Vector3.right * Rotation * DashDistance * 0.6f, Vector3.down * JumpHeight, Color.red);
-        Debug.DrawRay(transform.position + Vector3.up * JumpHeight + Vector3.right * Rotation * DashDistance * 0.7f, Vector3.down * JumpHeight, Color.red);
-        Debug.DrawRay(transform.position + Vector3.up * JumpHeight + Vector3.right * Rotation * DashDistance * 0.8f, Vector3.down * JumpHeight, Color.red);
-        Debug.DrawRay(transform.position + Vector3.up * JumpHeight + Vector3.right * Rotation * DashDistance * 0.9f, Vector3.down * JumpHeight, Color.red);
-        Debug.DrawRay(transform.position + Vector3.up * JumpHeight + Vector3.right * Rotation * DashDistance, Vector3.down * JumpHeight, Color.red);
-
-        RaycastHit hit;
-        Debug.DrawRay(transform.position + Vector3.up * JumpHeight + Vector3.right * Rotation * DashDistance * 0.4f, Vector3.down, Color.green);
-        Physics.Raycast(transform.position + Vector3.up * JumpHeight + Vector3.right * Rotation * DashDistance * 0.4f, Vector3.down, out hit, JumpHeight - 0.05f, groundLayerMask);
-        Debug.DrawRay(transform.position, Vector3.up * (hit.point.y - transform.position.y), Color.magenta);
-        Debug.DrawRay(new Vector3(transform.position.x, hit.point.y * 1.01f, transform.position.z), hit.point - transform.position, Color.green);
-         */
-    }
-
     void FixedUpdate()
     {
         switch(MovementIQ)
@@ -151,6 +125,12 @@ public class MovementModule : MonoBehaviour {
                 break; 
 
             case 2: // Walks Left/Right, if meets wall or gap
+                if (isJumpingDown && !CheckWall())
+                {
+                    DoStep();
+                    break;
+                }
+
                 if (!isDashing && !isJumping)
                     if (CheckGround(0.51f) && !CheckWall())
                         DoStep();
@@ -163,7 +143,7 @@ public class MovementModule : MonoBehaviour {
                 {
                     StartCoroutine(Jump());
                 }
-                else if(decision && !isDashing && !isJumping && CheckGround(JumpHeight * 0.99f))
+                else if(decision && !isDashing && !isJumping && !CheckGround(0.5f) && CheckGround(JumpHeight * 0.99f))
                 {
                     isJumpingDown = true;
                     InvokeRepeating("ResetJump", 0.1f, 0.1f);
@@ -221,13 +201,13 @@ public class MovementModule : MonoBehaviour {
 
         for (int i = 0; i < 11; i++)
         {
-            if (Physics.Raycast(raycastOriginPoint + offset * i, Vector3.down, out hit, JumpHeight - 0.05f, groundLayerMask))
+            if (Physics.Raycast(raycastOriginPoint + offset * i, Vector3.down, out hit, JumpHeight * 0.99f, groundLayerMask))
             {
                 if (!Physics.Raycast(transform.position, Vector3.up * (hit.point.y - transform.position.y), groundLayerMask))
                 {
                     if (!Physics.Raycast(new Vector3(transform.position.x, hit.point.y + gameObject.transform.localScale.y * 0.51f, transform.position.z), Vector3.right * Rotation, Vector3.Distance(hit.point, new Vector3(transform.position.x, hit.point.y + gameObject.transform.localScale.y * 0.51f, transform.position.z))))
                     {
-                        if (hit.collider.gameObject != ActualPlatform)
+                        if (hit.collider.gameObject != ActualPlatform && hit.collider.gameObject != lastPlatform)
                         {
                             targetPlatform = hit.collider.gameObject;
                             TargetPoint = hit.collider.gameObject.transform.position + Vector3.up * hit.collider.gameObject.transform.localScale.y * 0.51f + Vector3.up * transform.localScale.y - Vector3.right * Rotation * hit.collider.gameObject.transform.localScale.x * 0.49f; // Choosing point just on the very edge of platform, closest to entity
@@ -255,7 +235,8 @@ public class MovementModule : MonoBehaviour {
         rb.useGravity = false;
 
         float deltaX = transform.position.x - TargetPoint.x;
-        float deltaY = TargetPoint.y - transform.position.y;
+        print(deltaX);
+        float deltaY = Mathf.Abs(TargetPoint.y - transform.position.y);
         float Y0 = transform.position.y;
         float a = -1 / deltaY;
 
@@ -287,7 +268,7 @@ public class MovementModule : MonoBehaviour {
 
     private void ResetLastPlatform()
     {
-        lastPlatform = gameObject;
+        lastPlatform = null;
     }
 
     private IEnumerator Dash()
