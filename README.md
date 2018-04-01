@@ -1,3 +1,3 @@
 # Underhell
-Rouglike platformer. Made with Unity.
+Platformer RPG side-scrolling action game. Made with Unity.
 
