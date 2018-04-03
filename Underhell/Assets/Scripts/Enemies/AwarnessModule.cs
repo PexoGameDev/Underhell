@@ -10,6 +10,7 @@ public class AwarnessModule : MonoBehaviour {
     [SerializeField] private float stopChasingAfterSeconds = 3f;
     [SerializeField] private float detectionDelay = 0.1f;
     [SerializeField] private float detectionRange = 5f;
+    [SerializeField] private bool chaseMelee;
 
     private float timeSinceLastSeenPlayer = 0f;
     private GameObject player;
@@ -49,7 +50,8 @@ public class AwarnessModule : MonoBehaviour {
     {
         if (SeePlayer())
         {
-            enemy.MovementModule.IsChasingPlayer = true;
+            if(chaseMelee)
+                enemy.MovementModule.IsChasingPlayer = true;
             timeSinceLastSeenPlayer = 0f;
         }
         else
@@ -57,7 +59,8 @@ public class AwarnessModule : MonoBehaviour {
             timeSinceLastSeenPlayer += detectionDelay;
             if (enemy.MovementModule.IsChasingPlayer && timeSinceLastSeenPlayer >= stopChasingAfterSeconds)
             {
-                enemy.MovementModule.IsChasingPlayer = false;
+                if(chaseMelee)
+                    enemy.MovementModule.IsChasingPlayer = false;
             }
         }
 

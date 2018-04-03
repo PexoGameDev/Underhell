@@ -11,6 +11,7 @@ public class ArcaneProjectile : MonoBehaviour {
     public bool IsAutoTargeted = false;
     public float ProjectileSpeed = 1f;
     public float KnockBackForce = 0f;
+    public float TurnOffAutoTargetDistance = 2f;
     public Vector3 Direction;
 
     private HPModule player;
@@ -27,7 +28,14 @@ public class ArcaneProjectile : MonoBehaviour {
 	
 	void FixedUpdate () {
         if (IsAutoTargeted)
-            transform.position = Vector3.MoveTowards(transform.position, player.gameObject.transform.position, ProjectileSpeed);
+        {
+            transform.position = Vector3.MoveTowards(transform.position, player.gameObject.transform.position + Vector3.up, ProjectileSpeed);
+            if (Vector3.Distance(transform.position, player.transform.position) <= TurnOffAutoTargetDistance)
+            {
+                IsAutoTargeted = false;
+                Direction = (player.transform.position + Vector3.up - transform.position).normalized;
+            }
+        }
         else
             transform.position += Direction * ProjectileSpeed;
 	}

@@ -7,6 +7,7 @@ public class ArcaneAttackingModule : AttackingModule
     // Fields //
     [SerializeField] private float ProjectileSpeed = 1f;
     [SerializeField] private GameObject projectilePrefab;
+    [SerializeField] private float turnOffAutoTargetDistance = 2f;
 
     private int defaultIQ; 
     private Enemy mainModule;
@@ -24,6 +25,11 @@ public class ArcaneAttackingModule : AttackingModule
         defaultIQ = mainModule.MovementModule.MovementIQ;
         base.Start();
     }
+
+    private void Update()
+    {
+        Debug.DrawRay(transform.position, Player.transform.position - transform.position + Vector3.up, Color.red);
+    }
     #endregion
 
     #region Public Methods
@@ -37,13 +43,12 @@ public class ArcaneAttackingModule : AttackingModule
 
     private IEnumerator AnimateAttack()
     {
-        Ray ray = new Ray(transform.position, Player.transform.position - transform.position);
-        Debug.DrawRay(transform.position, (Player.transform.position - transform.position).normalized * AttackRange, Color.blue);
+        Ray ray = new Ray(transform.position + transform.localScale.y * 0.5f * Vector3.up, Player.transform.position - transform.position + Vector3.up * Player.transform.localScale.y);
 
         if (Physics.Raycast(ray, AttackRange, playerLayer))
         {
             print("player in range");
-            if (!Physics.Raycast(transform.position, Player.transform.position, groundLayer))
+            if (!Physics.Raycast(ray,Vector3.Distance(transform.position,Player.transform.position), groundLayer))
             {
                 print("no walls between");
 
@@ -56,10 +61,11 @@ public class ArcaneAttackingModule : AttackingModule
                 aProjectile.Damage = Damage;
                 aProjectile.KnockBackForce = KnockBackForce;
                 aProjectile.ProjectileSpeed = ProjectileSpeed;
+                aProjectile.TurnOffAutoTargetDistance = turnOffAutoTargetDistance;
                 if (IQ >= 2)
                     aProjectile.IsAutoTargeted = true;
                 else
-                    aProjectile.Direction = (Player.transform.position - transform.position).normalized;
+                    aProjectile.Direction = (Player.transform.position + Vector3.up - transform.position).normalized;
 
                 yield return new WaitForSeconds(0.5f);
                 mainModule.MovementModule.MovementIQ = defaultIQ;
