@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: 198342397808953376}
   - component: {fileID: 199872014968918546}
   - component: {fileID: 54559119052965444}
-  m_Layer: 11
+  m_Layer: 12
   m_Name: Arcane_Projectile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -70,7 +70,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b4cefc1d249d4a4793200ee4b8e7535, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hitParticles: {fileID: 0}
+  hitParticles: {fileID: 1435007456116350, guid: 6ce8e71f7e55b564ca8e5f1413fc5155,
+    type: 2}
   Damage: 0
   IsAutoTargeted: 0
   ProjectileSpeed: 1
