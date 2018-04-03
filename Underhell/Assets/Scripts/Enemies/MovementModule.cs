@@ -210,7 +210,7 @@ public class MovementModule : MonoBehaviour {
                         if (hit.collider.gameObject != ActualPlatform && hit.collider.gameObject != lastPlatform)
                         {
                             targetPlatform = hit.collider.gameObject;
-                            TargetPoint = hit.collider.gameObject.transform.position + Vector3.up * hit.collider.gameObject.transform.localScale.y * 0.51f + Vector3.up * transform.localScale.y - Vector3.right * Rotation * hit.collider.gameObject.transform.localScale.x * 0.49f; // Choosing point just on the very edge of platform, closest to entity
+                            TargetPoint = hit.collider.gameObject.transform.position + Vector3.up * hit.collider.gameObject.transform.localScale.y * 0.5f + Vector3.up * transform.localScale.y - Vector3.right * Rotation * hit.collider.gameObject.transform.localScale.x * 0.50f; // Choosing point just on the very edge of platform, closest to entity
                             return true;
                         }
                     }
@@ -236,10 +236,11 @@ public class MovementModule : MonoBehaviour {
 
         float deltaX = transform.position.x - TargetPoint.x;
         float deltaY = Mathf.Abs(TargetPoint.y - transform.position.y);
+        float Y0 = transform.position.y;
 
-        for (int i = 30; i >= 0; i--)
+        for (int i = 0; i < 31; i++)
         {
-            transform.position = new Vector3(transform.position.x - deltaX/30, transform.position.y + deltaY/465*i, 0);
+            transform.position = new Vector3(transform.position.x - deltaX/30, Y0 + Mathf.Sin(Mathf.PI / 60 * i) * deltaY, 0);
             yield return new WaitForFixedUpdate();
         }
 
