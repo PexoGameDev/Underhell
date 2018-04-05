@@ -43,7 +43,6 @@ public class BorysAttackingModule : AttackingModule {
     #region Private Methods
     private void SpecialAttackDecision()
     {
-        print("IM looking for player and deciding");
         if (SeePlayer(SpecialAttackDetectRange) && Random.Range(0, 1) < SpecialAttackChance)
             StartCoroutine("SpecialAttack");
     }
@@ -51,7 +50,6 @@ public class BorysAttackingModule : AttackingModule {
     IEnumerator SpecialAttack()
     {
         CancelInvoke("SpecialAttackDecision");
-        print("IM SUPER ATTACKING");
         float baseMovement = mainModule.MovementModule.MovementSpeed;
         yield return new WaitForSeconds(0.5f);
         specialAttackCollider.enabled = true;
