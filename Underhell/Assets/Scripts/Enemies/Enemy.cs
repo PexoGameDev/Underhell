@@ -12,6 +12,7 @@ public class Enemy : MonoBehaviour {
     private HPModule hpModule;
     private MovementModule movementModule;
     private AttackingModule attackingModule;
+    private AwarnessModule awarnessModule;
 
     [SerializeField] private int scoreValue = 10;
     // Public Properties //
@@ -37,6 +38,12 @@ public class Enemy : MonoBehaviour {
         get { return attackingModule; }
         private set { attackingModule = value; }
     }
+
+    public AwarnessModule AwarnessModule
+    {
+        get { return awarnessModule; }
+        private set { awarnessModule = value; }
+    }
     // Private Properties //
     #endregion
 
@@ -47,6 +54,7 @@ public class Enemy : MonoBehaviour {
         hpModule = gameObject.GetComponent<HPModule>();
         movementModule = gameObject.GetComponent<MovementModule>();
         attackingModule = gameObject.GetComponent<AttackingModule>();
+        awarnessModule = gameObject.GetComponent<AwarnessModule>();
     }
     void Start () {
     }

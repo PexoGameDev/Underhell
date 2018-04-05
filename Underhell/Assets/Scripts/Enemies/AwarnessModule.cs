@@ -10,7 +10,7 @@ public class AwarnessModule : MonoBehaviour {
     [SerializeField] private float stopChasingAfterSeconds = 3f;
     [SerializeField] private float detectionDelay = 0.1f;
     [SerializeField] private float detectionRange = 5f;
-    [SerializeField] private bool chaseMelee;
+    public bool chaseMelee;
 
     private float timeSinceLastSeenPlayer = 0f;
     private GameObject player;

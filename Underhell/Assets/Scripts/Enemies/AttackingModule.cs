@@ -10,8 +10,10 @@ public class AttackingModule : MonoBehaviour {
     [SerializeField] public float AttackRange = 1f;
     [SerializeField] public float KnockBackForce = 1f;
 
+    [HideInInspector] public HPModule Player;
+    [HideInInspector] public Enemy mainModule;
     public int playerLayer;
-    public HPModule Player;
+    public int groundLayer;
     // Public Properties //
 
     // Private Properties //
@@ -19,15 +21,31 @@ public class AttackingModule : MonoBehaviour {
 
     #region Unity Methods
     public void Start () {
-        print("BASE START");
-        Player = gameObject.GetComponent<Enemy>().Player.GetComponent<HPModule>();
+        mainModule = gameObject.GetComponent<Enemy>();
+        Player = mainModule.Player.GetComponent<HPModule>();
         playerLayer = LayerMask.GetMask("Player");
+        groundLayer = LayerMask.GetMask("Ground");
 
         InvokeRepeating("AttackPlayer", 0, 1f);
     }
     #endregion
 
     #region Public Methods
+    public bool SeePlayer()
+    {
+        Ray ray = new Ray(transform.position + transform.localScale.y * 0.5f * Vector3.up, Player.transform.position - transform.position + Vector3.up * Player.transform.localScale.y);
+        if (Physics.Raycast(ray, AttackRange, playerLayer))
+            return !Physics.Raycast(ray, Vector3.Distance(transform.position, Player.transform.position), groundLayer);
+        return false;
+    }
+
+    public bool SeePlayer(float customAttackRange)
+    {
+        Ray ray = new Ray(transform.position + transform.localScale.y * 0.5f * Vector3.up, Player.transform.position - transform.position + Vector3.up * Player.transform.localScale.y);
+        if (Physics.Raycast(ray, customAttackRange, playerLayer))
+            return !Physics.Raycast(ray, Vector3.Distance(transform.position, Player.transform.position), groundLayer);
+        return false;
+    }
     #endregion
 
     #region Private Methods

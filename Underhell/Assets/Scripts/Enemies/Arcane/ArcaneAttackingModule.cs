@@ -10,8 +10,6 @@ public class ArcaneAttackingModule : AttackingModule
     [SerializeField] private float turnOffAutoTargetDistance = 2f;
 
     private int defaultIQ; 
-    private Enemy mainModule;
-    private int groundLayer;
     // Public Properties //
 
     // Private Properties //
@@ -20,8 +18,6 @@ public class ArcaneAttackingModule : AttackingModule
     #region Unity Methods
     new private void Start()
     {
-        groundLayer = LayerMask.GetMask("Ground");
-        mainModule = gameObject.GetComponent<Enemy>();
         defaultIQ = mainModule.MovementModule.MovementIQ;
         base.Start();
     }
@@ -47,10 +43,8 @@ public class ArcaneAttackingModule : AttackingModule
 
         if (Physics.Raycast(ray, AttackRange, playerLayer))
         {
-            print("player in range");
             if (!Physics.Raycast(ray,Vector3.Distance(transform.position,Player.transform.position), groundLayer))
             {
-                print("no walls between");
 
                 CancelInvoke("AttackPlayer");
                 mainModule.MovementModule.MovementIQ = 0;

@@ -38,7 +38,8 @@ public class MovementModule : MonoBehaviour {
     }
     public int Rotation
     {
-        get { if (!isChasingPlayer)
+        get {
+            if (!isChasingPlayer)
                 return rotation;
             else
                 return (enemy.Player.transform.position.x > transform.position.x) ? 1 : -1;
@@ -119,7 +120,10 @@ public class MovementModule : MonoBehaviour {
 
             case 1: //Walks stright left/right even to death, truns back if meets wall
                 if (!CheckWall())
-                    DoStep();
+                {
+                    if (!IsChasingPlayer || Vector3.Distance(transform.position, Player.Entity.transform.position) >= enemy.AttackingModule.AttackRange)
+                        DoStep();
+                }
                 else
                     Rotation *= -1;
                 break; 
@@ -127,13 +131,17 @@ public class MovementModule : MonoBehaviour {
             case 2: // Walks Left/Right, if meets wall or gap
                 if (isJumpingDown && !CheckWall())
                 {
-                    DoStep();
+                    if(!IsChasingPlayer || Vector3.Distance(transform.position,Player.Entity.transform.position) >= enemy.AttackingModule.AttackRange)
+                        DoStep();
                     break;
                 }
 
                 if (!isDashing && !isJumping)
                     if (CheckGround(0.51f) && !CheckWall())
-                        DoStep();
+                    {
+                        if (!IsChasingPlayer || Vector3.Distance(transform.position, Player.Entity.transform.position) >= enemy.AttackingModule.AttackRange)
+                            DoStep();
+                    }
                     else
                         Rotation *= -1;
                 break;

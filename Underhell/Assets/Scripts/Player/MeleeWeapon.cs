@@ -25,7 +25,7 @@ public class MeleeWeapon : MonoBehaviour {
                     break;
 
                 default:
-                    target.GetHit(playerAttackModule.MeleeAttackDamage, playerAttackModule.MeleeKnockBackForce * 0, transform.position);
+                    target.GetHit(playerAttackModule.MeleeAttackDamage, playerAttackModule.MeleeKnockBackForce * 0.5f, transform.position);
                     break;
             }
             foreach (AttackEffect ae in playerAttackModule.MeleeAttackEffects)
