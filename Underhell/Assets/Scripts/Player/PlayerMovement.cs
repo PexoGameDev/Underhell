@@ -283,21 +283,20 @@ public class PlayerMovement : MonoBehaviour {
             default:
                 break;
             case CC.CCEffect.Snare:
-                isSnared = true;
+
                 float defJumpForce = JumpForce;
                 float defMovementSpeed = MovementSpeed;
+
+                isSnared = true;
                 MovementSpeed = 0;
                 JumpForce = 0;
 
-                print("Zeroed'");
-
                 yield return new WaitForSeconds(cooldown);
-
-                print("returned'");
 
                 MovementSpeed = defMovementSpeed;
                 JumpForce = defJumpForce;
                 isSnared = false;
+
                 break;
         }
     }

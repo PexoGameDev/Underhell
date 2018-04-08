@@ -43,7 +43,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1499515029486158}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -246.24, y: 29.183853, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -128,7 +128,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 286889230beeb5f41a48fd354f9a2e15, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IQ: 2
+  IQ: 3
   Damage: 1
   Cooldown: 1.5
   AttackRange: 50
@@ -141,15 +141,15 @@ MonoBehaviour:
   projectilePrefab: {fileID: 1245595451002122, guid: 4c273f9b8b404be44adb5c5e8b8f93d2,
     type: 2}
   turnOffAutoTargetDistance: 4
-  SpecialAttackDamage: 10
+  SpecialAttackDamage: 1
   SpecialAttackCooldown: 5
-  SpecialAttackDetectRange: 5
+  SpecialAttackDetectRange: 50
   SpecialAttackCastingTime: 0.75
-  SpecialAttackChaseTime: 0.25
-  SpecialAttackDelayBeforeCC: 0.25
-  SpecialAttackColiderDuration: 0.5
-  SpecialAttackCCDuration: 3
-  SpecialAttackChance: 0.33
+  SpecialAttackChaseTime: 3
+  SpecialAttackDelayBeforeCC: 0.5
+  SpecialAttackColiderDuration: 1
+  SpecialAttackCCDuration: 1
+  SpecialAttackChance: 1
   SpecialAttackProjectile: {fileID: 1232915596859430, guid: 56278dd72770c294d81d29848005bb78,
     type: 2}
 --- !u!114 &114221927704853792
@@ -207,7 +207,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99614c84f566e7740ad50496ef582d1b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MovementIQ: 3
+  MovementIQ: 0
   Chaoticness: 66
   movementSpeed: 250
   jumpHeight: 6

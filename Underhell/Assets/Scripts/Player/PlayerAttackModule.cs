@@ -6,7 +6,6 @@ using UnityEngine;
 public class PlayerAttackModule : MonoBehaviour {
     #region Variables
     // Fields //
-    [SerializeField] private float hitComboResetDelay = 0.4f;
 
     [SerializeField] private SkinnedMeshRenderer weapon;
     [SerializeField] private GameObject particleOrigin;
@@ -15,17 +14,20 @@ public class PlayerAttackModule : MonoBehaviour {
     [SerializeField] private MeleeWeapon Sword;
     [SerializeField] private Transform projectileOrigin;
 
+    public float hitComboResetDelay = 0.4f;
+    public float ThirdAttackDamageMultiplier = 1.5f;
+
     //MELEE WEAPON
     public int MeleeAttackDamage = 10;
     public float MeleeKnockBackForce = 1f;
-    private float meleeAttackSpeedMultiplier = 1f;
+    public float meleeAttackSpeedMultiplier = 1f;
 
     //RANGE WEAPON
     public int RangeDamage = 5;
     public float RangeKnockBackForce = 5f;
     public float ProjectileSpeed = 1f;
     public float ProjectileCooldown = 0.5f;
-    private float rangeAttackSpeedMultiplier = 1f;
+    public float rangeAttackSpeedMultiplier = 1f;
 
     private bool isAttacking = false;
     private int hitCombo = 0;
