@@ -27,9 +27,19 @@ public class Projectile : MonoBehaviour {
         HPModule target;
         if (target = other.GetComponent<HPModule>())
         {
-            target.GetHit(playerAttackModule.RangeDamage, playerAttackModule.RangeKnockBackForce, transform.position);
-            foreach (AttackEffect ae in playerAttackModule.DistanceAttackEffects)
-                ae.ApplyEffect(target);
+            switch (playerAttackModule.HitCombo)
+            {
+                case 2:
+                    target.GetHit((int)(playerAttackModule.RangeDamage * playerAttackModule.ThirdAttackDamageMultiplier), playerAttackModule.RangeKnockBackForce, transform.position, AttackEffect.DamageSource.Physical);
+                    break;
+
+                default:
+                    target.GetHit(playerAttackModule.RangeDamage, playerAttackModule.RangeKnockBackForce, transform.position, AttackEffect.DamageSource.Physical);
+                    break;
+            }
+
+            for (int i = 0; i < playerAttackModule.RangeAttackEffects.Count; i++)
+                playerAttackModule.RangeAttackEffects[i].ApplyEffect(target);
         }
         Destroy(gameObject);
     }

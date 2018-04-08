@@ -32,9 +32,7 @@ public class BorysAttackingModule : AttackingModule {
     private void OnTriggerEnter(Collider other)
     {
         if (other.GetComponent<HPModule>() == Player)
-        {
-            Player.GetHit(SpecialAttackDamage, SpecialAttackKnockback, transform.position);
-        }
+            Player.GetHit(SpecialAttackDamage, SpecialAttackKnockback, transform.position, AttackEffect.DamageSource.Physical);
     }
     #endregion
 

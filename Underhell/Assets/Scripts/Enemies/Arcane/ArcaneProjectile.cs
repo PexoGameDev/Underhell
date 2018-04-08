@@ -43,7 +43,7 @@ public class ArcaneProjectile : MonoBehaviour {
     private void OnTriggerEnter(Collider other)
     {
         if (other.GetComponent<HPModule>() == player)
-            player.GetHit(Damage, KnockBackForce, transform.position);
+            player.GetHit(Damage, KnockBackForce, transform.position, AttackEffect.DamageSource.Physical);
         Instantiate(hitParticles, transform.position, Quaternion.identity);
         Destroy(gameObject);
     }

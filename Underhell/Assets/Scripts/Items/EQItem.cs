@@ -2,109 +2,128 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EQItem : MonoBehaviour {
+[CreateAssetMenu(fileName = "EQ Item", menuName = "EQ Item", order = 5)]
+public class EQItem : ScriptableObject {
     #region Variables
     // Fields //
-    private EQItemUtilityModule utility;
-    private EQItemDefensiveModule defensive;
-    private EQItemOffensiveModule offensive;
+    public float MovementSpeed;
+    public float JumpHeight;
+    public float JumpForce;
+    public float DashDistance;
+    public float DashCooldown;
+    public float pickingUpSpeedPercentage;
+    public float slowPercentageWhenAttacking;
+
+    public float hitComboResetDelay;
+    public float ThirdAttackDamageMultiplier;
+    public int MeleeAttackDamage;
+    public float MeleeKnockBackForce;
+    public float meleeAttackSpeedMultiplier;
+    public int RangeDamage;
+    public float RangeKnockBackForce;
+    public float ProjectileSpeed;
+    public float ProjectileCooldown;
+    public float rangeAttackSpeedMultiplier;
+    public AttackEffect[] MeleeAttackEffects;
+    public AttackEffect[] RangeAttackEffects;
+
+    public float InvulnerabilityDuration;
+    public int MaxHP;
+    public int HP;
+    public float FireResistance;
+    public float PoisonResistance;
+    public float SlowResistance;
+    public bool SnareResistance;
+    public bool ParalyzeResistance;
+
     // Public Properties //
 
     // Private Properties //
     #endregion
 
     #region Unity Methods
-    void Start() {
-        utility = GetComponent<EQItemUtilityModule>();
-        defensive = GetComponent<EQItemDefensiveModule>();
-        offensive = GetComponent<EQItemOffensiveModule>();
-    }
     #endregion
 
     #region Public Methods
     public virtual void ApplyEffects(GameObject player)
     {
-        if (utility != null)
-        {
             PlayerMovement movementModule = player.GetComponent<PlayerMovement>();
-            movementModule.MovementSpeed += utility.movementSpeed;
-            movementModule.JumpHeight += utility.jumpHeight;
-            movementModule.JumpForce += utility.jumpForce;
-            movementModule.DashDistance += utility.dashDistance;
-            movementModule.DashCooldown += utility.dashCooldown;
-            movementModule.pickingUpSpeedPercentage += utility.pickingUpSpeedPercentage;
-            movementModule.slowPercentageWhenAttacking += utility.slowPercentageWhenAttacking;
-        }
+        movementModule.MovementSpeed += MovementSpeed;
+        movementModule.JumpHeight += JumpHeight;
+        movementModule.JumpForce += JumpForce;
+        movementModule.DashDistance += DashDistance;
+        movementModule.DashCooldown += DashCooldown;
+        movementModule.pickingUpSpeedPercentage += pickingUpSpeedPercentage;
+        movementModule.slowPercentageWhenAttacking += slowPercentageWhenAttacking;
 
-        if (offensive != null)
-        {
             PlayerAttackModule attackModule = player.GetComponent<PlayerAttackModule>();
-            attackModule.hitComboResetDelay += offensive.hitComboResetDelay;
-            attackModule.ThirdAttackDamageMultiplier += offensive.ThirdAttackDamageMultiplier;
-            attackModule.MeleeAttackDamage += offensive.MeleeAttackDamage;
-            attackModule.MeleeKnockBackForce += offensive.MeleeKnockBackForce;
-            attackModule.meleeAttackSpeedMultiplier += offensive.meleeAttackSpeedMultiplier;
-            attackModule.RangeDamage += offensive.RangeDamage;
-            attackModule.RangeKnockBackForce += offensive.RangeKnockBackForce;
-            attackModule.ProjectileSpeed += offensive.ProjectileSpeed;
-            attackModule.ProjectileCooldown += offensive.ProjectileCooldown;
-            attackModule.rangeAttackSpeedMultiplier += offensive.rangeAttackSpeedMultiplier;
-        }
+            attackModule.hitComboResetDelay += hitComboResetDelay;
+            attackModule.ThirdAttackDamageMultiplier += ThirdAttackDamageMultiplier;
+            attackModule.MeleeAttackDamage += MeleeAttackDamage;
+            attackModule.MeleeKnockBackForce += MeleeKnockBackForce;
+            attackModule.meleeAttackSpeedMultiplier += meleeAttackSpeedMultiplier;
+            attackModule.RangeDamage += RangeDamage;
+            attackModule.RangeKnockBackForce += RangeKnockBackForce;
+            attackModule.ProjectileSpeed += ProjectileSpeed;
+            attackModule.ProjectileCooldown += ProjectileCooldown;
+            attackModule.rangeAttackSpeedMultiplier += rangeAttackSpeedMultiplier;
 
-        if (defensive != null)
-        {
+            for (int i = 0; i < MeleeAttackEffects.Length; i++)
+                attackModule.MeleeAttackEffects.Add(MeleeAttackEffects[i]);
+
+            for (int i = 0; i < RangeAttackEffects.Length; i++)
+                attackModule.RangeAttackEffects.Add(RangeAttackEffects[i]);
+
             HPModule hPModule = player.GetComponent<HPModule>();
-            hPModule.InvulnerabilityDuration += defensive.InvulnerabilityDuration;
-            hPModule.MaxHP += defensive.MaxHP;
-            hPModule.HP += defensive.hP;
-            hPModule.PoisonResistance += defensive.FireResistance;
-            hPModule.FireResistance += defensive.FireResistance;
-            hPModule.SlowResistance += defensive.SlowResistance;
-            hPModule.SnareResistance = (defensive.SnareResistance) ? true : hPModule.SnareResistance;
-            hPModule.ParalyzeResistance = (defensive.ParalyzeResistance) ? true : hPModule.ParalyzeResistance;
-        }
+            hPModule.InvulnerabilityDuration += InvulnerabilityDuration;
+            hPModule.MaxHP += MaxHP;
+            hPModule.HP += HP;
+            hPModule.PoisonResistance += FireResistance;
+            hPModule.FireResistance += FireResistance;
+            hPModule.SlowResistance += SlowResistance;
+            hPModule.SnareResistance = (SnareResistance) ? true : hPModule.SnareResistance;
+            hPModule.ParalyzeResistance = (ParalyzeResistance) ? true : hPModule.ParalyzeResistance;
     }
 
     public virtual void RevertEffects(GameObject player)
     {
-        if (utility != null)
-        {
             PlayerMovement movementModule = player.GetComponent<PlayerMovement>();
-            movementModule.MovementSpeed -= utility.movementSpeed;
-            movementModule.JumpHeight -= utility.jumpHeight;
-            movementModule.JumpForce -= utility.jumpForce;
-            movementModule.DashDistance -= utility.dashDistance;
-            movementModule.DashCooldown -= utility.dashCooldown;
-            movementModule.pickingUpSpeedPercentage -= utility.pickingUpSpeedPercentage;
-            movementModule.slowPercentageWhenAttacking -= utility.slowPercentageWhenAttacking;
-        }
+            movementModule.MovementSpeed -= MovementSpeed;
+            movementModule.JumpHeight -= JumpHeight;
+            movementModule.JumpForce -= JumpForce;
+            movementModule.DashDistance -= DashDistance;
+            movementModule.DashCooldown -= DashCooldown;
+            movementModule.pickingUpSpeedPercentage -= pickingUpSpeedPercentage;
+            movementModule.slowPercentageWhenAttacking -= slowPercentageWhenAttacking;
 
-        if (offensive != null)
-        {
+
             PlayerAttackModule attackModule = player.GetComponent<PlayerAttackModule>();
-            attackModule.hitComboResetDelay -= offensive.hitComboResetDelay;
-            attackModule.ThirdAttackDamageMultiplier -= offensive.ThirdAttackDamageMultiplier;
-            attackModule.MeleeAttackDamage -= offensive.MeleeAttackDamage;
-            attackModule.MeleeKnockBackForce -= offensive.MeleeKnockBackForce;
-            attackModule.meleeAttackSpeedMultiplier -= offensive.meleeAttackSpeedMultiplier;
-            attackModule.RangeDamage -= offensive.RangeDamage;
-            attackModule.RangeKnockBackForce -= offensive.RangeKnockBackForce;
-            attackModule.ProjectileSpeed -= offensive.ProjectileSpeed;
-            attackModule.ProjectileCooldown -= offensive.ProjectileCooldown;
-            attackModule.rangeAttackSpeedMultiplier -= offensive.rangeAttackSpeedMultiplier;
-        }
+            attackModule.hitComboResetDelay -= hitComboResetDelay;
+            attackModule.ThirdAttackDamageMultiplier -= ThirdAttackDamageMultiplier;
+            attackModule.MeleeAttackDamage -= MeleeAttackDamage;
+            attackModule.MeleeKnockBackForce -= MeleeKnockBackForce;
+            attackModule.meleeAttackSpeedMultiplier -= meleeAttackSpeedMultiplier;
+            attackModule.RangeDamage -= RangeDamage;
+            attackModule.RangeKnockBackForce -= RangeKnockBackForce;
+            attackModule.ProjectileSpeed -= ProjectileSpeed;
+            attackModule.ProjectileCooldown -= ProjectileCooldown;
+            attackModule.rangeAttackSpeedMultiplier -= rangeAttackSpeedMultiplier;
 
-        if (defensive != null)
-        {
+            for (int i = 0; i < MeleeAttackEffects.Length; i++)
+                attackModule.MeleeAttackEffects.Remove(MeleeAttackEffects[i]);
+
+            for (int i = 0; i < RangeAttackEffects.Length; i++)
+                attackModule.RangeAttackEffects.Remove(RangeAttackEffects[i]);
+
+
             HPModule hPModule = player.GetComponent<HPModule>();
-            hPModule.InvulnerabilityDuration -= defensive.InvulnerabilityDuration;
-            hPModule.MaxHP -= defensive.MaxHP;
-            hPModule.PoisonResistance -= defensive.FireResistance;
-            hPModule.FireResistance -= defensive.FireResistance;
-            hPModule.SlowResistance -= defensive.SlowResistance;
-            hPModule.SnareResistance = (defensive.SnareResistance) ? false : hPModule.SnareResistance; // POSIBBLE BUG IF OTHER ITEM GIVES IMMUNITY
-            hPModule.ParalyzeResistance = (defensive.ParalyzeResistance) ? false : hPModule.ParalyzeResistance; // POSIBBLE BUG IF OTHER ITEM GIVES IMMUNITY
-        }
+            hPModule.InvulnerabilityDuration -= InvulnerabilityDuration;
+            hPModule.MaxHP -= MaxHP;
+            hPModule.PoisonResistance -= FireResistance;
+            hPModule.FireResistance -= FireResistance;
+            hPModule.SlowResistance -= SlowResistance;
+            hPModule.SnareResistance = (SnareResistance) ? false : hPModule.SnareResistance; // POSIBBLE BUG IF OTHER ITEM GIVES IMMUNITY
+            hPModule.ParalyzeResistance = (ParalyzeResistance) ? false : hPModule.ParalyzeResistance; // POSIBBLE BUG IF OTHER ITEM GIVES IMMUNITY
     }
 
     #endregion

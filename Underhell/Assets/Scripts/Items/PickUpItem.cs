@@ -6,12 +6,9 @@ using UnityEngine;
 public class PickUpItem : MonoBehaviour {
     #region Variables
     // Fields //
-    [SerializeField] EQItem eqitem;
+    public EQItem EQitem;
     // Public Properties //
-    public EQItem EQItem {
-        get { return eqitem; }
-        private set { eqitem = value; }
-    }
+
     // Private Properties //
     #endregion
 
@@ -21,7 +18,7 @@ public class PickUpItem : MonoBehaviour {
         EquipmentManager playereq;
         if (playereq = other.GetComponent<EquipmentManager>())
         {
-            if(playereq.AddItem(EQItem))
+            if (playereq.AddItem(EQitem))
                 Destroy(gameObject);
         }
     }

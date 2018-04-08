@@ -8,6 +8,7 @@ public class EQItemOffensiveModule : MonoBehaviour {
     public int MeleeAttackDamage = 0;
     public float MeleeKnockBackForce = 0f;
     public float meleeAttackSpeedMultiplier = 0f;
+    public AttackEffect[] MeleeAttackEffects;
 
     //RANGE WEAPON
     public int RangeDamage = 0;
@@ -15,5 +16,6 @@ public class EQItemOffensiveModule : MonoBehaviour {
     public float ProjectileSpeed = 0f;
     public float ProjectileCooldown = 0f;
     public float rangeAttackSpeedMultiplier = 0f;
+    public AttackEffect[] RangeAttackEffects;
 }
 

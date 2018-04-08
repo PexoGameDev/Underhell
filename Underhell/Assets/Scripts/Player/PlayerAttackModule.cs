@@ -37,7 +37,7 @@ public class PlayerAttackModule : MonoBehaviour {
     private PlayerMovement playerMovement;
     // Public Properties //
     public List<AttackEffect> MeleeAttackEffects { get; set; }
-    public List<AttackEffect> DistanceAttackEffects { get; set; }
+    public List<AttackEffect> RangeAttackEffects { get; set; }
     public int HitCombo
     {
         get { return hitCombo; }
@@ -64,6 +64,9 @@ public class PlayerAttackModule : MonoBehaviour {
         playerMovement = GetComponent<PlayerMovement>();
         defaultMesh = weapon.sharedMesh;
         swordColider = Sword.GetComponent<BoxCollider>();
+
+        RangeAttackEffects = new List<AttackEffect>();
+        MeleeAttackEffects = new List<AttackEffect>();
     }
     void Start () {
         

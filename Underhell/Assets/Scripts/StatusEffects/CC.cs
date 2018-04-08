@@ -4,17 +4,17 @@ using UnityEngine;
 
 public class CC : MonoBehaviour {
     #region Variables
-
-    public enum CCEffect
-    {
-        Snare, Paralyze, Slow
-    }
-
     // Fields //
 
     // Public Properties //
 
     // Private Properties //
+
+    // Public Data Structures //
+    public enum CCEffect
+    {
+        Snare, Paralyze, Slow
+    }
     #endregion
 
     #region Unity Methods

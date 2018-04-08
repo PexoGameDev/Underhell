@@ -18,18 +18,18 @@ public class MeleeWeapon : MonoBehaviour {
         HPModule target;
         if (target = other.GetComponent<HPModule>())
         {
-            switch(playerAttackModule.HitCombo)
+            switch (playerAttackModule.HitCombo)
             {
                 case 2:
-                    target.GetHit((int)(playerAttackModule.MeleeAttackDamage * 1.5f), playerAttackModule.MeleeKnockBackForce, transform.position);
+                    target.GetHit((int)(playerAttackModule.MeleeAttackDamage * playerAttackModule.ThirdAttackDamageMultiplier), playerAttackModule.MeleeKnockBackForce, transform.position, AttackEffect.DamageSource.Physical);
                     break;
 
                 default:
-                    target.GetHit(playerAttackModule.MeleeAttackDamage, playerAttackModule.MeleeKnockBackForce * 0.5f, transform.position);
+                    target.GetHit(playerAttackModule.MeleeAttackDamage, playerAttackModule.MeleeKnockBackForce * 0.5f, transform.position, AttackEffect.DamageSource.Physical);
                     break;
             }
-            foreach (AttackEffect ae in playerAttackModule.MeleeAttackEffects)
-                ae.ApplyEffect(target);
+            for (int i = 0; i < playerAttackModule.MeleeAttackEffects.Count; i++)
+                playerAttackModule.MeleeAttackEffects[i].ApplyEffect(target);
         }
     }
     #endregion

@@ -10,7 +10,7 @@ public class EquipmentManager : MonoBehaviour {
     private int selectedEQIndex = 0;
     private int itemsInEQ = 0;
     private List<Chirograph> chirographs;
-    private EQItem[] items;
+    [SerializeField] private EQItem[] items;
     // Public Properties //
     public int Runes
     {
@@ -47,6 +47,10 @@ public class EquipmentManager : MonoBehaviour {
         if (Input.mouseScrollDelta.y < 0)
             SelectedEQIndex--;
 
+        print(SelectedEQIndex);
+
+        if (Input.GetKeyDown(KeyCode.Backspace))
+            DropItem(SelectedEQIndex);
     }
     #endregion
 
@@ -56,7 +60,8 @@ public class EquipmentManager : MonoBehaviour {
         if (itemsInEQ >= 7)
             return false;
 
-        Items[itemsInEQ++] = item;
+        Items[itemsInEQ] = item;
+        itemsInEQ++;
         item.ApplyEffects(gameObject);
         return true;
     }
@@ -70,7 +75,10 @@ public class EquipmentManager : MonoBehaviour {
     #region Private Methods
     private void DropItem(int eqFieldNumber)
     {
+        print("I'm droping: " + Items[0].name);
         Items[eqFieldNumber].RevertEffects(gameObject);
+        //ADD DROPING ITEM ON THE GROUND
+        //MOVE ALL ITEMS ABOVE IT ONE FIELD BELOW SO ALWAYS ADD NEW ITEM ON TOP OF ARRAY
         Items[eqFieldNumber] = null;
         itemsInEQ--;
     }
