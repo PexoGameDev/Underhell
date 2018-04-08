@@ -5,13 +5,13 @@ using UnityEngine;
 public class BorysAttackingModule : AttackingModule {
     #region Variables
     // Fields //
-    public int SpecialAttackDamage = 10;
-    public float SpecialAttackKnockback = 5f;
-    public float SpecialAttackCooldown = 5f;
-    public float SpecialAttackDetectRange = 5f;
-    public float SpecialAttackDuration = 3f;
-    public float SpecialAttackMovementMultiplier = 1.5f;
-    [Range(0, 1)] public float SpecialAttackChance = 0.33f;
+    [SerializeField] private int SpecialAttackDamage = 10;
+    [SerializeField] private float SpecialAttackKnockback = 5f;
+    [SerializeField] private float SpecialAttackCooldown = 5f;
+    [SerializeField] private float SpecialAttackDetectRange = 5f;
+    [SerializeField] private float SpecialAttackDuration = 3f;
+    [SerializeField] private float SpecialAttackMovementMultiplier = 1.5f;
+    [SerializeField] [Range(0, 1)] private float SpecialAttackChance = 0.33f;
 
     [SerializeField] private BoxCollider specialAttackCollider;
     // Public Properties //
@@ -25,7 +25,8 @@ public class BorysAttackingModule : AttackingModule {
 
         specialAttackCollider.enabled = false;
 
-        InvokeRepeating("SpecialAttackDecision", 0f, 2.5f);
+        if(IQ > 2)
+            InvokeRepeating("SpecialAttackDecision", 0f, 2.5f);
 	}
 
     private void OnTriggerEnter(Collider other)

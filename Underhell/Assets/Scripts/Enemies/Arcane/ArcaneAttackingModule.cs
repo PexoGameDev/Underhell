@@ -9,6 +9,15 @@ public class ArcaneAttackingModule : AttackingModule
     [SerializeField] private GameObject projectilePrefab;
     [SerializeField] private float turnOffAutoTargetDistance = 2f;
 
+    
+    [SerializeField] private int SpecialAttackDamage = 10;
+    [SerializeField] private float SpecialAttackCooldown = 5f;
+    [SerializeField] private float SpecialAttackDetectRange = 5f;
+    [SerializeField] private float SpecialAttackDuration = 3f;
+    [SerializeField] private float SpecialAttackCastingTime = 0.75f;
+    [SerializeField] private GameObject SpecialAttackProjectile;
+    [SerializeField] [Range(0, 1)] private float SpecialAttackChance = 0.33f;
+
     private int defaultIQ; 
     // Public Properties //
 
@@ -19,12 +28,10 @@ public class ArcaneAttackingModule : AttackingModule
     new private void Start()
     {
         defaultIQ = mainModule.MovementModule.MovementIQ;
-        base.Start();
-    }
+        if(IQ > 2)
+            InvokeRepeating("SpecialAttackDecision", 0f, 2.5f);
 
-    private void Update()
-    {
-        Debug.DrawRay(transform.position, Player.transform.position - transform.position + Vector3.up, Color.red);
+        base.Start();
     }
     #endregion
 
@@ -35,6 +42,12 @@ public class ArcaneAttackingModule : AttackingModule
     private void AttackPlayer()
     {
        StartCoroutine("AnimateAttack");
+    }
+
+    private void SpecialAttackDecision()
+    {
+        if (SeePlayer(SpecialAttackDetectRange) && Random.Range(0, 1) < SpecialAttackChance)
+            StartCoroutine("SpecialAttack");
     }
 
     private IEnumerator AnimateAttack()
@@ -67,6 +80,12 @@ public class ArcaneAttackingModule : AttackingModule
                 InvokeRepeating("AttackPlayer", 0, 1f);
             }
         }
+    }
+
+    private IEnumerator SpecialAttack()
+    {
+        yield return new WaitForSeconds(SpecialAttackCastingTime);
+        GameObject attack = Instantiate(SpecialAttackProjectile, transform.position, Quaternion.identity);
     }
     #endregion
 }
