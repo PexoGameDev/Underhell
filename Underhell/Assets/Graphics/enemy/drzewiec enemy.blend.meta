@@ -1,0 +1,331 @@
+fileFormatVersion: 2
+guid: 5aae769923c299b4db904eef3db3dddb
+timeCreated: 1523121929
+licenseType: Free
+ModelImporter:
+  serializedVersion: 22
+  fileIDToRecycleName:
+    100000: Armature
+    100002: BezierCurve
+    100004: BezierCurve_003
+    100006: BezierCurve_005
+    100008: body
+    100010: body_001
+    100012: body_002
+    100014: body_003
+    100016: body_004
+    100018: body_005
+    100020: body_006
+    100022: body_007
+    100024: body_008
+    100026: body_009
+    100028: body_010
+    100030: body_011
+    100032: body_012
+    100034: body_013
+    100036: body_014
+    100038: body_015
+    100040: body_016
+    100042: body_017
+    100044: body_018
+    100046: body_019
+    100048: body_020
+    100050: body_021
+    100052: body_022
+    100054: body_023
+    100056: body_024
+    100058: body_025
+    100060: body_026
+    100062: body_027
+    100064: body_028
+    100066: body_029
+    100068: body_030
+    100070: body_031
+    100072: body_032
+    100074: body_033
+    100076: body_034
+    100078: body_035
+    100080: body_037
+    100082: body_038
+    100084: body_039
+    100086: body_040
+    100088: body_041
+    100090: body_042
+    100092: body_043
+    100094: body_044
+    100096: body_045
+    100098: Cube_003
+    100100: Cube_006
+    100102: //RootNode
+    100104: Plane
+    100106: reka
+    100108: reka_ster
+    100110: root
+    400000: Armature
+    400002: BezierCurve
+    400004: BezierCurve_003
+    400006: BezierCurve_005
+    400008: body
+    400010: body_001
+    400012: body_002
+    400014: body_003
+    400016: body_004
+    400018: body_005
+    400020: body_006
+    400022: body_007
+    400024: body_008
+    400026: body_009
+    400028: body_010
+    400030: body_011
+    400032: body_012
+    400034: body_013
+    400036: body_014
+    400038: body_015
+    400040: body_016
+    400042: body_017
+    400044: body_018
+    400046: body_019
+    400048: body_020
+    400050: body_021
+    400052: body_022
+    400054: body_023
+    400056: body_024
+    400058: body_025
+    400060: body_026
+    400062: body_027
+    400064: body_028
+    400066: body_029
+    400068: body_030
+    400070: body_031
+    400072: body_032
+    400074: body_033
+    400076: body_034
+    400078: body_035
+    400080: body_037
+    400082: body_038
+    400084: body_039
+    400086: body_040
+    400088: body_041
+    400090: body_042
+    400092: body_043
+    400094: body_044
+    400096: body_045
+    400098: Cube_003
+    400100: Cube_006
+    400102: //RootNode
+    400104: Plane
+    400106: reka
+    400108: reka_ster
+    400110: root
+    2100000: Material
+    2100002: Material_005
+    2100004: eki
+    2100006: Material_002
+    2100008: stone
+    2100010: Material_003
+    2100012: branches
+    2100014: runes
+    2100016: crystal
+    2300000: BezierCurve
+    2300002: Cube_003
+    3300000: BezierCurve
+    3300002: Cube_003
+    4300000: Cube_003
+    4300002: BezierCurve
+    4300004: BezierCurve_003
+    4300006: Plane
+    4300008: BezierCurve_005
+    4300010: Cube_006
+    7400000: Default Take
+    7400002: idle
+    7400004: special_attack_start
+    7400006: attack_normal
+    9500000: //RootNode
+    13700000: BezierCurve_003
+    13700002: BezierCurve_005
+    13700004: Cube_006
+    13700006: Plane
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: branches
+    second: {fileID: 2100000, guid: c1709a92c72629d47ad39cdb4afe497f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: crystal
+    second: {fileID: 2100000, guid: 0157816837025b94d952c29b797d7a20, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: runes
+    second: {fileID: 2100000, guid: 868e4399f67e5174186d28ba1e1b85ff, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: stone
+    second: {fileID: 2100000, guid: 7ee3fc0fc30d6a840b9cbeda01bd1306, type: 2}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: attack_normal
+      takeName: attack_normal
+      firstFrame: -1
+      lastFrame: 37
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: idle
+      takeName: idle
+      firstFrame: 0
+      lastFrame: 189
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: special_attack_start
+      takeName: special_attack_start
+      firstFrame: -1
+      lastFrame: 29
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
