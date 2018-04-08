@@ -133,12 +133,25 @@ MonoBehaviour:
   Cooldown: 1.5
   AttackRange: 50
   KnockBackForce: 1
-  playerLayer: 0
   Player: {fileID: 0}
+  mainModule: {fileID: 0}
+  playerLayer: 0
+  groundLayer: 0
   ProjectileSpeed: 0.25
   projectilePrefab: {fileID: 1245595451002122, guid: 4c273f9b8b404be44adb5c5e8b8f93d2,
     type: 2}
   turnOffAutoTargetDistance: 4
+  SpecialAttackDamage: 10
+  SpecialAttackCooldown: 5
+  SpecialAttackDetectRange: 5
+  SpecialAttackCastingTime: 0.75
+  SpecialAttackChaseTime: 0.25
+  SpecialAttackDelayBeforeCC: 0.25
+  SpecialAttackColiderDuration: 0.5
+  SpecialAttackCCDuration: 3
+  SpecialAttackChance: 0.33
+  SpecialAttackProjectile: {fileID: 1232915596859430, guid: 56278dd72770c294d81d29848005bb78,
+    type: 2}
 --- !u!114 &114221927704853792
 MonoBehaviour:
   m_ObjectHideFlags: 1

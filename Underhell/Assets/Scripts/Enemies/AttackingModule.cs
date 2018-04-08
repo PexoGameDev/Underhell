@@ -12,8 +12,8 @@ public class AttackingModule : MonoBehaviour {
 
     [HideInInspector] public HPModule Player;
     [HideInInspector] public Enemy mainModule;
-    public int playerLayer;
-    public int groundLayer;
+    [HideInInspector] public int playerLayer;
+    [HideInInspector] public int groundLayer;
     // Public Properties //
 
     // Private Properties //

@@ -13,11 +13,15 @@ public class ArcaneAttackingModule : AttackingModule
     [SerializeField] private int SpecialAttackDamage = 10;
     [SerializeField] private float SpecialAttackCooldown = 5f;
     [SerializeField] private float SpecialAttackDetectRange = 5f;
-    [SerializeField] private float SpecialAttackDuration = 3f;
     [SerializeField] private float SpecialAttackCastingTime = 0.75f;
-    [SerializeField] private GameObject SpecialAttackProjectile;
+    [SerializeField] private float SpecialAttackChaseTime = 0.25f;
+    [SerializeField] private float SpecialAttackDelayBeforeCC = 0.25f;
+    [SerializeField] private float SpecialAttackColiderDuration = 0.5f;
+    [SerializeField] private float SpecialAttackCCDuration = 3f;
     [SerializeField] [Range(0, 1)] private float SpecialAttackChance = 0.33f;
+    [SerializeField] private GameObject SpecialAttackProjectile;
 
+    private bool isSpecialAttackOnCooldown = false;
     private int defaultIQ; 
     // Public Properties //
 
@@ -27,11 +31,8 @@ public class ArcaneAttackingModule : AttackingModule
     #region Unity Methods
     new private void Start()
     {
-        defaultIQ = mainModule.MovementModule.MovementIQ;
-        if(IQ > 2)
-            InvokeRepeating("SpecialAttackDecision", 0f, 2.5f);
-
         base.Start();
+        defaultIQ = mainModule.MovementModule.MovementIQ;
     }
     #endregion
 
@@ -41,13 +42,10 @@ public class ArcaneAttackingModule : AttackingModule
     #region Private Methods
     private void AttackPlayer()
     {
-       StartCoroutine("AnimateAttack");
-    }
-
-    private void SpecialAttackDecision()
-    {
-        if (SeePlayer(SpecialAttackDetectRange) && Random.Range(0, 1) < SpecialAttackChance)
+        if (IQ > 2 && !isSpecialAttackOnCooldown && SeePlayer(SpecialAttackDetectRange) && Random.Range(0, 1) < SpecialAttackChance)
             StartCoroutine("SpecialAttack");
+        else
+            StartCoroutine("AnimateAttack");
     }
 
     private IEnumerator AnimateAttack()
@@ -84,8 +82,29 @@ public class ArcaneAttackingModule : AttackingModule
 
     private IEnumerator SpecialAttack()
     {
+        CancelInvoke("AttackPlayer");
+
+        mainModule.MovementModule.MovementIQ = 0;
+
         yield return new WaitForSeconds(SpecialAttackCastingTime);
-        GameObject attack = Instantiate(SpecialAttackProjectile, transform.position, Quaternion.identity);
+
+        ArcaneSpecialAttack attack = Instantiate(SpecialAttackProjectile, transform.position, Quaternion.identity).GetComponent<ArcaneSpecialAttack>();
+        attack.CCDelay = SpecialAttackDelayBeforeCC;
+        attack.CCDuration = SpecialAttackCCDuration;
+        attack.ColliderDuration = SpecialAttackColiderDuration;
+        attack.Damage = SpecialAttackDamage;
+
+        yield return new WaitForSeconds(SpecialAttackChaseTime);
+
+        StartCoroutine(attack.Fire());
+
+        mainModule.MovementModule.MovementIQ = defaultIQ;
+
+        InvokeRepeating("AttackPlayer", 0, 1f);
+
+        isSpecialAttackOnCooldown = true;
+        yield return new WaitForSeconds(SpecialAttackCooldown);
+        isSpecialAttackOnCooldown = false;
     }
     #endregion
 }

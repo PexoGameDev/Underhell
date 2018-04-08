@@ -26,6 +26,8 @@ public class PlayerMovement : MonoBehaviour {
     private bool isDashing = false;
     private bool isReadyToLand = false;
 
+    [SerializeField] private bool isSnared = false;
+
     private int groundLayerMask;
     private int rotation;
 
@@ -272,6 +274,37 @@ public class PlayerMovement : MonoBehaviour {
     {
         yield return new WaitForSeconds(PlayerAnimationController.AnimationClips["Jump"].length * 0.5f);
         isReadyToLand = true;
+    }
+
+    public IEnumerator ApplyCCEffects(CC.CCEffect effect, float cooldown)
+    {
+        switch (effect)
+        {
+            default:
+                break;
+            case CC.CCEffect.Snare:
+                isSnared = true;
+                float defJumpForce = JumpForce;
+                float defMovementSpeed = MovementSpeed;
+                MovementSpeed = 0;
+                JumpForce = 0;
+
+                print("Zeroed'");
+
+                yield return new WaitForSeconds(cooldown);
+
+                print("returned'");
+
+                MovementSpeed = defMovementSpeed;
+                JumpForce = defJumpForce;
+                isSnared = false;
+                break;
+        }
+    }
+
+    public void ApplyCC(CC.CCEffect effect, float cooldown)
+    {
+        StartCoroutine(ApplyCCEffects(effect, cooldown));
     }
     #endregion
 }
