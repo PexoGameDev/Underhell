@@ -7,8 +7,10 @@ public class EquipmentManager : MonoBehaviour {
     // Fields //
     [SerializeField] private int runes;
 
+    private int selectedEQIndex = 0;
+    private int itemsInEQ = 0;
     private List<Chirograph> chirographs;
-    private List<EQItem> items;
+    private EQItem[] items;
     // Public Properties //
     public int Runes
     {
@@ -20,31 +22,43 @@ public class EquipmentManager : MonoBehaviour {
         get { return chirographs;}
         set { chirographs = value; }
     }
-    public List<EQItem> Items
+    public EQItem[] Items
     {
         get { return items; }
         set { items = value; }
     }
     // Private Properties //
+    private int SelectedEQIndex
+    {
+        get { return selectedEQIndex; }
+        set { selectedEQIndex = (value + 1) % 7; }
+    }
     #endregion
 
     #region Unity Methods
     void Start () {
-        items = new List<EQItem>();
+        items = new EQItem[7];
         chirographs = new List<Chirograph>();
-
     }
 
     void Update () {
-		
-	}
+        if (Input.mouseScrollDelta.y > 0)
+            SelectedEQIndex++;
+        if (Input.mouseScrollDelta.y < 0)
+            SelectedEQIndex--;
+
+    }
     #endregion
 
     #region Public Methods
-    public void AddItem(EQItem item)
+    public bool AddItem(EQItem item)
     {
-        Items.Add(item);
+        if (itemsInEQ >= 7)
+            return false;
+
+        Items[itemsInEQ++] = item;
         item.ApplyEffects(gameObject);
+        return true;
     }
 
     public void AddChirograph(Chirograph chirograph)
@@ -54,10 +68,11 @@ public class EquipmentManager : MonoBehaviour {
     #endregion
 
     #region Private Methods
-    private void DropItem(EQItem item)
+    private void DropItem(int eqFieldNumber)
     {
-        item.RevertEffects(gameObject);
-        Items.Remove(item);
+        Items[eqFieldNumber].RevertEffects(gameObject);
+        Items[eqFieldNumber] = null;
+        itemsInEQ--;
     }
     #endregion
 }

@@ -21,8 +21,8 @@ public class PickUpItem : MonoBehaviour {
         EquipmentManager playereq;
         if (playereq = other.GetComponent<EquipmentManager>())
         {
-            playereq.AddItem(EQItem);
-            Destroy(gameObject);
+            if(playereq.AddItem(EQItem))
+                Destroy(gameObject);
         }
     }
     #endregion
