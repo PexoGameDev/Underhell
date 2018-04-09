@@ -13,6 +13,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: BLACK LOTOS POISON
   Description: 4d6 Con damage?! That's ridiculous!
+  Image: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
   MovementSpeed: 0
   JumpHeight: 0
   JumpForce: 0

@@ -8,6 +8,7 @@ public class EQItem : ScriptableObject {
     // Fields //
     public string Name;
     public string Description;
+    public Sprite Image;
 
     public float MovementSpeed;
     public float JumpHeight;

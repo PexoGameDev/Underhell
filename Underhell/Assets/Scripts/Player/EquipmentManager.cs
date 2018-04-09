@@ -32,7 +32,14 @@ public class EquipmentManager : MonoBehaviour {
     private int SelectedEQIndex
     {
         get { return selectedEQIndex; }
-        set { selectedEQIndex = (value + 1) % 7; }
+        set
+        {
+            if (value > 0)
+                selectedEQIndex = value % 7;
+            else
+                if ((selectedEQIndex = value) < 0)
+                    selectedEQIndex = 6;
+        }
     }
     #endregion
 
@@ -43,10 +50,23 @@ public class EquipmentManager : MonoBehaviour {
     }
 
     void Update () {
-        if (Input.mouseScrollDelta.y > 0)
+        if (Input.mouseScrollDelta.y > 0f)
+        {
             SelectedEQIndex++;
-        if (Input.mouseScrollDelta.y < 0)
+            if(Items[SelectedEQIndex] != null)
+                UIManager.HighlightItemEQImage(SelectedEQIndex, Items[SelectedEQIndex].Name);
+            else
+                UIManager.HighlightItemEQImage(SelectedEQIndex, "");
+        }
+        else if (Input.mouseScrollDelta.y < 0f)
+        {
             SelectedEQIndex--;
+            if (Items[SelectedEQIndex] != null)
+                UIManager.HighlightItemEQImage(SelectedEQIndex, Items[SelectedEQIndex].Name);
+            else
+                UIManager.HighlightItemEQImage(SelectedEQIndex, "");
+        }
+
 
         if (Input.GetKeyDown(KeyCode.Backspace))
             DropItem(SelectedEQIndex);
@@ -60,8 +80,9 @@ public class EquipmentManager : MonoBehaviour {
             return false;
 
         Items[itemsInEQ] = item;
-        itemsInEQ++;
+        UIManager.SetEQItemImage(itemsInEQ, item.Image);
         item.ApplyEffects(gameObject);
+        itemsInEQ++;
 
         if(fadingCoroutine != null)
             StopCoroutine(fadingCoroutine);
@@ -80,8 +101,18 @@ public class EquipmentManager : MonoBehaviour {
     {
         print("I'm droping: " + Items[0].name);
         Items[eqFieldNumber].RevertEffects(gameObject);
+        UIManager.SetEQItemImage(eqFieldNumber, null); // ADD DEFAULT EQ ITEM ICON
         //ADD DROPING ITEM ON THE GROUND
         //MOVE ALL ITEMS ABOVE IT ONE FIELD BELOW SO ALWAYS ADD NEW ITEM ON TOP OF ARRAY
+        if(eqFieldNumber > 5)
+            for(int i = eqFieldNumber + 1; i < Items.Length; i++)
+            {
+                if (Items[i] == null)
+                    break;
+
+                Items[i - 1] = Items[i];
+            }
+
         Items[eqFieldNumber] = null;
         itemsInEQ--;
     }
