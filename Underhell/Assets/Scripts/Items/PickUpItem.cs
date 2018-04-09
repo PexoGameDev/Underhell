@@ -21,10 +21,6 @@ public class PickUpItem : MonoBehaviour {
             if (playereq.AddItem(EQitem))
             {
                 Destroy(gameObject);
-                UIManager.ItemNameText.text = EQitem.Name;
-                UIManager.ItemDescriptionText.text = EQitem.Description;
-                UIManager.ItemDescriptionText.canvasRenderer.SetAlpha(1f);
-                UIManager.ItemNameText.CrossFadeAlpha(0f, 2f, true);
             }
         }
     }

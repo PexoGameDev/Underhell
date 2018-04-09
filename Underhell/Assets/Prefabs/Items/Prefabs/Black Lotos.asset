@@ -11,6 +11,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cdb183efa87a9d747b86f3ec089d1f43, type: 3}
   m_Name: Black Lotos
   m_EditorClassIdentifier: 
+  Name: BLACK LOTOS POISON
+  Description: 4d6 Con damage?! That's ridiculous!
   MovementSpeed: 0
   JumpHeight: 0
   JumpForce: 0
