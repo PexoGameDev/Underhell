@@ -11,6 +11,7 @@ public class EquipmentManager : MonoBehaviour {
     private int itemsInEQ = 0;
     private List<Chirograph> chirographs;
     [SerializeField] private EQItem[] items;
+    private Coroutine fadingCoroutine;
     // Public Properties //
     public int Runes
     {
@@ -47,8 +48,6 @@ public class EquipmentManager : MonoBehaviour {
         if (Input.mouseScrollDelta.y < 0)
             SelectedEQIndex--;
 
-        print(SelectedEQIndex);
-
         if (Input.GetKeyDown(KeyCode.Backspace))
             DropItem(SelectedEQIndex);
     }
@@ -63,6 +62,10 @@ public class EquipmentManager : MonoBehaviour {
         Items[itemsInEQ] = item;
         itemsInEQ++;
         item.ApplyEffects(gameObject);
+
+        if(fadingCoroutine != null)
+            StopCoroutine(fadingCoroutine);
+        fadingCoroutine = StartCoroutine(DisplayPickedUpItem(item));
         return true;
     }
 
@@ -81,6 +84,25 @@ public class EquipmentManager : MonoBehaviour {
         //MOVE ALL ITEMS ABOVE IT ONE FIELD BELOW SO ALWAYS ADD NEW ITEM ON TOP OF ARRAY
         Items[eqFieldNumber] = null;
         itemsInEQ--;
+    }
+
+    private IEnumerator DisplayPickedUpItem(EQItem eqItem)
+    {
+        Color defaultNameColor = UIManager.ItemNameText.color;
+        Color defaultDescriptionColor = UIManager.ItemDescriptionText.color;
+
+        //UIManager.ItemNameText.color = new Color(defaultNameColor.r, defaultNameColor.g, defaultNameColor.b, 1f);
+       // UIManager.ItemDescriptionText.color = new Color(defaultDescriptionColor.r, defaultDescriptionColor.g, defaultDescriptionColor.b, 1f);
+
+        UIManager.ItemNameText.text = eqItem.Name;
+        UIManager.ItemDescriptionText.text = eqItem.Description;
+
+        while (UIManager.ItemNameText.color.a > 0)
+        {
+            UIManager.ItemNameText.color = new Color(defaultNameColor.r, defaultNameColor.g, defaultNameColor.b, UIManager.ItemNameText.color.a - 0.01f);
+            UIManager.ItemDescriptionText.color = new Color(defaultDescriptionColor.r, defaultDescriptionColor.g, defaultDescriptionColor.b, UIManager.ItemNameText.color.a - 0.01f);
+            yield return new WaitForEndOfFrame();
+        }
     }
     #endregion
 }

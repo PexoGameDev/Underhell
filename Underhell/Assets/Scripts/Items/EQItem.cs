@@ -6,6 +6,9 @@ using UnityEngine;
 public class EQItem : ScriptableObject {
     #region Variables
     // Fields //
+    public string Name;
+    public string Description;
+
     public float MovementSpeed;
     public float JumpHeight;
     public float JumpForce;

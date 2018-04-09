@@ -7,6 +7,10 @@ public class UIManager : MonoBehaviour {
     #region Variables
     // Fields //
     public static Text ScoreText;
+    public static Text ItemNameText;
+    public static Text ItemDescriptionText;
+    public static Text HighlightedItemText;
+
     // Public Properties //
 
     // Private Properties //
@@ -15,9 +19,12 @@ public class UIManager : MonoBehaviour {
     #region Unity Methods
     void Start () {
         ScoreText = GameObject.Find("ScoreText").GetComponent<Text>();
-	}
-	
-	void Update () {
+        ItemNameText = GameObject.Find("ItemNameText").GetComponent<Text>();
+        ItemDescriptionText = GameObject.Find("ItemDescriptionText").GetComponent<Text>();
+        HighlightedItemText = GameObject.Find("HighlightedItemText").GetComponent<Text>();
+    }
+
+    void Update () {
 		
 	}
     #endregion
