@@ -5,13 +5,13 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour {
     #region Variables
     // Fields //
-    [SerializeField] [Range(0f, 0.1f)] private float pickingUpSpeedPercentage = 0.25f;
-    [SerializeField] [Range(0f, 0.99f)] private float slowPercentageWhenAttacking = 0.6f;
-    [SerializeField] private float movementSpeed = 250f;
-    [SerializeField] private float jumpHeight = 5f;
-    [SerializeField] private float jumpForce = 20f;
-    [SerializeField] private float dashDistance = 10f;
-    [SerializeField] private float dashCooldown = 2f;
+    [Range(0f, 0.1f)] public float pickingUpSpeedPercentage = 0.25f;
+    [Range(0f, 0.99f)] public float slowPercentageWhenAttacking = 0.6f;
+    public float movementSpeed = 250f;
+    public float jumpHeight = 5f;
+    public float jumpForce = 20f;
+    public float dashDistance = 10f;
+    public float dashCooldown = 2f;
 
     [SerializeField] private KeyCode moveLeftKey = KeyCode.A;
     [SerializeField] private KeyCode dashLeftKey = KeyCode.Q;

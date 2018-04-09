@@ -54,7 +54,7 @@ public class HPModule : MonoBehaviour {
     #endregion
 
     #region Public Methods
-    public void GetHit(int damage, float knockBackForce, Vector3 knockBackDirection)
+    public void GetHit(int damage, float knockBackForce, Vector3 knockBackDirection, AttackEffect.DamageSource damageSource = AttackEffect.DamageSource.Physical)
     {
         if (!isInvulnerable)
         {

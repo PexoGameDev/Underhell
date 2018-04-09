@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WingedBoots : EQItem {
+public class Shield : EQItem {
+    
     #region Variables
     // Fields //
 
@@ -24,20 +25,13 @@ public class WingedBoots : EQItem {
     #region Public Methods
     public override void ApplyEffects(GameObject player)
     {
-        PlayerMovement playerMovement = player.GetComponentInParent<PlayerMovement>();
-
-        playerMovement.JumpHeight += 2f;
-        playerMovement.JumpForce += 8f;
+        player.GetComponent<ShieldModule>().enabled = true;
     }
 
     public override void RevertEffects(GameObject player)
     {
-        PlayerMovement playerMovement = player.GetComponentInParent<PlayerMovement>();
-
-        playerMovement.JumpHeight -= 2f;
-        playerMovement.JumpForce -= 8f;
+        //player.GetComponent<ShieldModule>().enabled = false;
     }
-
     #endregion
 
     #region Private Methods

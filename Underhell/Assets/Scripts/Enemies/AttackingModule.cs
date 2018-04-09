@@ -63,7 +63,7 @@ public class AttackingModule : MonoBehaviour {
             yield return StartCoroutine(AnimateAttack());
 
             if (Physics.Raycast(ray, AttackRange, playerLayer))
-                Player.GetHit(Damage, KnockBackForce, transform.position);
+                Player.GetHit(Damage, KnockBackForce, transform.position, AttackEffect.DamageSource.Physical);
 
             yield return new WaitForSeconds(Cooldown);
         }

@@ -1,5 +1,5 @@
-﻿
-public class EQItemDefensiveModule{
+﻿using UnityEngine;
+public class EQItemDefensiveModule : MonoBehaviour{
     public float InvulnerabilityDuration = 0f;
     public int MaxHP = 0;
     public int hP = 0;
