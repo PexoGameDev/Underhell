@@ -52,6 +52,17 @@ ModelImporter:
     100092: zamek_posadzka_2_001
     100094: zamek_posadzka_2_002
     100096: zamek_posadzka_2_003
+    100098: Cylinder
+    100100: Cylinder_001
+    100102: Cylinder_002
+    100104: Empty
+    100106: Empty_001
+    100108: gruz
+    100110: sciana_wieksze_kamienie_000
+    100112: sciana_wieksze_kamienie_001
+    100114: sciana_wieksze_kamienie_002
+    100116: sciana_wieksze_kamienie_003
+    100118: skruszony_filar
     400000: cela_box
     400002: Cube_000
     400004: kamien_plyta_001
@@ -101,6 +112,17 @@ ModelImporter:
     400092: zamek_posadzka_2_001
     400094: zamek_posadzka_2_002
     400096: zamek_posadzka_2_003
+    400098: Cylinder
+    400100: Cylinder_001
+    400102: Cylinder_002
+    400104: Empty
+    400106: Empty_001
+    400108: gruz
+    400110: sciana_wieksze_kamienie_000
+    400112: sciana_wieksze_kamienie_001
+    400114: sciana_wieksze_kamienie_002
+    400116: sciana_wieksze_kamienie_003
+    400118: skruszony_filar
     2100000: metal
     2100002: ogien_pochodnia
     2100004: kamien_sciana
@@ -157,6 +179,15 @@ ModelImporter:
     2300090: zamek_posadzka_2_001
     2300092: zamek_posadzka_2_002
     2300094: zamek_posadzka_2_003
+    2300096: Cylinder
+    2300098: Cylinder_001
+    2300100: Cylinder_002
+    2300102: gruz
+    2300104: sciana_wieksze_kamienie_000
+    2300106: sciana_wieksze_kamienie_001
+    2300108: sciana_wieksze_kamienie_002
+    2300110: sciana_wieksze_kamienie_003
+    2300112: skruszony_filar
     3300000: cela_box
     3300002: Cube_000
     3300004: kamien_plyta_001
@@ -205,6 +236,15 @@ ModelImporter:
     3300090: zamek_posadzka_2_001
     3300092: zamek_posadzka_2_002
     3300094: zamek_posadzka_2_003
+    3300096: Cylinder
+    3300098: Cylinder_001
+    3300100: Cylinder_002
+    3300102: gruz
+    3300104: sciana_wieksze_kamienie_000
+    3300106: sciana_wieksze_kamienie_001
+    3300108: sciana_wieksze_kamienie_002
+    3300110: sciana_wieksze_kamienie_003
+    3300112: skruszony_filar
     4300000: pochodnia_ala_mero
     4300002: sciana_podwojna_zniszczona_001
     4300004: sciana_podwojna_zniszczona_002
@@ -253,6 +293,15 @@ ModelImporter:
     4300090: zamek_posadzka_2_002
     4300092: zamek_posadzka_003
     4300094: zamek_posadzka_2_003
+    4300096: skruszony_filar
+    4300098: gruz
+    4300100: Cylinder_002
+    4300102: Cylinder_001
+    4300104: Cylinder
+    4300106: sciana_wieksze_kamienie_003
+    4300108: sciana_wieksze_kamienie_000
+    4300110: sciana_wieksze_kamienie_001
+    4300112: sciana_wieksze_kamienie_002
     7400000: Default Take
     9500000: //RootNode
     2186277476908879412: ImportLogs
