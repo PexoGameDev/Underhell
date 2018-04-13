@@ -8187,6 +8187,11 @@ Prefab:
       propertyPath: m_Intensity
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 23346531706591594, guid: 4c9c291a7a027eb44a8b23f3383037b5,
+        type: 2}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 6d78d19399fa9f441bc73277663adca0, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 4c9c291a7a027eb44a8b23f3383037b5, type: 2}
   m_IsPrefabParent: 0
@@ -10937,7 +10942,7 @@ Prefab:
         type: 2}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: a313824f25167584590eea7d16fd0942, type: 2}
+      objectReference: {fileID: 2100000, guid: 6d78d19399fa9f441bc73277663adca0, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 9db63ca65cd5f8c44b81a46b2df9cdb0, type: 2}
   m_IsPrefabParent: 0
@@ -11579,6 +11584,11 @@ Prefab:
       propertyPath: m_Name
       value: krata_g_ra (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 23440782957137220, guid: 9db63ca65cd5f8c44b81a46b2df9cdb0,
+        type: 2}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 283b2d84383bbb74fa143fe889a1521c, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 9db63ca65cd5f8c44b81a46b2df9cdb0, type: 2}
   m_IsPrefabParent: 0
