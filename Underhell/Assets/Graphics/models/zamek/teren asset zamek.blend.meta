@@ -63,6 +63,96 @@ ModelImporter:
     100114: sciana_wieksze_kamienie_002
     100116: sciana_wieksze_kamienie_003
     100118: skruszony_filar
+    100120: crystal_003
+    100122: crystal_004
+    100124: crystal_005
+    100126: crystal_006
+    100128: crystal_007
+    100130: crystal_008
+    100132: crystal_009
+    100134: crystal_010
+    100136: crystal_011
+    100138: crystal_012
+    100140: crystal_013
+    100142: crystal_014
+    100144: crystal_015
+    100146: crystal_016
+    100148: Cube_001
+    100150: Cube_012
+    100152: Cube_019
+    100154: deska
+    100156: deska_001
+    100158: deska_odlamki_cell
+    100160: deska_odlamki_cell_001
+    100162: deska_odlamki_cell_003
+    100164: deska_odlamki_cell_004
+    100166: deska_odlamki_cell_005
+    100168: deska_odlamki_cell_006
+    100170: deska_odlamki_cell_007
+    100172: deska_odlamki_cell_008
+    100174: deska_odlamki_cell_009
+    100176: deska_odlamki_cell_010
+    100178: deska_odlamki_cell_011
+    100180: deska_odlamki_cell_012
+    100182: FILAR_OGRAGLY
+    100184: FILAR_OGRAGLY_001
+    100186: FILAR_OKRAGLY
+    100188: grzyby
+    100190: grzyby_001
+    100192: grzyby_002
+    100194: grzyby_003
+    100196: grzybymaly
+    100198: grzybymaly_001
+    100200: grzybymaly_002
+    100202: kolumna
+    100204: kolumna_000
+    100206: KRATY_PRET
+    100208: KROZENIE
+    100210: KROZENIE_001
+    100212: KROZENIE_002
+    100214: KROZENIE_003
+    100216: KROZENIE_004
+    100218: lina
+    100220: lina_001
+    100222: lina_002
+    100224: lina_003
+    100226: lina_004
+    100228: MISKA
+    100230: pochodnia_ala_mero_001
+    100232: podstawa
+    100234: podstawa_drewniana
+    100236: podstawa_drewniana_001
+    100238: "PR\u0118T"
+    100240: sciana_wieksze_kamienie_004
+    100242: sciana_wieksze_kamienie_005
+    100244: sciana_wieksze_kamienie_006
+    100246: sciana_wieksze_kamienie_007
+    100248: sciana_wieksze_kamienie_008
+    100250: sciana_wieksze_kamienie_009
+    100252: sciana_wieksze_kamienie_010
+    100254: sciana_wieksze_kamienie_011
+    100256: sciana_wieksze_kamienie_012
+    100258: sciana_wieksze_kamienie_013
+    100260: sciana_wieksze_kamienie_014
+    100262: sciana_wieksze_kamienie_015
+    100264: sciana_wieksze_kamienie_016
+    100266: WEB_BENDED
+    100268: WEB_BENDED_001
+    100270: WEB_BENDED_002
+    100272: WEB_BENDED_003
+    100274: WEB_BENDED_004
+    100276: WEB_BENDED_005
+    100278: WEB_FLAT
+    100280: WEB_FLAT_001
+    100282: WEB_FLAT_002
+    100284: WEB_FLAT_003
+    100286: WEB_FLAT_004
+    100288: WEB_FLAT_005
+    100290: zbite_deski
+    100292: zbite_deski_001
+    100294: zbite_deski_002
+    100296: zbite_deski_003
+    100298: zbite_deski_004
     400000: cela_box
     400002: Cube_000
     400004: kamien_plyta_001
@@ -123,6 +213,96 @@ ModelImporter:
     400114: sciana_wieksze_kamienie_002
     400116: sciana_wieksze_kamienie_003
     400118: skruszony_filar
+    400120: crystal_003
+    400122: crystal_004
+    400124: crystal_005
+    400126: crystal_006
+    400128: crystal_007
+    400130: crystal_008
+    400132: crystal_009
+    400134: crystal_010
+    400136: crystal_011
+    400138: crystal_012
+    400140: crystal_013
+    400142: crystal_014
+    400144: crystal_015
+    400146: crystal_016
+    400148: Cube_001
+    400150: Cube_012
+    400152: Cube_019
+    400154: deska
+    400156: deska_001
+    400158: deska_odlamki_cell
+    400160: deska_odlamki_cell_001
+    400162: deska_odlamki_cell_003
+    400164: deska_odlamki_cell_004
+    400166: deska_odlamki_cell_005
+    400168: deska_odlamki_cell_006
+    400170: deska_odlamki_cell_007
+    400172: deska_odlamki_cell_008
+    400174: deska_odlamki_cell_009
+    400176: deska_odlamki_cell_010
+    400178: deska_odlamki_cell_011
+    400180: deska_odlamki_cell_012
+    400182: FILAR_OGRAGLY
+    400184: FILAR_OGRAGLY_001
+    400186: FILAR_OKRAGLY
+    400188: grzyby
+    400190: grzyby_001
+    400192: grzyby_002
+    400194: grzyby_003
+    400196: grzybymaly
+    400198: grzybymaly_001
+    400200: grzybymaly_002
+    400202: kolumna
+    400204: kolumna_000
+    400206: KRATY_PRET
+    400208: KROZENIE
+    400210: KROZENIE_001
+    400212: KROZENIE_002
+    400214: KROZENIE_003
+    400216: KROZENIE_004
+    400218: lina
+    400220: lina_001
+    400222: lina_002
+    400224: lina_003
+    400226: lina_004
+    400228: MISKA
+    400230: pochodnia_ala_mero_001
+    400232: podstawa
+    400234: podstawa_drewniana
+    400236: podstawa_drewniana_001
+    400238: "PR\u0118T"
+    400240: sciana_wieksze_kamienie_004
+    400242: sciana_wieksze_kamienie_005
+    400244: sciana_wieksze_kamienie_006
+    400246: sciana_wieksze_kamienie_007
+    400248: sciana_wieksze_kamienie_008
+    400250: sciana_wieksze_kamienie_009
+    400252: sciana_wieksze_kamienie_010
+    400254: sciana_wieksze_kamienie_011
+    400256: sciana_wieksze_kamienie_012
+    400258: sciana_wieksze_kamienie_013
+    400260: sciana_wieksze_kamienie_014
+    400262: sciana_wieksze_kamienie_015
+    400264: sciana_wieksze_kamienie_016
+    400266: WEB_BENDED
+    400268: WEB_BENDED_001
+    400270: WEB_BENDED_002
+    400272: WEB_BENDED_003
+    400274: WEB_BENDED_004
+    400276: WEB_BENDED_005
+    400278: WEB_FLAT
+    400280: WEB_FLAT_001
+    400282: WEB_FLAT_002
+    400284: WEB_FLAT_003
+    400286: WEB_FLAT_004
+    400288: WEB_FLAT_005
+    400290: zbite_deski
+    400292: zbite_deski_001
+    400294: zbite_deski_002
+    400296: zbite_deski_003
+    400298: zbite_deski_004
     2100000: metal
     2100002: ogien_pochodnia
     2100004: kamien_sciana
@@ -131,6 +311,23 @@ ModelImporter:
     2100010: unnamed
     2100012: metal_krata
     2100014: kamien_posadzka_inny
+    2100016: WEB
+    2100018: KORZENIE
+    2100020: metal_001
+    2100022: crystal
+    2100024: emit
+    2100026: Material_010
+    2100028: Material_011
+    2100030: Material
+    2100032: Material_000
+    2100034: Material_003
+    2100036: srubki
+    2100038: latarnia_metal
+    2100040: emit_latarnia
+    2100042: lampa_metal_001
+    2100044: "lampa_swiat\u0142o"
+    2100046: grzyby
+    2100048: nieokreslono
     2300000: cela_box
     2300002: Cube_000
     2300004: kamien_plyta_001
@@ -188,6 +385,96 @@ ModelImporter:
     2300108: sciana_wieksze_kamienie_002
     2300110: sciana_wieksze_kamienie_003
     2300112: skruszony_filar
+    2300114: crystal_003
+    2300116: crystal_004
+    2300118: crystal_005
+    2300120: crystal_006
+    2300122: crystal_007
+    2300124: crystal_008
+    2300126: crystal_009
+    2300128: crystal_010
+    2300130: crystal_011
+    2300132: crystal_012
+    2300134: crystal_013
+    2300136: crystal_014
+    2300138: crystal_015
+    2300140: crystal_016
+    2300142: Cube_001
+    2300144: Cube_012
+    2300146: Cube_019
+    2300148: deska
+    2300150: deska_001
+    2300152: deska_odlamki_cell
+    2300154: deska_odlamki_cell_001
+    2300156: deska_odlamki_cell_003
+    2300158: deska_odlamki_cell_004
+    2300160: deska_odlamki_cell_005
+    2300162: deska_odlamki_cell_006
+    2300164: deska_odlamki_cell_007
+    2300166: deska_odlamki_cell_008
+    2300168: deska_odlamki_cell_009
+    2300170: deska_odlamki_cell_010
+    2300172: deska_odlamki_cell_011
+    2300174: deska_odlamki_cell_012
+    2300176: FILAR_OGRAGLY
+    2300178: FILAR_OGRAGLY_001
+    2300180: FILAR_OKRAGLY
+    2300182: grzyby
+    2300184: grzyby_001
+    2300186: grzyby_002
+    2300188: grzyby_003
+    2300190: grzybymaly
+    2300192: grzybymaly_001
+    2300194: grzybymaly_002
+    2300196: kolumna
+    2300198: kolumna_000
+    2300200: KRATY_PRET
+    2300202: KROZENIE
+    2300204: KROZENIE_001
+    2300206: KROZENIE_002
+    2300208: KROZENIE_003
+    2300210: KROZENIE_004
+    2300212: lina
+    2300214: lina_001
+    2300216: lina_002
+    2300218: lina_003
+    2300220: lina_004
+    2300222: MISKA
+    2300224: pochodnia_ala_mero_001
+    2300226: podstawa
+    2300228: podstawa_drewniana
+    2300230: podstawa_drewniana_001
+    2300232: "PR\u0118T"
+    2300234: sciana_wieksze_kamienie_004
+    2300236: sciana_wieksze_kamienie_005
+    2300238: sciana_wieksze_kamienie_006
+    2300240: sciana_wieksze_kamienie_007
+    2300242: sciana_wieksze_kamienie_008
+    2300244: sciana_wieksze_kamienie_009
+    2300246: sciana_wieksze_kamienie_010
+    2300248: sciana_wieksze_kamienie_011
+    2300250: sciana_wieksze_kamienie_012
+    2300252: sciana_wieksze_kamienie_013
+    2300254: sciana_wieksze_kamienie_014
+    2300256: sciana_wieksze_kamienie_015
+    2300258: sciana_wieksze_kamienie_016
+    2300260: WEB_BENDED
+    2300262: WEB_BENDED_001
+    2300264: WEB_BENDED_002
+    2300266: WEB_BENDED_003
+    2300268: WEB_BENDED_004
+    2300270: WEB_BENDED_005
+    2300272: WEB_FLAT
+    2300274: WEB_FLAT_001
+    2300276: WEB_FLAT_002
+    2300278: WEB_FLAT_003
+    2300280: WEB_FLAT_004
+    2300282: WEB_FLAT_005
+    2300284: zbite_deski
+    2300286: zbite_deski_001
+    2300288: zbite_deski_002
+    2300290: zbite_deski_003
+    2300292: zbite_deski_004
     3300000: cela_box
     3300002: Cube_000
     3300004: kamien_plyta_001
@@ -245,6 +532,96 @@ ModelImporter:
     3300108: sciana_wieksze_kamienie_002
     3300110: sciana_wieksze_kamienie_003
     3300112: skruszony_filar
+    3300114: crystal_003
+    3300116: crystal_004
+    3300118: crystal_005
+    3300120: crystal_006
+    3300122: crystal_007
+    3300124: crystal_008
+    3300126: crystal_009
+    3300128: crystal_010
+    3300130: crystal_011
+    3300132: crystal_012
+    3300134: crystal_013
+    3300136: crystal_014
+    3300138: crystal_015
+    3300140: crystal_016
+    3300142: Cube_001
+    3300144: Cube_012
+    3300146: Cube_019
+    3300148: deska
+    3300150: deska_001
+    3300152: deska_odlamki_cell
+    3300154: deska_odlamki_cell_001
+    3300156: deska_odlamki_cell_003
+    3300158: deska_odlamki_cell_004
+    3300160: deska_odlamki_cell_005
+    3300162: deska_odlamki_cell_006
+    3300164: deska_odlamki_cell_007
+    3300166: deska_odlamki_cell_008
+    3300168: deska_odlamki_cell_009
+    3300170: deska_odlamki_cell_010
+    3300172: deska_odlamki_cell_011
+    3300174: deska_odlamki_cell_012
+    3300176: FILAR_OGRAGLY
+    3300178: FILAR_OGRAGLY_001
+    3300180: FILAR_OKRAGLY
+    3300182: grzyby
+    3300184: grzyby_001
+    3300186: grzyby_002
+    3300188: grzyby_003
+    3300190: grzybymaly
+    3300192: grzybymaly_001
+    3300194: grzybymaly_002
+    3300196: kolumna
+    3300198: kolumna_000
+    3300200: KRATY_PRET
+    3300202: KROZENIE
+    3300204: KROZENIE_001
+    3300206: KROZENIE_002
+    3300208: KROZENIE_003
+    3300210: KROZENIE_004
+    3300212: lina
+    3300214: lina_001
+    3300216: lina_002
+    3300218: lina_003
+    3300220: lina_004
+    3300222: MISKA
+    3300224: pochodnia_ala_mero_001
+    3300226: podstawa
+    3300228: podstawa_drewniana
+    3300230: podstawa_drewniana_001
+    3300232: "PR\u0118T"
+    3300234: sciana_wieksze_kamienie_004
+    3300236: sciana_wieksze_kamienie_005
+    3300238: sciana_wieksze_kamienie_006
+    3300240: sciana_wieksze_kamienie_007
+    3300242: sciana_wieksze_kamienie_008
+    3300244: sciana_wieksze_kamienie_009
+    3300246: sciana_wieksze_kamienie_010
+    3300248: sciana_wieksze_kamienie_011
+    3300250: sciana_wieksze_kamienie_012
+    3300252: sciana_wieksze_kamienie_013
+    3300254: sciana_wieksze_kamienie_014
+    3300256: sciana_wieksze_kamienie_015
+    3300258: sciana_wieksze_kamienie_016
+    3300260: WEB_BENDED
+    3300262: WEB_BENDED_001
+    3300264: WEB_BENDED_002
+    3300266: WEB_BENDED_003
+    3300268: WEB_BENDED_004
+    3300270: WEB_BENDED_005
+    3300272: WEB_FLAT
+    3300274: WEB_FLAT_001
+    3300276: WEB_FLAT_002
+    3300278: WEB_FLAT_003
+    3300280: WEB_FLAT_004
+    3300282: WEB_FLAT_005
+    3300284: zbite_deski
+    3300286: zbite_deski_001
+    3300288: zbite_deski_002
+    3300290: zbite_deski_003
+    3300292: zbite_deski_004
     4300000: pochodnia_ala_mero
     4300002: sciana_podwojna_zniszczona_001
     4300004: sciana_podwojna_zniszczona_002
@@ -302,10 +679,185 @@ ModelImporter:
     4300108: sciana_wieksze_kamienie_000
     4300110: sciana_wieksze_kamienie_001
     4300112: sciana_wieksze_kamienie_002
+    4300114: WEB_BENDED_005
+    4300116: WEB_BENDED_004
+    4300118: WEB_BENDED_003
+    4300120: WEB_BENDED_002
+    4300122: WEB_BENDED_001
+    4300124: WEB_FLAT_005
+    4300126: WEB_FLAT_004
+    4300128: WEB_FLAT_003
+    4300130: WEB_FLAT_002
+    4300132: WEB_FLAT_001
+    4300134: WEB_BENDED
+    4300136: WEB_FLAT
+    4300138: KROZENIE_004
+    4300140: KROZENIE_003
+    4300142: KROZENIE_002
+    4300144: KROZENIE_001
+    4300146: KROZENIE
+    4300148: pochodnia_ala_mero_001
+    4300150: zbite_deski_004
+    4300152: zbite_deski_003
+    4300154: zbite_deski_002
+    4300156: zbite_deski_001
+    4300158: "PR\u0118T"
+    4300160: KRATY_PRET
+    4300162: MISKA
+    4300164: sciana_wieksze_kamienie_016
+    4300166: sciana_wieksze_kamienie_015
+    4300168: sciana_wieksze_kamienie_014
+    4300170: sciana_wieksze_kamienie_013
+    4300172: sciana_wieksze_kamienie_012
+    4300174: sciana_wieksze_kamienie_011
+    4300176: sciana_wieksze_kamienie_010
+    4300178: sciana_wieksze_kamienie_009
+    4300180: sciana_wieksze_kamienie_008
+    4300182: sciana_wieksze_kamienie_007
+    4300184: sciana_wieksze_kamienie_006
+    4300186: sciana_wieksze_kamienie_005
+    4300188: sciana_wieksze_kamienie_004
+    4300190: FILAR_OKRAGLY
+    4300192: FILAR_OGRAGLY_001
+    4300194: FILAR_OGRAGLY
+    4300196: crystal_003
+    4300198: crystal_004
+    4300200: crystal_005
+    4300202: crystal_006
+    4300204: crystal_007
+    4300206: crystal_008
+    4300208: crystal_009
+    4300210: crystal_010
+    4300212: crystal_011
+    4300214: crystal_012
+    4300216: crystal_013
+    4300218: crystal_014
+    4300220: crystal_015
+    4300222: crystal_016
+    4300224: Cube_001
+    4300226: Cube_012
+    4300228: Cube_019
+    4300230: deska
+    4300232: deska_odlamki_cell
+    4300234: deska_odlamki_cell_001
+    4300236: deska_odlamki_cell_003
+    4300238: deska_odlamki_cell_004
+    4300240: deska_odlamki_cell_005
+    4300242: deska_odlamki_cell_006
+    4300244: deska_odlamki_cell_007
+    4300246: deska_odlamki_cell_008
+    4300248: deska_odlamki_cell_009
+    4300250: deska_odlamki_cell_010
+    4300252: deska_odlamki_cell_011
+    4300254: deska_odlamki_cell_012
+    4300256: deska_001
+    4300258: grzyby
+    4300260: grzyby_001
+    4300262: grzyby_002
+    4300264: grzyby_003
+    4300266: grzybymaly
+    4300268: grzybymaly_001
+    4300270: grzybymaly_002
+    4300272: kolumna
+    4300274: kolumna_000
+    4300276: lina
+    4300278: lina_001
+    4300280: lina_002
+    4300282: lina_003
+    4300284: lina_004
+    4300286: podstawa
+    4300288: podstawa_drewniana
+    4300290: podstawa_drewniana_001
+    4300292: zbite_deski
     7400000: Default Take
     9500000: //RootNode
     2186277476908879412: ImportLogs
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: KORZENIE
+    second: {fileID: 2100000, guid: 2025567e0cd302c4dbff8fb11083f574, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: crystal
+    second: {fileID: 2100000, guid: 416d15cd169c5a0468b8346abad16527, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: emit
+    second: {fileID: 2100000, guid: 45df5e05a6b5ad04eb71a2dbaa7417c5, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: emit_latarnia
+    second: {fileID: 2100000, guid: 45df5e05a6b5ad04eb71a2dbaa7417c5, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: grzyby
+    second: {instanceID: 0}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: kamien_posadzka
+    second: {fileID: 2100000, guid: 5012371f6f6d385419df3f9a176da02a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: kamien_posadzka_inny
+    second: {fileID: 2100000, guid: 283b2d84383bbb74fa143fe889a1521c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: kamien_sciana
+    second: {fileID: 2100000, guid: a091fa51e1a04794db7e2df1e9728d0c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: lampa_metal_001
+    second: {fileID: 2100000, guid: 6d78d19399fa9f441bc73277663adca0, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: "lampa_swiat\u0142o"
+    second: {fileID: 2100000, guid: bd0e982068ea43743876c33359c03a89, type: 3}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: latarnia_metal
+    second: {fileID: 2100000, guid: 6d78d19399fa9f441bc73277663adca0, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: metal
+    second: {fileID: 2100000, guid: 6d78d19399fa9f441bc73277663adca0, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: metal_krata
+    second: {fileID: 2100000, guid: 6d78d19399fa9f441bc73277663adca0, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: metal_lancuch
+    second: {fileID: 2100000, guid: 6d78d19399fa9f441bc73277663adca0, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: nieokreslono
+    second: {fileID: 2100000, guid: 6d89a897958a56044abe580ee9d75cf1, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: ogien_pochodnia
+    second: {fileID: 2100000, guid: 45df5e05a6b5ad04eb71a2dbaa7417c5, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: srubki
+    second: {fileID: 2100000, guid: 6d78d19399fa9f441bc73277663adca0, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
