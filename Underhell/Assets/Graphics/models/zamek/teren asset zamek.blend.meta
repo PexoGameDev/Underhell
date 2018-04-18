@@ -153,6 +153,10 @@ ModelImporter:
     100294: zbite_deski_002
     100296: zbite_deski_003
     100298: zbite_deski_004
+    100300: paltforma
+    100302: schody_szerokie
+    100304: schody_waskie
+    100306: wbity_szczep
     400000: cela_box
     400002: Cube_000
     400004: kamien_plyta_001
@@ -303,6 +307,10 @@ ModelImporter:
     400294: zbite_deski_002
     400296: zbite_deski_003
     400298: zbite_deski_004
+    400300: paltforma
+    400302: schody_szerokie
+    400304: schody_waskie
+    400306: wbity_szczep
     2100000: metal
     2100002: ogien_pochodnia
     2100004: kamien_sciana
@@ -328,6 +336,8 @@ ModelImporter:
     2100044: "lampa_swiat\u0142o"
     2100046: grzyby
     2100048: nieokreslono
+    2100050: wood
+    2100052: metal_oszczep
     2300000: cela_box
     2300002: Cube_000
     2300004: kamien_plyta_001
@@ -475,6 +485,10 @@ ModelImporter:
     2300288: zbite_deski_002
     2300290: zbite_deski_003
     2300292: zbite_deski_004
+    2300294: paltforma
+    2300296: schody_szerokie
+    2300298: schody_waskie
+    2300300: wbity_szczep
     3300000: cela_box
     3300002: Cube_000
     3300004: kamien_plyta_001
@@ -622,6 +636,10 @@ ModelImporter:
     3300288: zbite_deski_002
     3300290: zbite_deski_003
     3300292: zbite_deski_004
+    3300294: paltforma
+    3300296: schody_szerokie
+    3300298: schody_waskie
+    3300300: wbity_szczep
     4300000: pochodnia_ala_mero
     4300002: sciana_podwojna_zniszczona_001
     4300004: sciana_podwojna_zniszczona_002
@@ -769,6 +787,10 @@ ModelImporter:
     4300288: podstawa_drewniana
     4300290: podstawa_drewniana_001
     4300292: zbite_deski
+    4300294: wbity_szczep
+    4300296: paltforma
+    4300298: schody_waskie
+    4300300: schody_szerokie
     7400000: Default Take
     9500000: //RootNode
     2186277476908879412: ImportLogs

@@ -9,74 +9,75 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 1090599699899926}
+  m_RootGameObject: {fileID: 1331677911756766}
   m_IsPrefabParent: 1
---- !u!1 &1090599699899926
+--- !u!1 &1001449630075138
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 5
   m_Component:
-  - component: {fileID: 4585820174491186}
-  - component: {fileID: 33384857707318678}
-  - component: {fileID: 23346531706591594}
+  - component: {fileID: 4644390812006046}
+  - component: {fileID: 108756218825458180}
+  - component: {fileID: 114147261683114776}
   m_Layer: 0
-  m_Name: latarnia
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967295
-  m_IsActive: 1
---- !u!1 &1469674862172010
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 4299540450791884}
-  - component: {fileID: 108973450459749630}
-  m_Layer: 0
-  m_Name: swiatlo latarnia
+  m_Name: swiatlo latarnia (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4299540450791884
+--- !u!1 &1331677911756766
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4204887108913150}
+  - component: {fileID: 33751069969768306}
+  - component: {fileID: 23977473370606048}
+  m_Layer: 0
+  m_Name: pochodnia_ala_mero
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4204887108913150
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1469674862172010}
-  m_LocalRotation: {x: 0.7071068, y: -0, z: 0, w: 0.7071067}
-  m_LocalPosition: {x: 0.0038999938, y: -0.0009000206, z: 0.16409998}
-  m_LocalScale: {x: 0.01, y: 0.009999998, z: 0.009999998}
-  m_Children: []
-  m_Father: {fileID: 4585820174491186}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &4585820174491186
-Transform:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1090599699899926}
-  m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
-  m_LocalPosition: {x: 121.5, y: -7.86, z: 57.59}
-  m_LocalScale: {x: 100, y: 100, z: 103.45538}
+  m_GameObject: {fileID: 1331677911756766}
+  m_LocalRotation: {x: -0.49146444, y: 0.50839233, z: 0.50839233, w: 0.49146444}
+  m_LocalPosition: {x: 130.3, y: 7.5, z: 52}
+  m_LocalScale: {x: 0.51100564, y: 0.51100564, z: 0.51100564}
   m_Children:
-  - {fileID: 4299540450791884}
+  - {fileID: 4644390812006046}
   m_Father: {fileID: 0}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: -90.00001, y: 0, z: 91.94}
+--- !u!4 &4644390812006046
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1001449630075138}
+  m_LocalRotation: {x: 0.49146444, y: -0.50839233, z: -0.50839233, w: 0.49146444}
+  m_LocalPosition: {x: -8.07, y: -1.76, z: 11.51}
+  m_LocalScale: {x: 2.0666509, y: 2.8067987, z: 2.0666502}
+  m_Children: []
+  m_Father: {fileID: 4204887108913150}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!23 &23346531706591594
+--- !u!23 &23977473370606048
 MeshRenderer:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1090599699899926}
+  m_GameObject: {fileID: 1331677911756766}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -84,8 +85,9 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: 5f82327c983164f42a592c266ee192ed, type: 3}
+  - {fileID: 2100000, guid: 6d89a897958a56044abe580ee9d75cf1, type: 2}
   - {fileID: 2100000, guid: 45df5e05a6b5ad04eb71a2dbaa7417c5, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
@@ -106,24 +108,24 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!33 &33384857707318678
+--- !u!33 &33751069969768306
 MeshFilter:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1090599699899926}
-  m_Mesh: {fileID: 4300000, guid: 5f82327c983164f42a592c266ee192ed, type: 3}
---- !u!108 &108973450459749630
+  m_GameObject: {fileID: 1331677911756766}
+  m_Mesh: {fileID: 4300000, guid: 2dc00473ca6ed07439bbc5eaaafff0ee, type: 3}
+--- !u!108 &108756218825458180
 Light:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1469674862172010}
+  m_GameObject: {fileID: 1001449630075138}
   m_Enabled: 1
   serializedVersion: 8
   m_Type: 2
-  m_Color: {r: 0.9044118, g: 0.403, b: 0.18620244, a: 1}
-  m_Intensity: 2.5
+  m_Color: {r: 0.31025273, g: 0.67555803, b: 0.7924528, a: 1}
+  m_Intensity: 1.17
   m_Range: 46.44
   m_SpotAngle: 30
   m_CookieSize: 10
@@ -144,8 +146,33 @@ Light:
     m_Bits: 4294967295
   m_Lightmapping: 1
   m_AreaSize: {x: 1, y: 1}
-  m_BounceIntensity: 1
+  m_BounceIntensity: 1.48
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!114 &114147261683114776
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1001449630075138}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dafc90245bfe9e2408e358f71deace2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SampleCount: 7
+  ScatteringCoef: 0.399
+  ExtinctionCoef: 0.032
+  SkyboxExtinctionCoef: 0.891
+  MieG: 0.673
+  HeightFog: 0
+  HeightScale: 0.1
+  GroundLevel: 0
+  Noise: 0
+  NoiseScale: 0.015
+  NoiseIntensity: 1
+  NoiseIntensityOffset: 0.3
+  NoiseVelocity: {x: 3, y: 3}
+  MaxRayLength: 400
