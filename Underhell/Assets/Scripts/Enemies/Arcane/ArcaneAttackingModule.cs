@@ -37,6 +37,11 @@ public class ArcaneAttackingModule : AttackingModule
         animationController = GetComponent<EnemyAnimationController>();
         defaultIQ = mainModule.MovementModule.MovementIQ;
     }
+
+    private void Update()
+    {
+        Debug.DrawRay(transform.position + transform.localScale.y * 0.5f * Vector3.up, Player.transform.position - transform.position, Color.magenta);
+    }
     #endregion
 
     #region Public Methods
@@ -53,20 +58,17 @@ public class ArcaneAttackingModule : AttackingModule
 
     private IEnumerator AnimateAttack()
     {
-        Ray ray = new Ray(transform.position + transform.localScale.y * 0.5f * Vector3.up, Player.transform.position - transform.position + Vector3.up * Player.transform.localScale.y);
+        Ray ray = new Ray(transform.position + transform.localScale.y * 0.5f * Vector3.up, Player.transform.position - transform.position);
 
         if (Physics.Raycast(ray, AttackRange, playerLayer))
         {
             if (!Physics.Raycast(ray,Vector3.Distance(transform.position,Player.transform.position), groundLayer))
             {
-
                 CancelInvoke("AttackPlayer");
                 mainModule.MovementModule.MovementIQ = 0;
-                animationController.SetBool("IsRunning", false);
-                animationController.CrossfadeAnimation("Attack", 0.2f);
-                animationController.SetBool("IsAttacking",true);
+                animationController.CrossfadeAnimation("Attack", 0.1f);
 
-                yield return new WaitForSeconds(animationController.AnimationClips["Arcane_attack"].length * 0.5f);
+                yield return new WaitForSeconds(animationController.AnimationClips["Attack"].length * 0.5f);
                 ArcaneProjectile aProjectile = Instantiate(projectilePrefab, ProjectileOrigin.transform.position, Quaternion.identity).GetComponent<ArcaneProjectile>();
                 aProjectile.transform.position = new Vector3(aProjectile.transform.position.x, aProjectile.transform.position.y, 0f);
                 aProjectile.Damage = Damage;
@@ -78,8 +80,8 @@ public class ArcaneAttackingModule : AttackingModule
                 else
                     aProjectile.Direction = (Player.transform.position + Vector3.up - transform.position).normalized;
 
-                yield return new WaitForSeconds(animationController.AnimationClips["Arcane_attack"].length * 0.5f);
-                animationController.SetBool("IsAttacking", false);
+                yield return new WaitForSeconds(animationController.AnimationClips["Attack"].length * 0.5f);
+
                 mainModule.MovementModule.MovementIQ = defaultIQ;
                 yield return new WaitForSeconds(Cooldown);
                 InvokeRepeating("AttackPlayer", 0, 1f);

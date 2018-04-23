@@ -137,7 +137,7 @@ ModelImporter:
     7400000: attack start
     7400002: Idle
     7400004: Arcane_special_attack_start
-    7400006: Arcane_attack
+    7400006: Attack
     7400008: Arcane_attack_start
     7400010: Arcane_attack_fire
     7400012: Arcane_special_attack_during
@@ -199,7 +199,7 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Arcane_attack
+      name: Attack
       takeName: attack_normal
       firstFrame: -1
       lastFrame: 37
