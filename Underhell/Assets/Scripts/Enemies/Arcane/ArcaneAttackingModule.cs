@@ -7,9 +7,9 @@ public class ArcaneAttackingModule : AttackingModule
     // Fields //
     [SerializeField] private float ProjectileSpeed = 1f;
     [SerializeField] private GameObject projectilePrefab;
+    [SerializeField] private GameObject ProjectileOrigin;
     [SerializeField] private float turnOffAutoTargetDistance = 2f;
 
-    
     [SerializeField] private int SpecialAttackDamage = 10;
     [SerializeField] private float SpecialAttackCooldown = 5f;
     [SerializeField] private float SpecialAttackDetectRange = 5f;
@@ -22,7 +22,9 @@ public class ArcaneAttackingModule : AttackingModule
     [SerializeField] private GameObject SpecialAttackProjectile;
 
     private bool isSpecialAttackOnCooldown = false;
-    private int defaultIQ; 
+    private int defaultIQ;
+    private EnemyAnimationController animationController;
+
     // Public Properties //
 
     // Private Properties //
@@ -32,6 +34,7 @@ public class ArcaneAttackingModule : AttackingModule
     new private void Start()
     {
         base.Start();
+        animationController = GetComponent<EnemyAnimationController>();
         defaultIQ = mainModule.MovementModule.MovementIQ;
     }
     #endregion
@@ -59,10 +62,13 @@ public class ArcaneAttackingModule : AttackingModule
 
                 CancelInvoke("AttackPlayer");
                 mainModule.MovementModule.MovementIQ = 0;
-                yield return new WaitForSeconds(0.5f);
+                animationController.SetBool("IsRunning", false);
+                animationController.CrossfadeAnimation("Attack", 0.2f);
+                animationController.SetBool("IsAttacking",true);
 
-                //PLAY ANIMATION
-                ArcaneProjectile aProjectile = Instantiate(projectilePrefab, transform.position, Quaternion.identity).GetComponent<ArcaneProjectile>();
+                yield return new WaitForSeconds(animationController.AnimationClips["Arcane_attack"].length * 0.5f);
+                ArcaneProjectile aProjectile = Instantiate(projectilePrefab, ProjectileOrigin.transform.position, Quaternion.identity).GetComponent<ArcaneProjectile>();
+                aProjectile.transform.position = new Vector3(aProjectile.transform.position.x, aProjectile.transform.position.y, 0f);
                 aProjectile.Damage = Damage;
                 aProjectile.KnockBackForce = KnockBackForce;
                 aProjectile.ProjectileSpeed = ProjectileSpeed;
@@ -72,7 +78,8 @@ public class ArcaneAttackingModule : AttackingModule
                 else
                     aProjectile.Direction = (Player.transform.position + Vector3.up - transform.position).normalized;
 
-                yield return new WaitForSeconds(0.5f);
+                yield return new WaitForSeconds(animationController.AnimationClips["Arcane_attack"].length * 0.5f);
+                animationController.SetBool("IsAttacking", false);
                 mainModule.MovementModule.MovementIQ = defaultIQ;
                 yield return new WaitForSeconds(Cooldown);
                 InvokeRepeating("AttackPlayer", 0, 1f);

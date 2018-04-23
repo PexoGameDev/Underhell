@@ -135,16 +135,16 @@ ModelImporter:
     4300008: BezierCurve_005
     4300010: Cube_006
     7400000: attack start
-    7400002: idle
-    7400004: special_attack_start
-    7400006: attack_normal
-    7400008: attack_start
-    7400010: attack_hit
-    7400012: special_attack_during
-    7400014: getting_hit
-    7400016: death
-    7400018: moving
-    7400020: turn_left_arm
+    7400002: Arcane_idle
+    7400004: Arcane_special_attack_start
+    7400006: Arcane_attack
+    7400008: Arcane_attack_start
+    7400010: Arcane_attack_fire
+    7400012: Arcane_special_attack_during
+    7400014: Arcane_getting_hit
+    7400016: Arcane_death
+    7400018: Arcane_moving
+    7400020: Arcane_turn_left_arm
     9500000: //RootNode
     13700000: BezierCurve_003
     13700002: BezierCurve_005
@@ -190,7 +190,6 @@ ModelImporter:
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
-    importConstraints: 0
     animationCompression: 1
     animationRotationError: 0.5
     animationPositionError: 0.5
@@ -200,7 +199,7 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: attack_normal
+      name: Arcane_attack
       takeName: attack_normal
       firstFrame: -1
       lastFrame: 37
@@ -228,7 +227,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: idle
+      name: Arcane_idle
       takeName: idle
       firstFrame: 0
       lastFrame: 189
@@ -256,7 +255,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: special_attack_start
+      name: Arcane_special_attack_start
       takeName: special_attack_start
       firstFrame: -1
       lastFrame: 24.599998
@@ -284,7 +283,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: attack_start
+      name: Arcane_attack_start
       takeName: attack_normal
       firstFrame: -1
       lastFrame: 14.1
@@ -312,7 +311,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: attack_hit
+      name: Arcane_attack_fire
       takeName: attack_normal
       firstFrame: 14.300001
       lastFrame: 37
@@ -340,7 +339,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: special_attack_during
+      name: Arcane_special_attack_during
       takeName: special_attack_start
       firstFrame: 24
       lastFrame: 49
@@ -368,7 +367,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: getting_hit
+      name: Arcane_getting_hit
       takeName: getting_hit
       firstFrame: -1
       lastFrame: 27
@@ -396,7 +395,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: death
+      name: Arcane_death
       takeName: death
       firstFrame: -1
       lastFrame: 30
@@ -424,7 +423,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: moving
+      name: Arcane_moving
       takeName: moving
       firstFrame: -1
       lastFrame: 59
@@ -434,7 +433,7 @@ ModelImporter:
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 0
+      loopTime: 1
       loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0
@@ -452,7 +451,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: turn_left_arm
+      name: Arcane_turn_left_arm
       takeName: turn_left_arm
       firstFrame: -1
       lastFrame: 21

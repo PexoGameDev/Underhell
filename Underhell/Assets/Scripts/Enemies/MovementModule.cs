@@ -18,8 +18,9 @@ public class MovementModule : MonoBehaviour {
     private bool isJumping = false;
     private bool isJumpingDown = false;
     private bool isDashing = false;
-    private bool isChasingPlayer= false;
+    private bool isChasingPlayer = false;
     private bool isDashOnCooldown = false;
+    private bool isRotating = false;
 
     private int groundLayerMask;
     private int rotation;
@@ -29,6 +30,7 @@ public class MovementModule : MonoBehaviour {
     private GameObject targetPlatform;
     private Vector3 targetPoint;
     private Enemy enemy;
+    private EnemyAnimationController animationController;
 
     // Public Properties //
     public bool IsChasingPlayer
@@ -39,12 +41,17 @@ public class MovementModule : MonoBehaviour {
     public int Rotation
     {
         get {
-            if (!isChasingPlayer)
-                return rotation;
-            else
-                return (enemy.Player.transform.position.x > transform.position.x) ? 1 : -1;
+            if (isChasingPlayer)
+                Rotation = (enemy.Player.transform.position.x > transform.position.x) ? 1 : -1;
+            return rotation;
         }
-        set { rotation = value; }
+        set {
+            if (rotation != value)
+            {
+                rotation = value;
+                StartCoroutine("Rotate");
+            }
+        }
     }
 
     public float MovementSpeed
@@ -94,7 +101,7 @@ public class MovementModule : MonoBehaviour {
     {
         get { return targetPoint; }
         set { targetPoint = value;
-              targetPoint.z = 0; }
+            targetPoint.z = 0; }
     }
     #endregion
 
@@ -104,17 +111,18 @@ public class MovementModule : MonoBehaviour {
         groundLayerMask = LayerMask.GetMask("Ground");
     }
 
-    void Start () {
+    void Start() {
         enemy = GetComponent<Enemy>();
         rb = GetComponent<Rigidbody>();
+        animationController = GetComponent<EnemyAnimationController>();
         lastPlatform = gameObject;
-        Rotation = (Random.Range(0,2) >= 1) ? -1 : 1;
+        Rotation = (Random.Range(0, 2) >= 1) ? -1 : 1;
         InvokeRepeating("Decide", 0f, 0.1f);
     }
-	
+
     void FixedUpdate()
     {
-        switch(MovementIQ)
+        switch (MovementIQ)
         {
             case 0: break;
 
@@ -126,12 +134,12 @@ public class MovementModule : MonoBehaviour {
                 }
                 else
                     Rotation *= -1;
-                break; 
+                break;
 
             case 2: // Walks Left/Right, if meets wall or gap
                 if (isJumpingDown && !CheckWall())
                 {
-                    if(!IsChasingPlayer || Vector3.Distance(transform.position,Player.Entity.transform.position) >= enemy.AttackingModule.AttackRange)
+                    if (!IsChasingPlayer || Vector3.Distance(transform.position, Player.Entity.transform.position) >= enemy.AttackingModule.AttackRange)
                         DoStep();
                     break;
                 }
@@ -151,7 +159,7 @@ public class MovementModule : MonoBehaviour {
                 {
                     StartCoroutine(Jump());
                 }
-                else if(decision && !isDashing && !isJumping && !CheckGround(0.5f) && CheckGround(JumpHeight * 0.99f))
+                else if (decision && !isDashing && !isJumping && !CheckGround(0.5f) && CheckGround(JumpHeight * 0.99f))
                 {
                     isJumpingDown = true;
                     InvokeRepeating("ResetJump", 0.1f, 0.1f);
@@ -170,7 +178,7 @@ public class MovementModule : MonoBehaviour {
                 break;
 
             case 5:
-               goto case 4;
+                goto case 4;
         }
     }
     #endregion
@@ -202,7 +210,7 @@ public class MovementModule : MonoBehaviour {
     }
 
     private bool CheckJumpableWall()
-    {   
+    {
         RaycastHit hit;
         Vector3 raycastOriginPoint = transform.position + Vector3.up * JumpHeight; // Casts Ray from point directly above body
         Vector3 offset = DashDistance * Vector3.right * Rotation * 0.1f; // Tenth part of max horizontal distance enemy can travel (enemy checks distance in 10% intervals)
@@ -230,15 +238,17 @@ public class MovementModule : MonoBehaviour {
 
     private bool CheckGap()
     {
-        for (int i = 1; i<6 ; i++)
-        if(Physics.Raycast(transform.position + Vector3.right*Rotation*DashDistance * i / 5 + Vector3.up*1.75f,Vector3.down,transform.localScale.y * 10, groundLayerMask)
-            && !Physics.Raycast(transform.position + Vector3.up*transform.localScale.x*2, Vector3.right*Rotation, DashDistance*i/5))
-            return true;
+        for (int i = 1; i < 6; i++)
+            if (Physics.Raycast(transform.position + Vector3.right * Rotation * DashDistance * i / 5 + Vector3.up * 1.75f, Vector3.down, transform.localScale.y * 10, groundLayerMask)
+                && !Physics.Raycast(transform.position + Vector3.up * transform.localScale.x * 2, Vector3.right * Rotation, DashDistance * i / 5))
+                return true;
         return false;
     }
 
     private IEnumerator Jump()
     {
+        animationController.SetBool("IsRunning", true);
+
         isJumping = true;
         rb.useGravity = false;
 
@@ -248,7 +258,7 @@ public class MovementModule : MonoBehaviour {
 
         for (int i = 0; i < 31; i++)
         {
-            transform.position = new Vector3(transform.position.x - deltaX/30, Y0 + Mathf.Sin(Mathf.PI / 60 * i) * deltaY, 0);
+            transform.position = new Vector3(transform.position.x - deltaX / 30, Y0 + Mathf.Sin(Mathf.PI / 60 * i) * deltaY, 0);
             yield return new WaitForFixedUpdate();
         }
 
@@ -258,8 +268,13 @@ public class MovementModule : MonoBehaviour {
 
     private void DoStep()
     {
+        if (!animationController.GetBool("IsRunning"))
+        {
+            animationController.PlayAnimation("Walk");
+            animationController.SetBool("IsRunning", true);
+        }
         Vector3 vel = rb.velocity;
-        rb.MovePosition(Vector3.SmoothDamp(transform.position, transform.position + Vector3.right * Rotation * MovementSpeed,ref vel,1f));
+        rb.MovePosition(Vector3.SmoothDamp(transform.position, transform.position + Vector3.right * Rotation * MovementSpeed, ref vel, 1f));
     }
 
     private void ResetJump()
@@ -281,7 +296,7 @@ public class MovementModule : MonoBehaviour {
     {
         int DashStep = 1;
         for (; DashStep < 11; DashStep++)
-            if (Physics.Raycast(transform.position + Vector3.right * Rotation * DashDistance * DashStep / 10, Vector3.down, transform.localScale.y * JumpHeight*1.1f, groundLayerMask))
+            if (Physics.Raycast(transform.position + Vector3.right * Rotation * DashDistance * DashStep / 10, Vector3.down, transform.localScale.y * JumpHeight * 1.1f, groundLayerMask))
                 break;
 
         isDashing = true;
@@ -289,7 +304,7 @@ public class MovementModule : MonoBehaviour {
         rb.useGravity = false;
         rb.velocity = Vector3.zero;
 
-        Vector3 targetPoint = transform.position + new Vector3(DashDistance * DashStep/10 * Rotation, 0.03f * 15, 0);
+        Vector3 targetPoint = transform.position + new Vector3(DashDistance * DashStep / 10 * Rotation, 0.03f * 15, 0);
 
         for (int i = 0; i < 16; i++)
         {
@@ -303,10 +318,29 @@ public class MovementModule : MonoBehaviour {
         rb.useGravity = true;
 
         isDashing = false;
-        yield return new WaitForSeconds(Random.Range(0f,maxDashCooldown));
+        yield return new WaitForSeconds(Random.Range(0f, maxDashCooldown));
         while (!CheckGround(transform.localScale.y))
             yield return new WaitForEndOfFrame();
         isDashOnCooldown = false;
+    }
+
+    private IEnumerator Rotate()
+    {
+        StopCoroutine("Rotate");
+        isRotating = true;
+        int tmpIQ = MovementIQ;
+        MovementIQ = 0;
+
+        animationController.PlayAnimation("Turn");
+        print("?");
+        for (int i = 0; i < 37; i++)
+        {
+            transform.Rotate(0, 5f, 0);
+            yield return new WaitForSeconds(animationController.AnimationClips["Arcane_turn_left_arm"].length / 36);
+        }
+
+        MovementIQ = tmpIQ;
+        isRotating = false;
     }
     #endregion
 }
