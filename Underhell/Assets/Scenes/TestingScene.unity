@@ -1892,7 +1892,7 @@ Prefab:
     - target: {fileID: 114733863692663858, guid: 7419846383e3bd8419d8ad9fd4623649,
         type: 2}
       propertyPath: MeleeKnockBackForce
-      value: 25
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 114733863692663858, guid: 7419846383e3bd8419d8ad9fd4623649,
         type: 2}
