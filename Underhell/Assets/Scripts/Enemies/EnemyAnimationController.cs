@@ -32,7 +32,6 @@ public class EnemyAnimationController : MonoBehaviour {
         foreach (AnimationClip ac in Animator.runtimeAnimatorController.animationClips)
             if (!AnimationClips.ContainsKey(ac.name))
                 AnimationClips.Add(ac.name, ac);
-        print(AnimationClips["Arcane_turn_left_arm"]);
     }
     #endregion
 

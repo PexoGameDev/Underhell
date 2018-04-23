@@ -135,16 +135,16 @@ ModelImporter:
     4300008: BezierCurve_005
     4300010: Cube_006
     7400000: attack start
-    7400002: Arcane_idle
+    7400002: Idle
     7400004: Arcane_special_attack_start
     7400006: Arcane_attack
     7400008: Arcane_attack_start
     7400010: Arcane_attack_fire
     7400012: Arcane_special_attack_during
     7400014: Arcane_getting_hit
-    7400016: Arcane_death
-    7400018: Arcane_moving
-    7400020: Arcane_turn_left_arm
+    7400016: Die
+    7400018: Movement
+    7400020: Turn
     9500000: //RootNode
     13700000: BezierCurve_003
     13700002: BezierCurve_005
@@ -227,7 +227,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: Arcane_idle
+      name: Idle
       takeName: idle
       firstFrame: 0
       lastFrame: 189
@@ -367,35 +367,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: Arcane_getting_hit
-      takeName: getting_hit
-      firstFrame: -1
-      lastFrame: 27
-      wrapMode: 0
-      orientationOffsetY: 0
-      level: 0
-      cycleOffset: 0
-      loop: 0
-      hasAdditiveReferencePose: 0
-      loopTime: 0
-      loopBlend: 0
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
-      heightFromFeet: 0
-      mirror: 0
-      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
-      events: []
-      transformMask: []
-      maskType: 3
-      maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
-    - serializedVersion: 16
-      name: Arcane_death
+      name: Die
       takeName: death
       firstFrame: -1
       lastFrame: 30
@@ -423,7 +395,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: Arcane_moving
+      name: Movement
       takeName: moving
       firstFrame: -1
       lastFrame: 59
@@ -451,7 +423,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: Arcane_turn_left_arm
+      name: Turn
       takeName: turn_left_arm
       firstFrame: -1
       lastFrame: 21

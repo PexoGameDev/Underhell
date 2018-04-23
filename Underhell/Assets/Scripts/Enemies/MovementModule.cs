@@ -23,7 +23,7 @@ public class MovementModule : MonoBehaviour {
     private bool isRotating = false;
 
     private int groundLayerMask;
-    private int rotation;
+    private int rotation = 1;
 
     private Rigidbody rb;
     private GameObject lastPlatform;
@@ -201,12 +201,12 @@ public class MovementModule : MonoBehaviour {
     }
     private bool CheckGround(float height)
     {
-        return (Physics.Raycast(transform.position + Vector3.right * transform.localScale.x * 0.5f * Rotation, Vector3.down, transform.localScale.y * height, groundLayerMask));
+        return (Physics.Raycast(transform.position + Vector3.right * transform.localScale.x * 0.5f * Rotation + Vector3.up * 0.1f, Vector3.down, transform.localScale.y * height, groundLayerMask));
     }
 
     private bool CheckWall()
     {
-        return (Physics.Raycast(transform.position - Vector3.up * transform.localScale.y * 0.5f, Vector3.right * Rotation, transform.localScale.x * 0.75f, groundLayerMask));
+        return (Physics.Raycast(transform.position, Vector3.right * Rotation, transform.localScale.x * 0.75f, groundLayerMask));
     }
 
     private bool CheckJumpableWall()
@@ -247,7 +247,7 @@ public class MovementModule : MonoBehaviour {
 
     private IEnumerator Jump()
     {
-        animationController.SetBool("IsRunning", true);
+        animationController.PlayAnimation("Jump");
 
         isJumping = true;
         rb.useGravity = false;
@@ -270,7 +270,7 @@ public class MovementModule : MonoBehaviour {
     {
         if (!animationController.GetBool("IsRunning"))
         {
-            animationController.PlayAnimation("Walk");
+            animationController.PlayAnimation("Movement");
             animationController.SetBool("IsRunning", true);
         }
         Vector3 vel = rb.velocity;
@@ -326,21 +326,18 @@ public class MovementModule : MonoBehaviour {
 
     private IEnumerator Rotate()
     {
-        StopCoroutine("Rotate");
-        isRotating = true;
         int tmpIQ = MovementIQ;
         MovementIQ = 0;
+        float delay = animationController.AnimationClips["Turn"].length / 270;
 
         animationController.PlayAnimation("Turn");
-        print("?");
-        for (int i = 0; i < 37; i++)
+        for (int i = 0; i < 90; i++)
         {
-            transform.Rotate(0, 5f, 0);
-            yield return new WaitForSeconds(animationController.AnimationClips["Arcane_turn_left_arm"].length / 36);
+            transform.Rotate(0, -2f, 0);
+            yield return new WaitForSeconds(delay);
         }
 
         MovementIQ = tmpIQ;
-        isRotating = false;
     }
     #endregion
 }

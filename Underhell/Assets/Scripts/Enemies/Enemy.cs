@@ -70,7 +70,9 @@ public class Enemy : MonoBehaviour {
         //PersistentData.Score += scoreValue;
         //add to objectpool
         //instead of destroying
-        Destroy(gameObject);
+        gameObject.GetComponentInChildren<Animator>().Play("Die");
+        print("I diededed");
+        //Destroy(gameObject);
     }
     #endregion
 
