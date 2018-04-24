@@ -50,7 +50,8 @@ public class ArcaneAttackingModule : AttackingModule
     #region Private Methods
     private void AttackPlayer()
     {
-        if (IQ > 2 && !isSpecialAttackOnCooldown && SeePlayer(SpecialAttackDetectRange) && Random.Range(0, 1) < SpecialAttackChance)
+        print(SeePlayer(SpecialAttackDetectRange));
+        if (IQ > 2 && !isSpecialAttackOnCooldown && mainModule.AwarnessModule.SeePlayer(SpecialAttackDetectRange) && Random.Range(0f, 1f) < SpecialAttackChance)
             StartCoroutine("SpecialAttack");
         else
             StartCoroutine("AnimateAttack");
@@ -60,13 +61,14 @@ public class ArcaneAttackingModule : AttackingModule
     {
         Ray ray = new Ray(transform.position + transform.localScale.y * 0.5f * Vector3.up, Player.transform.position - transform.position);
 
-        if (Physics.Raycast(ray, AttackRange, playerLayer))
+        if (mainModule.AwarnessModule.SeePlayer(AttackRange))
         {
             if (!Physics.Raycast(ray,Vector3.Distance(transform.position,Player.transform.position), groundLayer))
             {
                 CancelInvoke("AttackPlayer");
                 mainModule.MovementModule.MovementIQ = 0;
                 animationController.CrossfadeAnimation("Attack", 0.1f);
+                animationController.SetBool("IsAttacking", true);
 
                 yield return new WaitForSeconds(animationController.AnimationClips["Attack"].length * 0.5f);
                 ArcaneProjectile aProjectile = Instantiate(projectilePrefab, ProjectileOrigin.transform.position, Quaternion.identity).GetComponent<ArcaneProjectile>();
@@ -81,6 +83,7 @@ public class ArcaneAttackingModule : AttackingModule
                     aProjectile.Direction = (Player.transform.position + Vector3.up - transform.position).normalized;
 
                 yield return new WaitForSeconds(animationController.AnimationClips["Attack"].length * 0.5f);
+                animationController.SetBool("IsAttacking", false);
 
                 mainModule.MovementModule.MovementIQ = defaultIQ;
                 yield return new WaitForSeconds(Cooldown);
@@ -95,7 +98,12 @@ public class ArcaneAttackingModule : AttackingModule
 
         mainModule.MovementModule.MovementIQ = 0;
 
-        yield return new WaitForSeconds(SpecialAttackCastingTime);
+        animationController.CrossfadeAnimation("Special_Attack_Start", 0.1f);
+        animationController.SetBool("IsSpecialAttacking", true);
+        animationController.SetBool("IsAttacking", true);
+
+        yield return new WaitForSeconds(animationController.AnimationClips["Special_Attack_Start"].length * 0.5f);
+        //yield return new WaitForSeconds(SpecialAttackCastingTime);
 
         ArcaneSpecialAttack attack = Instantiate(SpecialAttackProjectile, transform.position, Quaternion.identity).GetComponent<ArcaneSpecialAttack>();
         attack.CCDelay = SpecialAttackDelayBeforeCC;
@@ -106,6 +114,9 @@ public class ArcaneAttackingModule : AttackingModule
         yield return new WaitForSeconds(SpecialAttackChaseTime);
 
         StartCoroutine(attack.Fire());
+
+        animationController.SetBool("IsSpecialAttacking", false);
+        animationController.SetBool("IsAttacking", false);
 
         mainModule.MovementModule.MovementIQ = defaultIQ;
 

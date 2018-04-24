@@ -330,7 +330,9 @@ public class MovementModule : MonoBehaviour {
         MovementIQ = 0;
         float delay = animationController.AnimationClips["Turn"].length / 270;
 
-        animationController.PlayAnimation("Turn");
+        if(!animationController.GetBool("IsAttacking"))
+            animationController.PlayAnimation("Turn");
+
         for (int i = 0; i < 90; i++)
         {
             transform.Rotate(0, -2f, 0);

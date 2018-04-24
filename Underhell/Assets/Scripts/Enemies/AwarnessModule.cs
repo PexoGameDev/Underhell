@@ -38,10 +38,17 @@ public class AwarnessModule : MonoBehaviour {
     #endregion
 
     #region Private Methods
-    private bool SeePlayer()
+    public bool SeePlayer()
     {
         RaycastHit hit;
-        if(Physics.Raycast(transform.position, player.transform.position - transform.position, out hit, DetectionRange))
+        if(Physics.Raycast(transform.position + transform.localScale.y * Vector3.up * 0.5f, player.transform.position - transform.position, out hit, DetectionRange))
+            return hit.collider.gameObject == player;
+        return false;
+    }
+    public bool SeePlayer(float distance)
+    {
+        RaycastHit hit;
+        if (Physics.Raycast(transform.position + transform.localScale.y * Vector3.up * 0.5f, player.transform.position - transform.position, out hit, distance))
             return hit.collider.gameObject == player;
         return false;
     }

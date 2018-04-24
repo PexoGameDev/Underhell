@@ -29,11 +29,11 @@ public class ArcaneProjectile : MonoBehaviour {
 	void FixedUpdate () {
         if (IsAutoTargeted)
         {
-            transform.position = Vector3.MoveTowards(transform.position, player.gameObject.transform.position - Vector3.up * player.gameObject.transform.localScale.y * 0.5f, ProjectileSpeed);
+            transform.position = Vector3.MoveTowards(transform.position, player.gameObject.transform.position + Vector3.up * player.gameObject.transform.localScale.y * 0.5f, ProjectileSpeed);
             if (Vector3.Distance(transform.position, player.transform.position) <= TurnOffAutoTargetDistance)
             {
                 IsAutoTargeted = false;
-                Direction = (player.transform.position - transform.position).normalized;
+                Direction = (player.transform.position - transform.position + Vector3.up * player.transform.localScale.y * 0.5f).normalized;
             }
         }
         else

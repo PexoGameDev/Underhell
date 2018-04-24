@@ -1951,7 +1951,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 286889230beeb5f41a48fd354f9a2e15, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IQ: 1
+  IQ: 3
   Damage: 1
   Cooldown: 1.5
   AttackRange: 50

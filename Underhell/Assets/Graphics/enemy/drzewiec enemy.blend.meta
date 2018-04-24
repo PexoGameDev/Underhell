@@ -136,7 +136,7 @@ ModelImporter:
     4300010: Cube_006
     7400000: attack start
     7400002: Idle
-    7400004: Arcane_special_attack_start
+    7400004: Special_Attack_Start
     7400006: Attack
     7400008: Arcane_attack_start
     7400010: Arcane_attack_fire
@@ -255,7 +255,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: Arcane_special_attack_start
+      name: Special_Attack_Start
       takeName: special_attack_start
       firstFrame: -1
       lastFrame: 24.599998
