@@ -72,7 +72,7 @@ public class Enemy : MonoBehaviour {
         //instead of destroying
         gameObject.GetComponentInChildren<Animator>().Play("Die");
         print("I diededed");
-        //Destroy(gameObject);
+        Destroy(gameObject,0.75f);
     }
     #endregion
 

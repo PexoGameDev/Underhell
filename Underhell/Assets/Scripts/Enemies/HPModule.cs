@@ -19,6 +19,7 @@ public class HPModule : MonoBehaviour {
     private bool isInvulnerable = false;
     private Rigidbody rb;
     private ShieldModule shield;
+    private List<Spell> damageOverTimeSpellsInEffect;
     // Public Properties //
     public int HP
     {
@@ -50,7 +51,8 @@ public class HPModule : MonoBehaviour {
         rb = GetComponent<Rigidbody>();
         shield = GetComponent<ShieldModule>();
         hP = MaxHP;
-	}
+        damageOverTimeSpellsInEffect = new List<Spell>();
+    }
     #endregion
 
     #region Public Methods
@@ -59,12 +61,23 @@ public class HPModule : MonoBehaviour {
         if (!isInvulnerable)
         {
             HP -= damage;
+
             Vector3 knockBackTo = (transform.position - knockBackDirection + Vector3.up*0.5f).normalized * knockBackForce;
             knockBackTo.z = 0;
             rb.AddForce(knockBackTo, ForceMode.Impulse);
             CancelInvoke("ResetVelocity");
             Invoke("ResetVelocity", 0.3f);
             StartCoroutine("AnimateHurt");
+        }
+    }
+
+    public void TakeDamageOverTime(int damage, AttackEffect.DamageSource damageSource ,Spell source)
+    {
+        if(!damageOverTimeSpellsInEffect.Contains(source))
+        {
+            damageOverTimeSpellsInEffect.Add(source);
+            GetHit(damage, 0f, Vector3.zero, damageSource);
+            StartCoroutine(RemoveDamageOverTimeSource(source));
         }
     }
     #endregion
@@ -84,6 +97,12 @@ public class HPModule : MonoBehaviour {
     {
         CancelInvoke("ResetVelocity");
         rb.velocity = Vector3.zero;
+    }
+
+    IEnumerator RemoveDamageOverTimeSource(Spell source)
+    {
+        yield return new WaitForSeconds(1f);
+        damageOverTimeSpellsInEffect.Remove(source);
     }
     #endregion
 }

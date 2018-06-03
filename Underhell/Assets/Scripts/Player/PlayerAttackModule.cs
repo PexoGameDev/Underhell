@@ -53,7 +53,7 @@ public class PlayerAttackModule : MonoBehaviour {
     public float MeleeAttackSpeedMultiplier
     {
         get { return meleeAttackSpeedMultiplier; }
-        set { meleeAttackSpeedMultiplier = value; PlayerAnimationController.SetFloat("AttackSpeed", meleeAttackSpeedMultiplier); }
+        set { meleeAttackSpeedMultiplier = value; print("ping?"); PlayerAnimationController.SetFloat("AttackSpeed", meleeAttackSpeedMultiplier); }
     }
     // Private Properties //
     #endregion

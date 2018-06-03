@@ -65,12 +65,12 @@ public class EQItem : ScriptableObject {
             attackModule.ThirdAttackDamageMultiplier += ThirdAttackDamageMultiplier;
             attackModule.MeleeAttackDamage += MeleeAttackDamage;
             attackModule.MeleeKnockBackForce += MeleeKnockBackForce;
-            attackModule.meleeAttackSpeedMultiplier += meleeAttackSpeedMultiplier;
+            attackModule.MeleeAttackSpeedMultiplier += meleeAttackSpeedMultiplier;
             attackModule.RangeDamage += RangeDamage;
             attackModule.RangeKnockBackForce += RangeKnockBackForce;
             attackModule.ProjectileSpeed += ProjectileSpeed;
             attackModule.ProjectileCooldown += ProjectileCooldown;
-            attackModule.rangeAttackSpeedMultiplier += rangeAttackSpeedMultiplier;
+            attackModule.RangeAttackSpeedMultipier += rangeAttackSpeedMultiplier;
 
             for (int i = 0; i < MeleeAttackEffects.Length; i++)
                 attackModule.MeleeAttackEffects.Add(MeleeAttackEffects[i]);

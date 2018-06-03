@@ -4,7 +4,6 @@ using UnityEngine;
 
 [RequireComponent(typeof(PlayerAttackModule))]
 [RequireComponent(typeof(EquipmentManager))]
-[RequireComponent(typeof(PlayerMovement))]
 [RequireComponent(typeof(HPModule))]
 public class Player : MonoBehaviour {
     #region Variables

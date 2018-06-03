@@ -50,7 +50,6 @@ public class ArcaneAttackingModule : AttackingModule
     #region Private Methods
     private void AttackPlayer()
     {
-        print(SeePlayer(SpecialAttackDetectRange));
         if (IQ > 2 && !isSpecialAttackOnCooldown && mainModule.AwarnessModule.SeePlayer(SpecialAttackDetectRange) && Random.Range(0f, 1f) < SpecialAttackChance)
             StartCoroutine("SpecialAttack");
         else

@@ -119,19 +119,28 @@ public class EquipmentManager : MonoBehaviour {
 
     private IEnumerator DisplayPickedUpItem(EQItem eqItem)
     {
+        print(eqItem.name);
+
         Color defaultNameColor = UIManager.ItemNameText.color;
         Color defaultDescriptionColor = UIManager.ItemDescriptionText.color;
 
         UIManager.ItemNameText.color = new Color(defaultNameColor.r, defaultNameColor.g, defaultNameColor.b, 1f);
         UIManager.ItemDescriptionText.color = new Color(defaultDescriptionColor.r, defaultDescriptionColor.g, defaultDescriptionColor.b, 1f);
 
+        UIManager.ItemNameText.enabled = true;
+        UIManager.ItemDescriptionText.enabled = true;
+
         UIManager.ItemNameText.text = eqItem.Name;
         UIManager.ItemDescriptionText.text = eqItem.Description;
 
         yield return new WaitForSeconds(4f);
 
-        UIManager.ItemNameText.CrossFadeAlpha(0, 2f, false);
-        UIManager.ItemDescriptionText.CrossFadeAlpha(0, 2f, false);
+
+        UIManager.ItemNameText.enabled = false;
+        UIManager.ItemDescriptionText.enabled = false;
+
+        //UIManager.ItemNameText.CrossFadeAlpha(0, 2f, false);
+        //UIManager.ItemDescriptionText.CrossFadeAlpha(0, 2f, false);
     }
     #endregion
 }
