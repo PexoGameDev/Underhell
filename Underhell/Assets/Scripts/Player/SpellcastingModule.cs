@@ -5,12 +5,14 @@ using UnityEngine;
 public class SpellcastingModule : MonoBehaviour {
     #region Variables
     // Fields //
+    public GameObject GlyphsDisplay;
+
     [SerializeField] private KeyCode opsiKey;
     [SerializeField] private KeyCode ixiKey;
     [SerializeField] private KeyCode auoKey;
     [SerializeField] private KeyCode yuhKey;
 
-    private List<Glyph> glyphsCast;
+    public List<Glyph> glyphsCast;
     [SerializeField] private Spellbook spellbook;
 
     private LineRenderer lineRenderer;
@@ -32,7 +34,7 @@ public class SpellcastingModule : MonoBehaviour {
     #region Unity Methods
     void Start () {
         glyphsCast = new List<Glyph>();
-        lineRenderer = (Player.Entity.GetComponent<LineRenderer>() == null) ? Player.Entity.AddComponent<LineRenderer>() : Player.Entity.GetComponent<LineRenderer>();
+        lineRenderer = Player.Entity.GetComponent<LineRenderer>() ?? Player.Entity.AddComponent<LineRenderer>();
         lineRenderer.enabled = false;
 	}
 	
@@ -51,6 +53,17 @@ public class SpellcastingModule : MonoBehaviour {
         {
             glyphsCast.Clear();
             lineRenderer.enabled = false;
+        }
+
+        if(Input.GetMouseButtonDown(0))
+        {
+            Casting();
+        }
+
+        if (Input.GetMouseButtonUp(0))
+        {
+            GlyphsDisplay.SetActive(false);
+            Time.timeScale = 1;
         }
     }
     #endregion
@@ -85,6 +98,12 @@ public class SpellcastingModule : MonoBehaviour {
         }
         lineRenderer.enabled = false;
         glyphsCast.Clear();
+    }
+
+    private void Casting()
+    {
+        Time.timeScale = 0.33f;
+        GlyphsDisplay.SetActive(true);
     }
     #endregion
 }
