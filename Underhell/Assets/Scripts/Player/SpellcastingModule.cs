@@ -7,16 +7,15 @@ public class SpellcastingModule : MonoBehaviour {
     // Fields //
     public GameObject GlyphsDisplay;
 
-    [SerializeField] private KeyCode opsiKey;
-    [SerializeField] private KeyCode ixiKey;
-    [SerializeField] private KeyCode auoKey;
-    [SerializeField] private KeyCode yuhKey;
-
     public List<Glyph> glyphsCast;
     [SerializeField] private Spellbook spellbook;
 
     private LineRenderer lineRenderer;
-    [SerializeField] public static float maxSpellDuration = 2f;
+    [SerializeField] public static float maxChannelTime = 2f;
+
+    private Spellbook.Element currentElement = Spellbook.Element.fire;
+
+    private Coroutine CastingCoroutine;
     // Public Properties //
 
     // Private Properties //
@@ -24,10 +23,9 @@ public class SpellcastingModule : MonoBehaviour {
     // Public Data Structures //
     public enum Glyph
     {
-        opsi = 0,
+        yuh = 0,
         ixi = 1,
-        auo = 2,
-        yuh = 3
+        auo = 2
     }
     #endregion
 
@@ -39,28 +37,23 @@ public class SpellcastingModule : MonoBehaviour {
 	}
 	
 	void Update () {
-        if (Input.GetKeyDown(opsiKey))
-            glyphsCast.Add(Glyph.opsi);
-        if (Input.GetKeyDown(ixiKey))
-            glyphsCast.Add(Glyph.ixi);
-        if (Input.GetKeyDown(auoKey))
-            glyphsCast.Add(Glyph.auo);
-        if (Input.GetKeyDown(yuhKey))
-            glyphsCast.Add(Glyph.yuh);
-        if (Input.GetMouseButton(1))
-            CastSpell();
-        if (Input.GetMouseButtonUp(1))
+
+        if (Input.GetMouseButtonDown(0))
+            CastingCoroutine = StartCoroutine(CastSpell());
+
+        if (Input.GetMouseButtonUp(0))
         {
             glyphsCast.Clear();
             lineRenderer.enabled = false;
         }
 
-        if(Input.GetMouseButtonDown(0))
+        if(Input.GetMouseButtonDown(1))
         {
+            glyphsCast.Clear();
             Casting();
         }
 
-        if (Input.GetMouseButtonUp(0))
+        if (Input.GetMouseButtonUp(1))
         {
             GlyphsDisplay.SetActive(false);
             Time.timeScale = 1;
@@ -72,7 +65,7 @@ public class SpellcastingModule : MonoBehaviour {
     #endregion
 
     #region Private Methods
-    private void CastSpell()
+    private IEnumerator CastSpell()
     {
         if (glyphsCast.Count > 0)
         {
@@ -81,19 +74,68 @@ public class SpellcastingModule : MonoBehaviour {
             {
                 spellCode += (int) glyphsCast[i];
             }
-
+            
             print(spellCode);
 
-            try
+            if(spellbook.Spells[currentElement].ContainsKey(spellCode))
             {
                 RaycastHit hit;
+
                 if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit))
-                    while (!spellbook.Spells[spellCode].Cast(hit.point))
-                        return;
+                {
+                    hit.point = new Vector3(hit.point.x, Player.Entity.transform.position.y, hit.point.z);
+                    switch (spellbook.Spells[currentElement][spellCode].castingType)
+                    {
+                        case Spell.CastingType.Instant:
+                        default:
+                            spellbook.Spells[currentElement][spellCode].Cast(hit.point);
+                            break;
+
+                        case Spell.CastingType.Channel:
+                            float channelTime = 0f;
+                            while (Input.GetMouseButton(0) && channelTime < maxChannelTime)
+                            {
+                                if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit))
+                                    hit.point = new Vector3(hit.point.x, Player.Entity.transform.position.y, hit.point.z);
+                                spellbook.Spells[currentElement][spellCode].Cast(hit.point);
+                                channelTime += ((ChanneledSpell)spellbook.Spells[currentElement][spellCode]).ChannelRefreshDelay;
+                                yield return new WaitForSeconds(((ChanneledSpell)spellbook.Spells[currentElement][spellCode]).ChannelRefreshDelay);
+                            }
+                            break;
+                    }
+                }
             }
-            catch
+            else
             {
                 print("Wrong spell!");
+            }
+        }
+        else
+        {
+            RaycastHit hit;
+            if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit))
+            {
+                hit.point = new Vector3(hit.point.x, Player.Entity.transform.position.y, hit.point.z);
+                switch (spellbook.Spells[currentElement]["def"].castingType)
+                {
+                    case Spell.CastingType.Instant:
+                    default:
+                        spellbook.Spells[currentElement]["def"].Cast(hit.point);
+                        break;
+
+                    case Spell.CastingType.Channel:
+                        float channelTime = 0f;
+                        while (Input.GetMouseButton(0) && channelTime < maxChannelTime)
+                        {
+                            if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit))
+                                hit.point = new Vector3(hit.point.x, Player.Entity.transform.position.y, hit.point.z);
+
+                            spellbook.Spells[currentElement]["def"].Cast(hit.point);
+                            channelTime += ((ChanneledSpell)spellbook.Spells[currentElement]["def"]).ChannelRefreshDelay;
+                            yield return new WaitForSeconds(((ChanneledSpell)spellbook.Spells[currentElement]["def"]).ChannelRefreshDelay);
+                        }
+                        break;
+                }
             }
         }
         lineRenderer.enabled = false;
