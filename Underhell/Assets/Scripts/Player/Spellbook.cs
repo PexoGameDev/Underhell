@@ -7,12 +7,25 @@ public class Spellbook : MonoBehaviour {
     // Fields //
 
     // Public Properties //
-    public Dictionary<string, Spell> Spells
+    public Dictionary<Element, Dictionary<string, Spell>> Spells
     {
         get;
         private set;
     }
+
+    private Dictionary<string, Spell> FireSpells;
+    private Dictionary<string, Spell> ElectricitySpells;
+    private Dictionary<string, Spell> QuantumSpell;
+
     // Private Properties //
+
+    // Public Data Structures //
+    public enum Element
+    {
+        fire = 0,
+        electricity = 1,
+        quantum = 2
+    }
     #endregion
 
     #region Unity Methods
@@ -31,9 +44,28 @@ public class Spellbook : MonoBehaviour {
     #region Private Methods
     private void FillSpells()
     {
-        Spells = new Dictionary<string, Spell>();
-        Spells.Add("010", GetComponent<Fireball>());
-        Spells.Add("232", GetComponent<FlameArc>());
+        FireSpells = new Dictionary<string, Spell>
+        {
+            {"def", GetComponent<Fireball>() },
+            {"201", GetComponent<FlameArc>() }
+        };
+
+        ElectricitySpells = new Dictionary<string, Spell>
+        {
+            {"def", GetComponent<Fireball>() }
+        };
+
+        QuantumSpell = new Dictionary<string, Spell>
+        {
+            {"def", GetComponent<Fireball>() }
+        };
+
+        Spells = new Dictionary<Element, Dictionary<string,Spell>>
+        {
+            { Element.fire, FireSpells },
+            { Element.electricity, ElectricitySpells },
+            { Element.quantum, QuantumSpell }
+        };
 
     }
     #endregion
