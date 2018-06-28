@@ -33,24 +33,8 @@ public class UIManager : MonoBehaviour {
     #endregion
 
     #region Public Methods
-    public static void UpdateScore()
-    {
-        ScoreText.text = "Score: " + PersistentData.Score;
-    }
-
-    public static void HighlightItemEQImage (int index, string itemName)
-    {
-        if(highlightedItemEQImage)
-            highlightedItemEQImage.color = Color.white;
-        highlightedItemEQImage = ItemsEQImages[index];
-        highlightedItemEQImage.color = Color.red;
         HighlightedItemText.text = itemName;
-    }
-
-    public static void SetEQItemImage(int index, Sprite image)
-    {
-        ItemsEQImages[index].sprite = image;
-    }
+    public static void UpdateScore() => ScoreText.text = "Score: " + PersistentData.Score;
     #endregion
 
     #region Private Methods
