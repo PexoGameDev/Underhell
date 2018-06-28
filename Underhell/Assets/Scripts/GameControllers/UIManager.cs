@@ -33,7 +33,6 @@ public class UIManager : MonoBehaviour {
     #endregion
 
     #region Public Methods
-        HighlightedItemText.text = itemName;
     public static void UpdateScore() => ScoreText.text = "Score: " + PersistentData.Score;
     #endregion
 
