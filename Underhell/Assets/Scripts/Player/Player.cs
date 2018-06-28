@@ -2,9 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(PlayerAttackModule))]
-[RequireComponent(typeof(EquipmentManager))]
-[RequireComponent(typeof(HPModule))]
 public class Player : MonoBehaviour {
     #region Variables
     // Fields //
@@ -13,7 +10,7 @@ public class Player : MonoBehaviour {
     public static GameObject Entity
     {
         get { return player; }
-        set { player = value; }
+        private set { player = value; }  
     }
     // Private Properties //
     #endregion
