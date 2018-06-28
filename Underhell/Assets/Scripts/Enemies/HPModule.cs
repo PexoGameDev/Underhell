@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(ShieldModule))]
 public class HPModule : MonoBehaviour {
     #region Variables
     // Fields //
@@ -18,7 +17,6 @@ public class HPModule : MonoBehaviour {
     private int hP;
     private bool isInvulnerable = false;
     private Rigidbody rb;
-    private ShieldModule shield;
     private List<Spell> damageOverTimeSpellsInEffect;
     // Public Properties //
     public int HP
@@ -26,10 +24,7 @@ public class HPModule : MonoBehaviour {
         get { return hP; }
         set
         {
-            if (((hP = value) <= hP) && shield.enabled)
-                shield.enabled = false;
-            else
-                if ((hP = value) <= 0)
+            if ((hP = value) <= 0)
             {
                 if (GetComponent<Enemy>())
                     GetComponent<Enemy>().Die();
@@ -49,7 +44,6 @@ public class HPModule : MonoBehaviour {
     #region Unity Methods
     void Start () {
         rb = GetComponent<Rigidbody>();
-        shield = GetComponent<ShieldModule>();
         hP = MaxHP;
         damageOverTimeSpellsInEffect = new List<Spell>();
     }
@@ -86,9 +80,9 @@ public class HPModule : MonoBehaviour {
     IEnumerator AnimateHurt()
     {
         isInvulnerable = true;
-        GameObject particles = Instantiate(hitParticles);
+        //GameObject particles = Instantiate(hitParticles);
         yield return new WaitForSeconds(InvulnerabilityDuration);
-        Destroy(particles);
+        //Destroy(particles);
         isInvulnerable = false;
         yield return null;
     }
