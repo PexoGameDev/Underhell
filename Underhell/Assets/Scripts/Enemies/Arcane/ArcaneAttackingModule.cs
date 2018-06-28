@@ -37,11 +37,6 @@ public class ArcaneAttackingModule : AttackingModule
         animationController = GetComponent<EnemyAnimationController>();
         defaultIQ = mainModule.MovementModule.MovementIQ;
     }
-
-    private void Update()
-    {
-        Debug.DrawRay(transform.position + transform.localScale.y * 0.5f * Vector3.up, Player.transform.position - transform.position, Color.magenta);
-    }
     #endregion
 
     #region Public Methods
