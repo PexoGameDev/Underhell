@@ -7,9 +7,19 @@ public abstract class Spell : MonoBehaviour {
     // Fields //
     [Header("Spell")]
     public Vector3 target;
+    public CastingType castingType;
+
     // Public Properties //
 
     // Private Properties //
+
+    // Public Data Structures //
+    public enum CastingType
+    {
+        Channel = 0,
+        Instant = 1,
+        Casting = 2
+    }
     #endregion
 
     #region Unity Methods
