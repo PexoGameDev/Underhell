@@ -19,6 +19,8 @@ public class FireballEffect : SpellEffect {
     void Start()
     {
         direction = (target - transform.position).normalized;
+        direction = new Vector3(direction.x, 0f, direction.z);
+
         Destroy(gameObject, 10f);
     }
 
@@ -30,10 +32,9 @@ public class FireballEffect : SpellEffect {
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.GetComponent<HPModule>() != null)
-        {
-            Explode();
-        }
+        if (other.GetComponent<HPModule>())
+            other.GetComponent<HPModule>().GetHit(damage, 0, Vector3.zero, AttackEffect.DamageSource.Fire);
+        Destroy(gameObject);
     }
     #endregion
 
@@ -41,20 +42,6 @@ public class FireballEffect : SpellEffect {
     #endregion
 
     #region Private Methods
-    private void Explode()
-    {
-        Collider[] colids = Physics.OverlapSphere(transform.position, blastRadius);
-
-        HPModule enemy;
-        foreach (Collider col in colids)
-        {
-            if ((enemy = col.GetComponent<HPModule>()) != null)
-                enemy.GetHit(damage, 0, Vector3.zero, AttackEffect.DamageSource.Fire);
-        }
-        print("KaBoom!");
-        Destroy(gameObject);
-
-    }
     #endregion
 }
 
