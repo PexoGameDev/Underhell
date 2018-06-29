@@ -46,18 +46,22 @@ public class Spellbook : MonoBehaviour {
     {
         FireSpells = new Dictionary<string, Spell>
         {
-            {"def", GetComponent<Fireball>() },
-            {"201", GetComponent<FlameArc>() }
+            {"def", GetComponentInChildren<FireBolts>() },
+            {"10", GetComponentInChildren<PillarOfFlames>() },
+            {"02", GetComponentInChildren<Combustion>() },
+            {"102", GetComponentInChildren<FlameArc>() },
+            {"1012", GetComponentInChildren<FlameChains>() },
+            {"20102", GetComponentInChildren<DancingPhoenix>() },
         };
 
         ElectricitySpells = new Dictionary<string, Spell>
         {
-            {"def", GetComponent<Fireball>() }
+            {"def", GetComponentInChildren<FireBolts>() }
         };
 
         QuantumSpell = new Dictionary<string, Spell>
         {
-            {"def", GetComponent<Fireball>() }
+            {"def", GetComponentInChildren<FireBolts>() }
         };
 
         Spells = new Dictionary<Element, Dictionary<string,Spell>>

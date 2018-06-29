@@ -5,9 +5,10 @@ using UnityEngine;
 public class SpellcastingModule : MonoBehaviour {
     #region Variables
     // Fields //
-    public GameObject GlyphsDisplay;
+    [SerializeField] private GameObject GlyphsDisplay;
+    [SerializeField] private GameObject castingBar;
 
-    public List<Glyph> glyphsCast;
+    [HideInInspector] public List<Glyph> glyphsCast;
     [SerializeField] private Spellbook spellbook;
 
     private LineRenderer lineRenderer;
@@ -34,12 +35,17 @@ public class SpellcastingModule : MonoBehaviour {
         glyphsCast = new List<Glyph>();
         lineRenderer = Player.Entity.GetComponent<LineRenderer>() ?? Player.Entity.AddComponent<LineRenderer>();
         lineRenderer.enabled = false;
-	}
+        castingBar.SetActive(false);
+    }
 	
 	void Update () {
 
         if (Input.GetMouseButtonDown(0))
+        {
+            if (CastingCoroutine != null)
+                StopCoroutine(CastingCoroutine);
             CastingCoroutine = StartCoroutine(CastSpell());
+        }
 
         if (Input.GetMouseButtonUp(0))
         {
@@ -80,10 +86,10 @@ public class SpellcastingModule : MonoBehaviour {
             if(spellbook.Spells[currentElement].ContainsKey(spellCode))
             {
                 RaycastHit hit;
-
                 if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit))
                 {
-                    hit.point = new Vector3(hit.point.x, Player.Entity.transform.position.y, hit.point.z);
+                    hit.point = new Vector3(hit.point.x, Player.SpellsOrigin.position.y, hit.point.z);
+
                     switch (spellbook.Spells[currentElement][spellCode].castingType)
                     {
                         case Spell.CastingType.Instant:
@@ -96,11 +102,29 @@ public class SpellcastingModule : MonoBehaviour {
                             while (Input.GetMouseButton(0) && channelTime < maxChannelTime)
                             {
                                 if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit))
-                                    hit.point = new Vector3(hit.point.x, Player.Entity.transform.position.y, hit.point.z);
+                                    hit.point = new Vector3(hit.point.x, Player.SpellsOrigin.position.y, hit.point.z);
                                 spellbook.Spells[currentElement][spellCode].Cast(hit.point);
                                 channelTime += ((ChanneledSpell)spellbook.Spells[currentElement][spellCode]).ChannelRefreshDelay;
                                 yield return new WaitForSeconds(((ChanneledSpell)spellbook.Spells[currentElement][spellCode]).ChannelRefreshDelay);
                             }
+                            break;
+
+                        case Spell.CastingType.Casting:
+                            castingBar.SetActive(true);
+                            float castTime;
+                            float fullDuration = castTime = ((CastSpell)spellbook.Spells[currentElement][spellCode]).CastingDuration;
+                            Vector3 castingBarOriginalScale = castingBar.transform.localScale;
+                            while (castTime > 0)
+                            {
+                                castTime -= 0.01f;
+                                yield return new WaitForSeconds(0.01f);
+                                castingBar.transform.localScale = castingBarOriginalScale * (castTime / fullDuration);
+                            }
+                            //ADD CONDITION TO BLOCK SPELLCASTING AND MOVEMENT WHILE CASTING
+
+                            spellbook.Spells[currentElement][spellCode].Cast(hit.point);
+                            castingBar.SetActive(false);
+                            castingBar.transform.localScale = castingBarOriginalScale;
                             break;
                     }
                 }
@@ -115,7 +139,8 @@ public class SpellcastingModule : MonoBehaviour {
             RaycastHit hit;
             if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit))
             {
-                hit.point = new Vector3(hit.point.x, Player.Entity.transform.position.y, hit.point.z);
+                hit.point = new Vector3(hit.point.x, Player.SpellsOrigin.position.y, hit.point.z);
+
                 switch (spellbook.Spells[currentElement]["def"].castingType)
                 {
                     case Spell.CastingType.Instant:
