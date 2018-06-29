@@ -256,6 +256,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {x: 0, y: 0, z: 0}
   castingType: 0
+  targetingType: 0
   ChannelRefreshDelay: 0.033
   arcLenght: 33
   DPS: 10
@@ -272,6 +273,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {x: 0, y: 0, z: 0}
   castingType: 0
+  targetingType: 0
   ChannelRefreshDelay: 0.25
   FireballPrefab: {fileID: 1149523109775816, guid: 01f2669d0525bdf45940e7a710fddcef,
     type: 2}
@@ -288,6 +290,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {x: 0, y: 0, z: 0}
   castingType: 2
+  targetingType: 0
   CastingDuration: 1
   phoenixPrefab: {fileID: 1703432096088778, guid: 1654d50718a363149afd597c93075146,
     type: 2}
@@ -304,6 +307,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {x: 0, y: 0, z: 0}
   castingType: 0
+  targetingType: 0
 --- !u!114 &38693952
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -317,6 +321,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {x: 0, y: 0, z: 0}
   castingType: 0
+  targetingType: 0
   ChannelRefreshDelay: 0
 --- !u!114 &38693953
 MonoBehaviour:
@@ -331,6 +336,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {x: 0, y: 0, z: 0}
   castingType: 0
+  targetingType: 0
 --- !u!1001 &43265231
 Prefab:
   m_ObjectHideFlags: 0
@@ -539,7 +545,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &108416417
 Transform:
   m_ObjectHideFlags: 0
@@ -2093,7 +2099,7 @@ GameObject:
   - component: {fileID: 549264473}
   - component: {fileID: 549264472}
   m_Layer: 0
-  m_Name: New Sprite
+  m_Name: AOE Indicator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2132,7 +2138,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 600
   m_Sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
   m_Color: {r: 1, g: 0, b: 0, a: 0.691}
   m_FlipX: 0
@@ -2149,13 +2155,13 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 549264471}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.73, z: 0}
-  m_LocalScale: {x: 3.37, y: 3.83, z: 1.45}
+  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 3.89, y: 0.91, z: -0.49}
+  m_LocalScale: {x: 25, y: 25, z: 25}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 6
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!1 &549433593
 GameObject:
   m_ObjectHideFlags: 0
@@ -3917,6 +3923,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   GlyphsDisplay: {fileID: 108416416}
   castingBar: {fileID: 268772239}
+  AOEindicator: {fileID: 549264471}
+  SkillshotIndicator: {fileID: 1596230533}
   glyphsCast: 
   spellbook: {fileID: 897924937}
 --- !u!114 &945109631
