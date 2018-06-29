@@ -33,7 +33,7 @@ public abstract class Spell : MonoBehaviour {
     #endregion
 
     #region Public Methods
-    public abstract bool Cast(Vector3 target);
+    public abstract void Cast(Vector3 target);
 
     #endregion
 
