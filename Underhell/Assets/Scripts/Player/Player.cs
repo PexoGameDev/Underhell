@@ -12,12 +12,20 @@ public class Player : MonoBehaviour {
         get { return player; }
         private set { player = value; }  
     }
+
+    [SerializeField] private Transform spellsOrigin;
+    // Public Properties //
+    public static Transform SpellsOrigin
+    {
+        get; private set;
+    }
     // Private Properties //
     #endregion
 
     #region Unity Methods
     void Awake () {
         player = gameObject;
+        SpellsOrigin = spellsOrigin;
 	}
 	
 	void Update () {

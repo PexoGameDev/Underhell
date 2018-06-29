@@ -4,13 +4,11 @@ using UnityEngine;
 
 [RequireComponent(typeof(AttackingModule))]
 [RequireComponent(typeof(HPModule))]
-[RequireComponent(typeof(MovementModule))]
 public class Enemy : MonoBehaviour {
     #region Variables
     // Fields //
     private GameObject player;
     private HPModule hpModule;
-    private MovementModule movementModule;
     private AttackingModule attackingModule;
     private AwarnessModule awarnessModule;
 
@@ -25,12 +23,6 @@ public class Enemy : MonoBehaviour {
     {
         get { return hpModule; }
         private set { hpModule = value; }
-    }
-
-    public MovementModule MovementModule
-    {
-        get { return movementModule; }
-        private set { movementModule = value; }
     }
 
     public AttackingModule AttackingModule
@@ -52,7 +44,6 @@ public class Enemy : MonoBehaviour {
     {
         player = GameObject.FindGameObjectWithTag("Player");
         hpModule = gameObject.GetComponent<HPModule>();
-        movementModule = gameObject.GetComponent<MovementModule>();
         attackingModule = gameObject.GetComponent<AttackingModule>();
         awarnessModule = gameObject.GetComponent<AwarnessModule>();
     }
@@ -71,7 +62,6 @@ public class Enemy : MonoBehaviour {
         //add to objectpool
         //instead of destroying
         gameObject.GetComponentInChildren<Animator>().Play("Die");
-        print("I diededed");
         Destroy(gameObject,0.75f);
     }
     #endregion

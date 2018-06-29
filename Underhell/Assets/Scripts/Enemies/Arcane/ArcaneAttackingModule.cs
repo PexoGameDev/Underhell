@@ -35,7 +35,6 @@ public class ArcaneAttackingModule : AttackingModule
     {
         base.Start();
         animationController = GetComponent<EnemyAnimationController>();
-        defaultIQ = mainModule.MovementModule.MovementIQ;
     }
     #endregion
 
@@ -60,7 +59,6 @@ public class ArcaneAttackingModule : AttackingModule
             if (!Physics.Raycast(ray,Vector3.Distance(transform.position,Player.transform.position), groundLayer))
             {
                 CancelInvoke("AttackPlayer");
-                mainModule.MovementModule.MovementIQ = 0;
                 animationController.CrossfadeAnimation("Attack", 0.1f);
                 animationController.SetBool("IsAttacking", true);
 
@@ -79,7 +77,6 @@ public class ArcaneAttackingModule : AttackingModule
                 yield return new WaitForSeconds(animationController.AnimationClips["Attack"].length * 0.5f);
                 animationController.SetBool("IsAttacking", false);
 
-                mainModule.MovementModule.MovementIQ = defaultIQ;
                 yield return new WaitForSeconds(Cooldown);
                 InvokeRepeating("AttackPlayer", 0, 1f);
             }
@@ -89,8 +86,6 @@ public class ArcaneAttackingModule : AttackingModule
     private IEnumerator SpecialAttack()
     {
         CancelInvoke("AttackPlayer");
-
-        mainModule.MovementModule.MovementIQ = 0;
 
         animationController.CrossfadeAnimation("Special_Attack_Start", 0.1f);
         animationController.SetBool("IsSpecialAttacking", true);
@@ -111,8 +106,6 @@ public class ArcaneAttackingModule : AttackingModule
 
         animationController.SetBool("IsSpecialAttacking", false);
         animationController.SetBool("IsAttacking", false);
-
-        mainModule.MovementModule.MovementIQ = defaultIQ;
 
         InvokeRepeating("AttackPlayer", 0, 1f);
 

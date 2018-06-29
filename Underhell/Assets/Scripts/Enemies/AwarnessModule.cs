@@ -57,18 +57,11 @@ public class AwarnessModule : MonoBehaviour {
     {
         if (SeePlayer())
         {
-            if(chaseMelee)
-                enemy.MovementModule.IsChasingPlayer = true;
             timeSinceLastSeenPlayer = 0f;
         }
         else
         {
             timeSinceLastSeenPlayer += detectionDelay;
-            if (enemy.MovementModule.IsChasingPlayer && timeSinceLastSeenPlayer >= stopChasingAfterSeconds)
-            {
-                if(chaseMelee)
-                    enemy.MovementModule.IsChasingPlayer = false;
-            }
         }
 
     }

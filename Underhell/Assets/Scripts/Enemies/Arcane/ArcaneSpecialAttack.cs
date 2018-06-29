@@ -35,7 +35,6 @@ public class ArcaneSpecialAttack : MonoBehaviour {
     {
         if(other.GetComponent<HPModule>() == Player.Entity.GetComponent<HPModule>())
         {
-            Player.Entity.GetComponent<PlayerMovement>().ApplyCC(CC.CCEffect.Snare, CCDuration);
             Player.Entity.GetComponent<HPModule>().GetHit(Damage, 0, Vector3.zero, AttackEffect.DamageSource.Physical);
         }
     }

@@ -49,20 +49,16 @@ public class BorysAttackingModule : AttackingModule {
     IEnumerator SpecialAttack()
     {
         CancelInvoke("SpecialAttackDecision");
-        float baseMovement = mainModule.MovementModule.MovementSpeed;
         yield return new WaitForSeconds(0.5f);
         specialAttackCollider.enabled = true;
-        mainModule.MovementModule.MovementSpeed *= SpecialAttackMovementMultiplier;
 
         transform.localScale += Vector3.one;
-        mainModule.MovementModule.IsChasingPlayer = false;
         mainModule.AwarnessModule.chaseMelee = false;
 
         yield return new WaitForSeconds(SpecialAttackDuration);
         transform.localScale -= Vector3.one;
         specialAttackCollider.enabled = false;
         mainModule.AwarnessModule.chaseMelee = true;
-        mainModule.MovementModule.MovementSpeed = baseMovement;
 
         yield return new WaitForSeconds(SpecialAttackCooldown);
         InvokeRepeating("SpecialAttackDecision", 2.5f, 2.5f);

@@ -34,8 +34,6 @@ public class PlayerAttackModule : MonoBehaviour {
 
     private BoxCollider swordColider;
     private Mesh defaultMesh;
-    private PlayerMovement playerMovement;
-    // Public Properties //
     public List<AttackEffect> MeleeAttackEffects { get; set; }
     public List<AttackEffect> RangeAttackEffects { get; set; }
     public int HitCombo
@@ -61,7 +59,6 @@ public class PlayerAttackModule : MonoBehaviour {
     #region Unity Methods
     private void Awake()
     {
-        playerMovement = GetComponent<PlayerMovement>();
         defaultMesh = weapon.sharedMesh;
         swordColider = Sword.GetComponent<BoxCollider>();
 
@@ -143,11 +140,6 @@ public class PlayerAttackModule : MonoBehaviour {
         PlayerAnimationController.PlayAnimation("Shoot");
 
         yield return new WaitForSeconds(PlayerAnimationController.AnimationClips["Shoot"].length * 0.6f / PlayerAnimationController.GetFloat("ShootSpeed"));
-
-        if (ProjectileSpeed < 0 && playerMovement.Rotation > 0)
-            ProjectileSpeed *= -1;
-        else if (ProjectileSpeed > 0 && playerMovement.Rotation < 0)
-            ProjectileSpeed *= -1;
 
         Projectile projectile = Instantiate(projectilePrefab, projectileOrigin.position, Quaternion.identity);
         projectile.gameObject.SetActive(true);

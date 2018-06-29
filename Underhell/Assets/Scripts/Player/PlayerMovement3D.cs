@@ -10,8 +10,6 @@ public class PlayerMovement3D : MonoBehaviour {
     public float movementSpeed = 250f;
     public float jumpHeight = 5f;
     public float jumpForce = 20f;
-    public float dashDistance = 10f;
-    public float dashCooldown = 2f;
 
     [SerializeField] private KeyCode moveForwardKey = KeyCode.W;
     [SerializeField] private KeyCode moveBackKey = KeyCode.S;
@@ -20,9 +18,7 @@ public class PlayerMovement3D : MonoBehaviour {
     [SerializeField] private KeyCode jumpKey = KeyCode.Space;
 
     private bool hasDoubleJumped = false;
-    private bool hasDashedDown = false;
     private bool isJumping = false;
-    private bool isDashing = false;
     private bool isReadyToLand = false;
 
     private bool isSnared = false;
@@ -57,18 +53,6 @@ public class PlayerMovement3D : MonoBehaviour {
     {
         get { return jumpForce; }
         set { jumpForce = value; }
-    }
-
-    public float DashDistance
-    {
-        get { return dashDistance; }
-        set { dashDistance = value; }
-    }
-
-    public float DashCooldown
-    {
-        get { return dashCooldown; }
-        set { dashCooldown = value; }
     }
     #endregion
 
@@ -217,36 +201,6 @@ public class PlayerMovement3D : MonoBehaviour {
             CancelInvoke("ResetJump");
             isJumping = hasDoubleJumped = false;
         }
-    }
-
-    void ResetDashDown()
-    {
-        Vector3 originPoint = transform.position + Vector3.up * transform.localScale.y * 0.5f;
-        if (Physics.Raycast(originPoint, Vector3.down, transform.localScale.y * 0.52f, groundLayerMask)
-            || Physics.Raycast(originPoint + Vector3.right * transform.localScale.x, Vector3.down, transform.localScale.y * 0.52f, groundLayerMask)
-            || Physics.Raycast(originPoint - Vector3.right * transform.localScale.x, Vector3.down, transform.localScale.y * 0.52f, groundLayerMask))
-        {
-            CancelInvoke("ResetDashDown");
-            hasDashedDown = false;
-        }
-    }
-
-    IEnumerator Dash(int isRight)
-    {
-        isDashing = true;
-        rb.useGravity = false;
-        rb.velocity = Vector3.zero;
-
-        for (int i = 0; i < 16; i++)
-        {
-            transform.position += new Vector3(dashDistance / 15 * isRight, 0, 0);
-            yield return new WaitForFixedUpdate();
-        }
-
-        rb.useGravity = true;
-
-        yield return new WaitForSeconds(dashCooldown);
-        isDashing = false;
     }
 
     IEnumerator ReadyToLand()
