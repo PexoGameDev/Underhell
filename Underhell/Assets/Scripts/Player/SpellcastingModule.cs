@@ -7,10 +7,13 @@ public class SpellcastingModule : MonoBehaviour {
     // Fields //
     [SerializeField] private GameObject GlyphsDisplay;
     [SerializeField] private GameObject castingBar;
+    [SerializeField] private GameObject AOEindicator;
+    [SerializeField] private GameObject SkillshotIndicator;
 
     [HideInInspector] public List<Glyph> glyphsCast;
     [SerializeField] private Spellbook spellbook;
 
+    private bool canCast = true;
     private LineRenderer lineRenderer;
     [SerializeField] public static float maxChannelTime = 2f;
 
@@ -59,7 +62,7 @@ public class SpellcastingModule : MonoBehaviour {
             Casting();
         }
 
-        if (Input.GetMouseButtonUp(1))
+        if (canCast && Input.GetMouseButtonUp(1))
         {
             GlyphsDisplay.SetActive(false);
             Time.timeScale = 1;
@@ -99,6 +102,7 @@ public class SpellcastingModule : MonoBehaviour {
 
                         case Spell.CastingType.Channel:
                             float channelTime = 0f;
+                            canCast = false;
                             while (Input.GetMouseButton(0) && channelTime < maxChannelTime)
                             {
                                 if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit))
@@ -107,9 +111,11 @@ public class SpellcastingModule : MonoBehaviour {
                                 channelTime += ((ChanneledSpell)spellbook.Spells[currentElement][spellCode]).ChannelRefreshDelay;
                                 yield return new WaitForSeconds(((ChanneledSpell)spellbook.Spells[currentElement][spellCode]).ChannelRefreshDelay);
                             }
+                            canCast = true;
                             break;
 
                         case Spell.CastingType.Casting:
+                            canCast = false;
                             castingBar.SetActive(true);
                             float castTime;
                             float fullDuration = castTime = ((CastSpell)spellbook.Spells[currentElement][spellCode]).CastingDuration;
@@ -125,6 +131,7 @@ public class SpellcastingModule : MonoBehaviour {
                             spellbook.Spells[currentElement][spellCode].Cast(hit.point);
                             castingBar.SetActive(false);
                             castingBar.transform.localScale = castingBarOriginalScale;
+                            canCast = true;
                             break;
                     }
                 }

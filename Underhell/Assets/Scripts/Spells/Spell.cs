@@ -8,7 +8,7 @@ public abstract class Spell : MonoBehaviour {
     [Header("Spell")]
     public Vector3 target;
     public CastingType castingType;
-
+    public TargetingType targetingType;
     // Public Properties //
 
     // Private Properties //
@@ -19,6 +19,14 @@ public abstract class Spell : MonoBehaviour {
         Channel = 0,
         Instant = 1,
         Casting = 2
+    }
+
+    public enum TargetingType
+    {
+        Skillshot = 0,
+        Target = 1,
+        AOE = 2,
+        Cone = 3
     }
     #endregion
 

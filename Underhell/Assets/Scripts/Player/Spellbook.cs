@@ -51,7 +51,7 @@ public class Spellbook : MonoBehaviour {
             {"02", GetComponentInChildren<Combustion>() },
             {"102", GetComponentInChildren<FlameArc>() },
             {"1012", GetComponentInChildren<FlameChains>() },
-            {"20102", GetComponentInChildren<DancingPhoenix>() },
+            {"20102", GetComponentInChildren<DancingPhoenix>() }
         };
 
         ElectricitySpells = new Dictionary<string, Spell>
