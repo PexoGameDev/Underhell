@@ -5,8 +5,11 @@ using UnityEngine;
 public class Projectile : MonoBehaviour {
     #region Variables
     // Fields //
-    PlayerAttackModule playerAttackModule;
+    public float projectileSpeed = 1f;
+    public GameObject target;
+    public GameObject FinalExplosion;
 
+    private Vector3 direction;
     // Public Properties //
 
     // Private Properties //
@@ -14,33 +17,19 @@ public class Projectile : MonoBehaviour {
 
     #region Unity Methods
     void Start () {
-        Destroy(gameObject, 1f);
-        playerAttackModule = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerAttackModule>();
+        direction = (target.transform.position - transform.position).normalized;
     }
 	
 	void FixedUpdate () {
-        transform.position += Vector3.right * playerAttackModule.ProjectileSpeed;
+        transform.position += direction * projectileSpeed * Time.fixedDeltaTime;
 	}
 
     void OnTriggerEnter(Collider other)
     {
         HPModule target;
-        if (target = other.GetComponent<HPModule>())
-        {
-            switch (playerAttackModule.HitCombo)
-            {
-                case 2:
-                    target.GetHit((int)(playerAttackModule.RangeDamage * playerAttackModule.ThirdAttackDamageMultiplier), playerAttackModule.RangeKnockBackForce, transform.position, AttackEffect.DamageSource.Physical);
-                    break;
+        if (target = other.GetComponent<HPModule>()){}
 
-                default:
-                    target.GetHit(playerAttackModule.RangeDamage, playerAttackModule.RangeKnockBackForce, transform.position, AttackEffect.DamageSource.Physical);
-                    break;
-            }
-
-            for (int i = 0; i < playerAttackModule.RangeAttackEffects.Count; i++)
-                playerAttackModule.RangeAttackEffects[i].ApplyEffect(target);
-        }
+        Instantiate(FinalExplosion, transform.position, Quaternion.identity);
         Destroy(gameObject);
     }
     #endregion
