@@ -11,13 +11,13 @@ public class AOEParticlesFullEffect : MonoBehaviour {
 
     void Start()
     {
-        Instantiate(IndicatorEffect, transform.position, Quaternion.identity);
+        Instantiate(IndicatorEffect, transform.position, IndicatorEffect.transform.rotation);
         Invoke("SpawnExplosion", LoadingDuration);
     }
 
     // Update is called once per frame
     void SpawnExplosion()
     {
-        Projectile proj = Instantiate(Explosion, transform.position, Quaternion.identity).GetComponent<Projectile>();
+        Projectile proj = Instantiate(Explosion, transform.position, Explosion.transform.rotation).GetComponent<Projectile>();
     }
 }

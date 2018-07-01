@@ -155,6 +155,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 83999904}
+  - component: {fileID: 83999905}
   m_Layer: 0
   m_Name: Projectile Test
   m_TagString: Untagged
@@ -175,11 +176,26 @@ Transform:
   - {fileID: 2102173256}
   - {fileID: 1645106015}
   - {fileID: 960640071}
-  - {fileID: 1826664545}
   - {fileID: 448137286}
+  - {fileID: 1826664545}
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &83999905
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 83999903}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fd5f3728fe126644a56a9ce6d9489fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  RespawnFullEffect: 1
+  RespawningDelay: 2
+  FullEffect: {fileID: 1826664544}
+  position: {x: 15, y: 0, z: 0}
 --- !u!1 &145713856
 GameObject:
   m_ObjectHideFlags: 0
@@ -188,6 +204,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 145713857}
+  - component: {fileID: 145713858}
   m_Layer: 0
   m_Name: AOE Test
   m_TagString: Untagged
@@ -211,6 +228,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &145713858
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 145713856}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fd5f3728fe126644a56a9ce6d9489fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  RespawnFullEffect: 1
+  RespawningDelay: 2
+  FullEffect: {fileID: 209669112}
+  position: {x: 0, y: 0, z: 45.4}
 --- !u!1 &209669112
 GameObject:
   m_ObjectHideFlags: 0
@@ -7453,7 +7485,7 @@ Transform:
   m_LocalScale: {x: 10, y: 10, z: 1}
   m_Children: []
   m_Father: {fileID: 83999904}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!23 &448137287
 MeshRenderer:
@@ -29318,6 +29350,56 @@ Prefab:
       propertyPath: EmissionModule.m_Bursts.Array.data[0].countCurve.minScalar
       value: 4.0000
       objectReference: {fileID: 0}
+    - target: {fileID: 198733147424659768, guid: 973c5706e6666ef4da82949a84d9375b,
+        type: 2}
+      propertyPath: EmissionModule.m_Bursts.Array.data[0].countCurve.minScalar
+      value: 4.0000
+      objectReference: {fileID: 0}
+    - target: {fileID: 198733147424659768, guid: 973c5706e6666ef4da82949a84d9375b,
+        type: 2}
+      propertyPath: EmissionModule.m_Bursts.Array.data[0].countCurve.minScalar
+      value: 4.0000
+      objectReference: {fileID: 0}
+    - target: {fileID: 198733147424659768, guid: 973c5706e6666ef4da82949a84d9375b,
+        type: 2}
+      propertyPath: EmissionModule.m_Bursts.Array.data[0].countCurve.minScalar
+      value: 4.0000
+      objectReference: {fileID: 0}
+    - target: {fileID: 198733147424659768, guid: 973c5706e6666ef4da82949a84d9375b,
+        type: 2}
+      propertyPath: EmissionModule.m_Bursts.Array.data[0].countCurve.minScalar
+      value: 4.0000
+      objectReference: {fileID: 0}
+    - target: {fileID: 198733147424659768, guid: 973c5706e6666ef4da82949a84d9375b,
+        type: 2}
+      propertyPath: EmissionModule.m_Bursts.Array.data[0].countCurve.minScalar
+      value: 4.0000
+      objectReference: {fileID: 0}
+    - target: {fileID: 198733147424659768, guid: 973c5706e6666ef4da82949a84d9375b,
+        type: 2}
+      propertyPath: EmissionModule.m_Bursts.Array.data[0].countCurve.minScalar
+      value: 4.0000
+      objectReference: {fileID: 0}
+    - target: {fileID: 198733147424659768, guid: 973c5706e6666ef4da82949a84d9375b,
+        type: 2}
+      propertyPath: EmissionModule.m_Bursts.Array.data[0].countCurve.minScalar
+      value: 4.0000
+      objectReference: {fileID: 0}
+    - target: {fileID: 198733147424659768, guid: 973c5706e6666ef4da82949a84d9375b,
+        type: 2}
+      propertyPath: EmissionModule.m_Bursts.Array.data[0].countCurve.minScalar
+      value: 4.0000
+      objectReference: {fileID: 0}
+    - target: {fileID: 198733147424659768, guid: 973c5706e6666ef4da82949a84d9375b,
+        type: 2}
+      propertyPath: EmissionModule.m_Bursts.Array.data[0].countCurve.minScalar
+      value: 4.0000
+      objectReference: {fileID: 0}
+    - target: {fileID: 198733147424659768, guid: 973c5706e6666ef4da82949a84d9375b,
+        type: 2}
+      propertyPath: EmissionModule.m_Bursts.Array.data[0].countCurve.minScalar
+      value: 4.0000
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 973c5706e6666ef4da82949a84d9375b, type: 2}
   m_IsPrefabParent: 0
@@ -39862,7 +39944,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 83999904}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1826664546
 MonoBehaviour:
@@ -43728,7 +43810,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 1915369822
+  randomSeed: 1864189426
   InitialModule:
     serializedVersion: 3
     enabled: 1

@@ -12,13 +12,13 @@ public class ProjectileFullEffectTest : MonoBehaviour {
 
 
     void Start () {
-        Instantiate(LoadingParticleEffect, transform.position, Quaternion.identity);
+        Instantiate(LoadingParticleEffect, transform.position, LoadingParticleEffect.transform.rotation);
         Invoke("SpawnProjectile", LoadingDuration);
 	}
 	
 	// Update is called once per frame
 	void SpawnProjectile() {
-        Projectile proj = Instantiate(MidAirParticleEffect, transform.position, Quaternion.identity).GetComponent<Projectile>();
+        Projectile proj = Instantiate(MidAirParticleEffect, transform.position, MidAirParticleEffect.transform.rotation).GetComponent<Projectile>();
         proj.target = Target;
         proj.FinalExplosion = FinalExplosion;
         proj.projectileSpeed = ProjectileSpeed;
