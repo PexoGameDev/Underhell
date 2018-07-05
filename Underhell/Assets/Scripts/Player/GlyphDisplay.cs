@@ -17,7 +17,7 @@ public class GlyphDisplay : MonoBehaviour {
         spellcastingModule = Player.Entity.GetComponent<SpellcastingModule>();
     }
 
-    private void OnMouseEnter()
+    public void AddGlyph()
     {
         spellcastingModule.glyphsCast.Add(glyph);
     }
